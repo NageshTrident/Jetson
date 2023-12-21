@@ -1,0 +1,46 @@
+#!/bin/bash
+#
+# klinst: Install script for Keylok
+# 05-May-2021
+#
+# First parameter: Path to directory
+# containing src files. Default is "."
+#
+
+if [ `id -u` -ne 0 ]; then
+    echo "Not running as root" 1>&2
+    exit 1
+fi
+
+SRC=.
+if [ -n "$1" ]; then
+    SRC="$1"
+fi
+
+#
+# Install udev rules
+#
+if [ -d /etc/udev/rules.d ]
+then
+    rm -f /etc/udev/rules.d/*_keylok.rules
+    install -c -m 644 -g root -o root $SRC/z95_keylok.rules /etc/udev/rules.d/z95_keylok.rules
+    if [ $? -gt 0 ]
+    then
+	echo "Install of z95_keylok.rules failed."
+	exit $?
+    fi
+else
+    echo "/etc/udev/rules.d does not exist."
+    exit 2
+fi
+
+#
+# Install either libkfunc32.so or libkfunc64.so,
+# as contained in $SRC .
+#
+#install -c -m 644 -g root -o root $SRC/libkfunc*.so /usr/lib
+#if [ $? -gt 0 ]
+#then
+#    echo "Install of libkfunc*.so failed."
+#    exit $?
+#fi

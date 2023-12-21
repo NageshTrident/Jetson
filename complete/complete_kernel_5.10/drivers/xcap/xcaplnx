@@ -1,0 +1,45 @@
+#!/bin/sh
+
+# XCAP startup:
+#   xcaplnx [-restart] [-script pathname] [imagefile] [imagefile] ...
+
+
+# Some Java packages report 'Can't open shared object: libjawt.so' and might need ...
+#
+# Following works if a single Java JRE is installed.
+# LIBJAWT=$( find  /usr -name libjawt.so | sed s:/libjawt.so:: )
+# export LD_LIBRARY_PATH="$LIBJAWT"
+#
+# Or, assuming typical installation of multiple Java JREs.
+# LIBJAWT=$( find $( readlink -f /usr/bin/java | sed -e s:/bin/.*:: )  -name libjawt.so | sed -e s:/libjawt.so:: )
+# export LD_LIBRARY_PATH="$LIBJAWT"
+#
+# (This issue is now addressed in newer releases of XCAP; setting LD_LIBRARY_PATH is not required)
+
+
+# Some versions of Ubuntu offer a 'Unity/Global' (GUI) Menu
+# Enable following statement to restore the 'Classical' Menu
+# export UBUNTU_MENUPROXY=
+
+
+# Pause option for auto-restart
+if [ $# -gt 0 ]; then
+if [ ''$1 == -restart ]; then
+  sleep 4
+  shift
+fi
+fi
+
+
+JAVAARGS="-Xint"
+A=`dirname $0`
+B=`pwd`/$A
+if [ -f   $A/jre/bin/java ]; then
+    exec  $A/jre/bin/java $JAVAARGS -cp $A/program/xcap.jar xcaplnx -exec $0 $*
+elif [ -f $B/jre/bin/java ]; then
+    exec  $B/jre/bin/java $JAVAARGS -cp $B/program/xcap.jar xcaplnx -exec $0 $*
+elif [ -f $A/program/xcap.jar ]; then
+    exec  java $JAVAARGS -cp $A/program/xcap.jar xcaplnx -exec $0 $*
+else
+    exec  java $JAVAARGS -cp $B/program/xcap.jar xcaplnx -exec $0 $*
+fi

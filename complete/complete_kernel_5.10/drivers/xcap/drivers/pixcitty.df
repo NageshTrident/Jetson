@@ -1,0 +1,13 @@
+#
+#
+# Default settings for pixcitty driver.
+
+#
+# The default baud rate.
+# Only Camera Link baud rates are supported; invalid values silently ignored.
+# The default default is 9600; as the only baud rate
+# supported in early Camera Link specs.
+DEFAULT_BAUDRATE=9600
+
+#
+#

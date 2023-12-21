@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+# klinst: Uninstall script for Keylok
+# 05-May-2021
+#
+
+
+if [ `id -u` -ne 0 ]; then
+    echo "Not running as root" 1>&2
+    exit 1
+fi
+
+#
+# Uninstall udev rules
+#
+rm -f /etc/udev/rules.d/*_keylok.rules
+
+#
+# Uninstall either libkfunc32.so or libkfunc64.so
+#
+#rm -f /usr/lib/libkfunc32.so
+#rm -f /usr/lib/libkfunc64.so
+#

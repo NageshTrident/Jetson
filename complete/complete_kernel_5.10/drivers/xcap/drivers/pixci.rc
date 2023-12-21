@@ -1,0 +1,205 @@
+#!/bin/sh
+# 04-Oct-2022
+#
+
+### BEGIN INIT INFO
+# Provides: PIXCI
+# Required-Start:
+# Required-Stop:
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: EPIX(R) PIXCI(R) driver
+# Description: Driver for EPIX(R) PIXCI(R) frame grabbers
+### END INIT INFO
+
+if [ `id -u` -ne 0 ]; then
+    echo "$0 must be run as root"
+    exit 1
+fi
+
+UNAMER=$(uname -r)
+MAJVERS=$(uname -r | sed -e s/-/./ | cut -f1-2 -d.)
+
+PIXCI_DIR0=/lib/modules/$UNAMER/extra
+PIXCI_DIR1=/lib/modules/$UNAMER/kernel/drivers/misc
+PIXCI_DIR2=/usr/sbin
+PIXCI_FILE=pixci.ko
+PIXCI_FILE24=pixci.o
+PIXCI_INI=/etc/default/pixci
+PIXCI_MODULE=pixci
+PIXCI_RESOURCE="PIXCI(R)"
+PIXCI2_MODULE=pixcitty
+PIXCI2_RESOURCE1=ttyPIXCI
+PIXCI2_RESOURCE2=ttySPIXCI
+PIXCI3_MODULE=pixciv4l
+
+PIXCI_DIR=$PIXCI_DIR0
+if [ ! -d $PIXCI_DIR ]; then
+    PIXCI_DIR=$PIXCI_DIR1
+fi
+if [ ! -d $PIXCI_DIR ]; then
+    PIXCI_DIR=$PIXCI_DIR2
+fi
+
+# Exit if the driver is not installed
+case "$MAJVERS" in
+    2.4)
+        if [ ! -f $PIXCI_DIR/$PIXCI_FILE24 ]; then
+            echo "$0 missing $PIXCI_DIR0/$PIXCI_FILE24, $PIXCI_DIR1/$PIXCI_FILE24 or $PIXCI_DIR2/$PIXCI_FILE24"
+            exit 1
+        fi
+        ;;
+    *)
+        if [ ! -f $PIXCI_DIR/$PIXCI_FILE ]; then
+            echo "$0 missing $PIXCI_DIR0/$PIXCI_FILE, $PIXCI_DIR1/$PIXCI_FILE or $PIXCI_DIR2/$PIXCI_FILE"
+            exit 1
+        fi
+        ;;
+esac
+
+# Read configuration variable file if it is present?
+# [ -r /etc/default/$PIXCI_MODULE ] && . /etc/default/$PIXCI_MODULE
+
+# Load the VERBOSE setting and other rcS variables?
+# . /lib/init/vars.sh
+
+# Define LSB log_* functions or other variants?
+# . /etc/rc.status
+# . /lib/lsb/init-functions
+# . /etc/rc.d/init.d/functions
+
+
+start()
+{
+    PIXCI_PARM=""
+    BT848_RMMOD="0"
+    BTTV__RMMOD="0"
+    # Strip backslashes, inserted by XCAP before spaces ' '.
+    # Convert ' ' to '_'; some insmod's don't like ' '.
+    # NB: This method of reading PIXCI_INI doesn't ignore '# pixci...' as a commented line
+    if [ -f $PIXCI_INI ]; then
+        PIXCI_PARM=$(fgrep "driver.pixci.parm=" $PIXCI_INI | sed -e "s/driver.pixci.parm=//" -e "y/ \\\/__/")
+        PIXCI_PARM="PIXCIPARM="$PIXCI_PARM
+        BT848_RMMOD=$(fgrep "driver.bt848.rmmod=" $PIXCI_INI | sed -e "s/driver.bt848.rmmod=//" -e "s/\\\//g" -e "s/ //g")
+        BTTV__RMMOD=$(fgrep "driver.bttv.rmmod="  $PIXCI_INI | sed -e "s/driver.bttv.rmmod=//"  -e "s/\\\//g" -e "s/ //g")
+    fi
+
+    # avoid conflicts if using a PIXCI SV4 or SV5 card
+    if [ -n "$BTTV__RMMOD" ]; then
+        if [ "$BTTV__RMMOD" -eq 1 ]; then
+            BTTV_MOD=$(grep -c "^bttv " /proc/modules)
+            if [ "$BTTV_MOD" -ne 0 ]; then
+                rmmod bttv || true
+            fi
+        fi
+    fi
+    if [ -n "$BT848_RMMOD" ]; then
+        if [ "$BT848_RMMOD" -eq 1 ]; then
+            BT848_MOD=$(grep -c "^bt848 " /proc/modules)
+            if [ "$BT848_MOD" -ne 0 ]; then
+                rmmod bt848 || true
+            fi
+        fi
+    fi
+
+
+    case "$MAJVERS" in
+        2.4)
+            if [ ! -f $PIXCI_DIR/$PIXCI_FILE24 ]; then
+                echo "$0 missing $PIXCI_DIR/$PIXCI_FILE24"
+                exit 1
+            fi
+            echo "insmod" "-o" "$PIXCI_MODULE" "--force" "$PIXCI_DIR/$PIXCI_FILE24" "$PIXCI_PARM"
+            insmod -o $PIXCI_MODULE --force $PIXCI_DIR/$PIXCI_FILE24 $PIXCI_PARM
+            ;;
+        *)
+            if [ ! -f $PIXCI_DIR/$PIXCI_FILE ]; then
+                echo "$0 missing $PIXCI_DIR/$PIXCI_FILE"
+                exit 1
+            fi
+            echo "insmod" "$PIXCI_DIR/$PIXCI_FILE" "$PIXCI_PARM"
+            insmod $PIXCI_DIR/$PIXCI_FILE $PIXCI_PARM
+            ;;
+    esac
+
+    if [ $? -ne 0 ]; then
+        # Reminder: on newer kernals, insmod won't provide a specific error;
+        # check the kernel log (such as /var/log/messages, /var/log/syslog, or dmesg).
+        exit 1
+    fi
+    # There is a delay between the module being loaded and appearing in /proc/devices
+    sleep 3
+    rm -f /dev/pixci
+    PIXCI_MAJOR=$(awk "\$2==\"$PIXCI_RESOURCE\" {print \$1}" /proc/devices)
+    echo "mknod" "/dev/pixci" "c" "$PIXCI_MAJOR" "0"
+    mknod /dev/pixci c $PIXCI_MAJOR 0
+    echo "chmod" "666" "/dev/pixci"
+    chmod 666 /dev/pixci
+}
+
+
+stop()
+{
+    #
+    # We can't unload PIXCI driver if the tty or v4l2 driver is loaded.
+    # ttyPIXCI is old name, ttySPIXCI is new name
+    #
+    cat /proc/devices | grep $PIXCI2_RESOURCE1 > /dev/null
+    if [ $? -eq 0 ]; then
+        echo "rmmod" "$PIXCI2_MODULE"
+        rmmod $PIXCI2_MODULE
+    fi
+    cat /proc/devices | grep $PIXCI2_RESOURCE2 > /dev/null
+    if [ $? -eq 0 ]; then
+        echo "rmmod" "$PIXCI2_MODULE"
+        rmmod $PIXCI2_MODULE
+    fi
+    lsmod | grep $PIXCI3_MODULE > /dev/null
+    if [ $? -eq 0 ]; then
+        echo "rmmod" "$PIXCI3_MODULE"
+        rmmod $PIXCI3_MODULE
+    fi
+
+    #
+    # Avoid error from rmmod if driver not installed
+    # but allow it to show other errors (if any),
+    # so we don't simply send its output to /dev/null.
+    cat /proc/devices | grep $PIXCI_RESOURCE > /dev/null
+    if [ $? -eq 0 ]; then
+        echo "rmmod" "$PIXCI_MODULE"
+        rmmod $PIXCI_MODULE
+        echo "rm" "-f" "/dev/pixci"
+        rm -f /dev/pixci
+    fi
+}
+
+status()
+{
+    cat /proc/devices | grep $PIXCI_RESOURCE > /dev/null
+    if [ $? -eq 0 ]; then
+        echo "$2 driver is running!"
+    else
+        echo "$2 driver is not running!"
+    fi
+}
+
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status
+        ;;
+    force-reload|restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|force-reload|status}"
+        exit 1
+        ;;
+esac

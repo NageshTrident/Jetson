@@ -1,0 +1,4092 @@
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+                                     APPLICATION NOTE
+                                     -----------------
+
+
+                                     PC Configuration Tips
+                                     PCI Frame Grabbers
+
+
+
+                                     10 MARCH 2023
+
+
+
+
+
+
+
+                                     For use with:
+                                     EPIX(R) Imaging Hardware
+                                     EPIX(R) Imaging Software
+
+
+
+
+
+                                     Copyright(C) 2023 EPIX, Inc.
+                                     All Rights Reserved
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    No  part  of this document may be reproduced, transmitted, photocopied, or
+    translated into another language without the written consent of EPIX, Inc.
+    Information  in  this  document is subject to change without obligation or
+    notice.  EPIX, Inc. makes no warranty of any kind with regard to this doc-
+    ument,  including,  but  not  limited  to,  the implied warranties of mer-
+    chantability and fitness for a particular purpose.  EPIX, Inc. assumes  no
+    responsibility  for  any  errors  that may appear in this document.  EPIX,
+    Inc. reserves the right to make changes to the specifications of  hardware
+    and software at any time, without obligation or notice.
+
+
+    4MIP,  SVIP,  XCIP, XCAP, 4MEG VIDEO, 1MEG VIDEO, SILICON VIDEO MUX, QUICK
+    SET VIDEO, 12-7MUX, IMAGE MEMORY EXPANSION, COC40, and COC402  are  trade-
+    marks of EPIX, Inc.
+    EPIX, SILICON VIDEO, and PIXCI are registered trademarks of EPIX, Inc.
+    Other  brand,  product,  and  company  names  are trademarks or registered
+    trademarks of their respective owners.
+
+
+    Printing: 28 April 2023
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+                              PC Configuration Tips
+
+                                     Contents
+
+
+
+     1.  PCI/PCIe Card Resources and BIOS Plug & Play...................   1-1
+         1.A   Required Bus Resources...................................   1-1
+         1.B   ISA Card Interference....................................   1-3
+         1.C   Insufficient Resources...................................   1-3
+         1.D   PCI Express Card not Found on Fast Booting
+               Computers................................................   1-3
+
+     2.  Drivers and Plug & Play........................................   2-1
+         2.A   PCI/PCIe Vendor and Device ID Conflict...................   2-1
+         2.B   Windows 2000, XP Error: 'Drivers Not Installed'..........   2-1
+         2.C   Windows 2000, XP Error: 'Invalid Data'...................   2-2
+         2.D   Windows XP Error: 'Required section was not found in the
+               INF'.....................................................   2-2
+         2.E   Windows XP Error: 'The class installer has denied the
+               request to install or upgrade this device'...............   2-2
+         2.F   Windows 8/10/11: Shutdown versus Restart.................   2-3
+         2.G   Windows 8/10/11 Error: 'Drivers Not Installed' or 'Frame
+               Grabber not Found'.......................................   2-3
+         2.H   Windows 10 Error: 'Drivers Not Installed' or 'Frame
+               Grabber not Found'.......................................   2-3
+         2.I   PCIe/104 Error: 'Drivers Not Installed' or 'Frame Grab-
+               ber not Found'...........................................   2-4
+         2.J   Windows Vista/7: Invalid Driver Digital Signature &
+               Error Code 52............................................   2-4
+         2.K   Windows 10/11 64-Bit: Driver Digital Signature & Error
+               Code 52..................................................   2-4
+         2.L   Windows 10/11 64-Bit: Driver Digital Signature & Error
+               Code 52..................................................   2-5
+
+     3.  PCI/PCIe Interrupts (IRQ)......................................   3-1
+         3.A   IRQ Sharing..............................................   3-1
+         3.B   Linux: Interrupts (IRQ) Inoperative......................   3-1
+
+     4.  PCI/PCIe Bus Master (DMA) & Bus Bandwidth......................   4-1
+         4.A   Bus Mastering............................................   4-1
+         4.B   BIOS - Memory Parity Error (MPE).........................   4-1
+         4.C   Windows - Blue Screen of Death (BSoD)....................   4-1
+         4.D   Bus Mastering: Insufficient Bandwidth....................   4-2
+               4.D.1  PCI...............................................   4-2
+               4.D.2  PCIe & Motherboard Selection......................   4-3
+               4.D.3  Windows Configuration.............................   4-3
+               4.D.4  Power Conservation & BIOS Configuration...........   4-3
+               4.D.5  Computer Configuration............................   4-4
+         4.E   PC Halts or Reboots......................................   4-4
+         4.F   Asus/VIA P4X266A.........................................   4-5
+         4.G   x4 & x8 PCI Express Slots................................   4-5
+         4.H   x1 & x4 PCI Express Slots................................   4-5
+
+
+
+
+                                       - i -
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+         4.I   Linux: Bus Mastering (DMA) Inoperative...................   4-6
+
+     5.  Graphic Display (S/VGA) Settings...............................   5-1
+         5.A   Windows - Colors & Grey Levels...........................   5-1
+         5.B   Windows - S/VGA Accelerators.............................   5-1
+         5.C   Linux - Colors & Grey Levels.............................   5-1
+         5.D   Graphics Display Resolution..............................   5-1
+
+     6.  Memory Resources...............................................   6-1
+         6.A   Frame Buffer Memory Allocation...........................   6-1
+         6.B   Frame Buffer Memory vs. S/VGA Memory Space...............   6-2
+         6.C   Using a 32 bit Frame Grabber or 32 bit Application on 64
+               bit O.S..................................................   6-2
+
+     7.  Desktops & GUI's & Privileges..................................   7-1
+         7.A   Linux: Running XCAP as 'root'............................   7-1
+         7.B   Linux SUSE Error: 'xcb_xlib_unlock: Assertion
+               c->xlib.lock failed'.....................................   7-2
+         7.C   Linux Error: 'Cannot restore segment prot after
+               reloc'...................................................   7-2
+         7.D   Linux Error: 'Cannot execute .bin file(s)'...............   7-3
+         7.E   Linux Error: 'Cannot execute .bin file(s)'...............   7-3
+         7.F   Linux Error: 'Cannot execute .bin file(s)'...............   7-4
+         7.G   Linux Error: 'Unsatisfied Link Error: libjawt.so'........   7-4
+         7.H   Linux Error: 'Assistive Technology not found:
+               org.GONE.Accessibility.AtkWrapper'.......................   7-5
+         7.I   Linux Error: 'ld.so assertion failed'....................   7-6
+         7.J   Windows Error: 'Data Execution Protection (DEP)'.........   7-6
+         7.K   Windows 8/10/11: Running XCAP as Administrator...........   7-6
+         7.L   Windows: Anti-Viral Software with Registry
+               Protection...............................................   7-7
+         7.M   Windows & XCAP: 'Bad module(s) signature!'...............   7-7
+         7.N   Windows: TrendMicro Security Anti-Viral Software.........   7-7
+         7.O   Windows: DRIVER VERIFIER DMA VIOLATION BSoD..............   7-7
+
+     8.  Camera & Capture Issues........................................   8-1
+         8.A   Capture Issue: Pixel Data is Black.......................   8-1
+         8.B   Capture Issue: Pixel Data not Captured...................   8-1
+         8.C   Digital Camera Capture Issue: Pixel Data not
+               Captured.................................................   8-1
+         8.D   Camera Link Capture Issue: Pixel Data not Captured.......   8-2
+         8.E   Camera Link Capture Issue: Measured Frame Rate Incorrect
+               and/or Pixel Data Garbled................................   8-2
+               8.E.1  Medium/Full/Deca Modes............................   8-2
+               8.E.2  Poor Quality Cables...............................   8-2
+         8.F   Capture Error: 'Video not captured! (PCI FIFO
+               Overflow)'...............................................   8-3
+               8.F.1  Frame Grabber Configuration.......................   8-3
+               8.F.2  Camera Cabling....................................   8-4
+         8.G   Capture Issue: Measured Frame Rate is Zero...............   8-4
+               8.G.1  Camera............................................   8-4
+               8.G.2  Interrupts (IRQ)..................................   8-4
+         8.H   Camera Link Issue: Serial Communication Failure..........   8-4
+
+
+
+
+                                      - ii -
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+     9.  Miscellaneous Topics...........................................   9-1
+         9.A   XCAP Startup Issues......................................   9-1
+         9.B   XCAP/XCLIB Error: 'Can't access 18V8/16LV8'..............   9-2
+         9.C   XCAP/XCLIB Error: 'Data path error'......................   9-2
+         9.D   XCAP/XCLIB Error: 'Drivers Not Installed' or 'Frame
+               Grabber not Found'.......................................   9-3
+         9.E   Use of M.2 Interface Adapters............................   9-4
+         9.F   Mice and Graphics Display (S/VGA) Cards..................   9-4
+
+    10.  Authorization Keys.............................................  10-1
+         10.A  Parallel Port Style Keys.................................  10-1
+         10.B  Parallel Port Keys vs. Xilinx Keys.......................  10-2
+         10.C  64 Bit Linux Driver for Parallel Port Keys...............  10-2
+         10.D  USB Style Blue Keys......................................  10-2
+         10.E  Windows Remote Desktop & Blue Keys.......................  10-3
+         10.F  Authorization Blue Key Not Found under Windows 2000 and
+               later....................................................  10-3
+         10.G  USB Style Green Keys.....................................  10-3
+
+    11.  Archives.......................................................  11-1
+         11.A  DOS4GW - Serial ATA's AHCI Mode..........................  11-1
+         11.B  DOS4GW - (S/VGA) Settings - Colors & Grey Levels.........  11-1
+         11.C  DOS4GW - PCI Bus Master (DMA) - EMM386.SYS Issues........  11-1
+         11.D  Windows 95/98 - PCI Bus Master (DMA) - EMM386.SYS
+               Issues...................................................  11-2
+         11.E  Windows 95/98 - DOS Box & Bus Mastering..................  11-2
+         11.F  Windows 95/98 - IRQ Sharing..............................  11-2
+         11.G  Windows 95/98 - Drivers - Registry Issues................  11-2
+         11.H  Windows 95/98 - Frame Buffer Memory Allocation...........  11-4
+         11.I  Windows 95/98 - BIOS Plug & Play - Other BIOS
+               Issues...................................................  11-5
+         11.J  Windows 95/98 - Graphic Display (S/VGA) Settings.........  11-5
+         11.K  Windows NT - PCI Card Resources - Resource
+               Allocation...............................................  11-5
+         11.L  Windows NT - Serial Mice versus Cameras w. RS-232 Con-
+               trol.....................................................  11-6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      - iii -
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                      - iv -
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       - v -
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    0-10
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+                 1.  PCI/PCIe Card Resources and BIOS Plug & Play
+
+
+
+
+
+
+    1.A  Required Bus Resources
+
+    `Plug  &  Play'  compatible  EPIX(R)  imaging  products  are  assigned bus
+    resources, such as register addresses and interrupts (IRQ),  automatically
+    by BIOS or the operating system.  The Plug & Play compatible EPIX(R) frame
+    grabbers, current and superseded models, are:
+
+    Hardware                 Card              Uses    Bus      Vendor   Device
+                             Type              IRQ's   Master   ID       ID
+    ----------------------------------------------------------------------------
+    PIXCI(R) A               PCI               Yes     Yes      10E8     82B1
+    PIXCI(R) A110            PCI Express       Yes     Yes      165A     A110
+    PIXCI(R) A110            PCI Express       Yes     Yes      165A     A117
+    PIXCI(R) A310            PCI Express       Yes     Yes      165A     A310
+    PIXCI(R) CL1             PCI               Yes     Yes      165A     C100
+    PIXCI(R) CL1             PCI               Yes     Yes      165A     C10A
+    PIXCI(R) CL2             PCI 64 bit        Yes     Yes      165A     C200
+    PIXCI(R) CL3SD           PCI               Yes     Yes      165A     C300
+    PIXCI(R) CL3SD           PCI               Yes     Yes      165A     C301
+    PIXCI(R) D               PCI               Yes     Yes      10E8     80D6
+    PIXCI(R) D24             PCI               Yes     Yes      10E8     80D6
+    PIXCI(R) D32             PCI               Yes     Yes      10E8     80D6
+    PIXCI(R) D2X             PCI               Yes     Yes      165A     D200
+    PIXCI(R) D2X             PCI               Yes     Yes      165A     D201
+    PIXCI(R) D2X             PCI               Yes     Yes      165A     D20A
+    PIXCI(R) D3X             PCI               Yes     Yes      165A     D300
+    PIXCI(R) D3XE            PCI Express       Yes     Yes      165A     ED30
+    PIXCI(R) DVO             PCI               Yes     Yes      10E8     817F
+    PIXCI(R) E1              PCI Express       Yes     Yes      165A     E001
+    PIXCI(R) E1              PCI Express       Yes     Yes      165A     E0A1
+    PIXCI(R) E1DB            PCI Express       Yes     Yes      165A     ED01
+    PIXCI(R) E1DB            PCI Express       Yes     Yes      165A     EDA1
+    PIXCI(R) E4              PCI Express       Yes     Yes      165A     E004
+    PIXCI(R) E4DB            PCI Express       Yes     Yes      165A     ED04
+    PIXCI(R) E4G2-2F         PCI Express       Yes     Yes      165A     E504
+    PIXCI(R) E4G2-4B         PCI Express       Yes     Yes      165A     E704
+    PIXCI(R) E4G2-F2B        PCI Express       Yes     Yes      165A     E604
+    PIXCI(R) E4TX2-2F        PCI Express       Yes     Yes      165A     E512
+    PIXCI(R) E4TX2-4B        PCI Express       Yes     Yes      165A     E712
+    PIXCI(R) E4TX2-F2B       PCI Express       Yes     Yes      165A     E612
+
+    PIXCI(R) E8              PCI Express       Yes     Yes      165A     E008
+
+
+
+
+                            PCI/PCIe Card Resources and BIOS Plug & Play   1-1
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    Hardware                 Card              Uses    Bus      Vendor   Device
+                             Type              IRQ's   Master   ID       ID
+    ----------------------------------------------------------------------------
+    PIXCI(R) E8CAM           PCI Express       Yes     Yes      165A     E0C8
+    PIXCI(R) E8DB            PCI Express       Yes     Yes      165A     ED08
+    PIXCI(R) e104x4-2f       PCI Express       Yes     Yes      165A     E204
+    PIXCI(R) e104x4-4b       PCI Express       Yes     Yes      165A     E404
+    PIXCI(R) e104x4-f2b      PCI Express       Yes     Yes      165A     E304
+    PIXCI(R) EB1             PCI Express       Yes     Yes      165A     EB01
+    PIXCI(R) EB1G2           PCI Express       Yes     Yes      165A     EB13
+    PIXCI(R) EB1-PoCL        PCI Express       Yes     Yes      165A     EB11
+    PIXCI(R) EB1G2-PoCL      PCI Express       Yes     Yes      165A     EB14
+    PIXCI(R) EB1mini         PCI Exp. mini     Yes     Yes      165A     EB21
+    PIXCI(R) EB1mini         PCI Exp. mini     Yes     Yes      165A     EB31
+    PIXCI(R) miniH2B         PCI Exp. mini     Yes     Yes      165A     EB22
+    PIXCI(R) miniH2F         PCI Exp. mini     Yes     Yes      165A     EB23
+    PIXCI(R) miniH2x4F       PCI Exp. mini     Yes     Yes      165A     EB25
+    PIXCI(R) mf2280          PCI Exp. mini     Yes     Yes      165A     EB26
+    PIXCI(R) EB1miniTg       PCI Exp. mini     Yes     Yes      165A     EB43
+    PIXCI(R) EB1tg           PCI Express       Yes     Yes      165A     EB41
+    PIXCI(R) EC1             ExpressCard/54    Yes     Yes      165A     EC01
+    PIXCI(R) EC1             ExpressCard/54    Yes     Yes      165A     ECF1
+    PIXCI(R) ECB1            ExpressCard/54    Yes     Yes      165A     ECB1
+    PIXCI(R) ECB1-34         ExpressCard/34    Yes     Yes      165A     ECB3
+    PIXCI(R) ECB2            ExpressCard/54    Yes     Yes      165A     ECB2
+    PIXCI(R) EL1             PCI Express       Yes     Yes      165A     F001
+    PIXCI(R) EL1             PCI Express       Yes     Yes      165A     F0A1
+    PIXCI(R) EL1             PCI Express       Yes     Yes      165A     F0F1
+    PIXCI(R) EL1DB           PCI Express       Yes     Yes      165A     FD01
+    PIXCI(R) EL1DB           PCI Express       Yes     Yes      165A     FDF1
+    PIXCI(R) ELS2            PCI Express       Yes     Yes      165A     F002
+    PIXCI(R) SI              PCI               Yes     Yes      165A     C000
+    PIXCI(R) SI              PCI               Yes     Yes      165A     C001
+    PIXCI(R) SI1             PCI Express       Yes     Yes      165A     C011
+    PIXCI(R) SI2             PCI Express       Yes     Yes      165A     C002
+    PIXCI(R) SI2             PCI Express       Yes     Yes      165A     C012
+    PIXCI(R) SI4             PCI Express       Yes     Yes      165A     C004
+    PIXCI(R) SI4             PCI Express       Yes     Yes      165A     C024
+    PIXCI(R) SV2             PCI               Yes     Yes      8086     1223
+    PIXCI(R) SV3             PCI               Yes     Yes      8086     1223
+    PIXCI(R) SV4             PCI               Yes     Yes      109E     0350
+    PIXCI(R) SV5             PCI               Yes     Yes      109E     036E
+    PIXCI(R) SV5             PCI               Yes     Yes      109E     0878
+    PIXCI(R) SV5A            PCI               Yes     Yes      109E     036E
+    PIXCI(R) SV5A            PCI               Yes     Yes      109E     0878
+    PIXCI(R) SV5B            PCI               Yes     Yes      109E     036E
+    PIXCI(R) SV5B            PCI               Yes     Yes      109E     0878
+    PIXCI(R) SV5L            PCI               Yes     Yes      109E     036E
+    PIXCI(R) SV5L            PCI               Yes     Yes      109E     0878
+    PIXCI(R) SV6             PCI               Yes     Yes      14F1     8800
+
+    PIXCI(R) SV7             PCI Express       Yes     Yes      165A     EA02
+
+
+
+
+    1-2
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    Hardware                 Card              Uses    Bus      Vendor   Device
+                             Type              IRQ's   Master   ID       ID
+    ----------------------------------------------------------------------------
+    PIXCI(R) SV8             PCI Express       Yes     Yes      165A     EA03
+    PIXCI(R) TNTX1           PCI Express       Yes     Yes      165A     F0B1
+
+    Under the Plug & Play architecture, if all add-in cards are  Plug  &  Play
+    compatible, no resource conflicts should occur.  In practice, problems can
+    still occur; although less frequently than with legacy ISA bus cards,  and
+    primarily on the earliest PCI compatible motherboards.
+
+
+    1.B  ISA Card Interference
+
+    The  computer's Plug & Play system can perform conflict free configuration
+    only if all add-in cards are Plug & Play; presence of an ISA  legacy  card
+    can't  be  detected  by Plug & Play, and resources used by the legacy card
+    may be reassigned.  The conflicting resource is often an interrupt  (IRQ).
+    Computers  with  support  for both Plug & Play and legacy ISA card's typi-
+    cally have BIOS Setup options such as:
+
+             IRQ 10  Used/Available
+             IRQ 11  Used/Available
+
+    These allow manually marking as `Used' for all IRQ's utilized  by  an  ISA
+    card; any IRQ's not so marked may be assigned and/or shared among the Plug
+    & Play cards.  (Circa 1995?)
+
+
+    1.C  Insufficient Resources
+
+    The Plug & Play system is designed to automatically assign resources in  a
+    non-conflicting  manner.   However, resources are still limited, and there
+    is no guarantee that every card  will  have  its  requirements  fulfilled.
+    Systems  differ in how they notify the user of insufficient resources.  If
+    a Plug & Play card can't be detected by its software, try  removing  other
+    Plug & Play cards to free various resources.  (Circa 1995?)
+
+
+    1.D  PCI Express Card not Found on Fast Booting Computers
+
+    The  PIXCI(R)  A110,  A310,  D3XE,  E1, E1DB, EB1, EB1-PoCL, EB1mini, EC1,
+    ECB1, ECB1-34, ECB2, EL1 (x1 gen1 version), EL1DB (x1 gen1 version),  SI1,
+    SI2,  SV7,  and  SV8  frame grabbers, and PIXCI(R)E EB1tg frame generator,
+    require a fraction of a second to initialize after power up, before it can
+    identify  itself to the operating system.  On some fast-booting computers,
+    the operating system may not see the  card,  and  won't  load  the  card's
+    driver.
+
+    On  some computers, the PIXCI(R) frame grabber may not be detected after a
+    `hard' reboot (cycling computer power),  but  will  be  detected  after  a
+    `soft' reboot (without cycling computer power).  On some others, the frame
+    grabbers will not be detected even after a soft reboot.
+
+
+
+                            PCI/PCIe Card Resources and BIOS Plug & Play   1-3
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    On some computers with Windows 10, and with updated PIXCI(R) firmware, the
+    PIXCI(R)  frame  grabber  may  be detected after a soft restart, but not a
+    hard reboot.  Disabling Windows'  `Fast  Startup'  (under  Control  Panel,
+    Power  Options)  will  allow  detection  after a hard reboot.  (circa Jan.
+    2017).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    1-4
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+                           2.  Drivers and Plug & Play
+
+
+
+
+
+
+    2.A  PCI/PCIe Vendor and Device ID Conflict
+
+    The Windows 95, 98, ME, 2000, XP, Vista, 7, 8, 10, and 11 Plug & Play uti-
+    lizes  a PCI/PCIe card's Vendor and Device ID to select a driver and asso-
+    ciate the driver with a card.  The DOS and Windows NT operating systems do
+    not select a driver via Plug & Play, but rather the loaded driver searches
+    for eligible and compatible cards.  The PIXCI(R) SV2, SV3, SV4, SV5, SV5A,
+    SV5B,  SV5L,  and  SV6 frame grabbers share their PCI Vendor and Device ID
+    with other cards, by other manufacturers,  which  use  similar  multimedia
+    chipsets.  This may cause confusion under any of those operating systems.
+
+    The  PIXCI(R) driver may be associated with a non-PIXCI card.  Attempts by
+    XCIP or XCAP software to open non-PIXCI multimedia cards, which the  PIXCI
+    driver  interprets  as a PIXCI(R) SV2, SV3, SV4, SV5, SV5A, SV5B, SV5L, or
+    SV6, typically results in a  `Can't  access  18V8/16LV8'  error.   If  the
+    PIXCI(R)  frame  grabber(s) are removed and the same error occurs, then it
+    is almost certain that other cards using similar multimedia  chipsets  are
+    present.
+
+    Alternately,  a  non-PIXCI  driver may be associated with a PIXCI(R) frame
+    grabber.  Under Windows 95, 98, ME, 2000, XP, Vista, 7,  8,  10,  and  11,
+    only  one  driver  can be associated with a card and XCIP or XCAP software
+    will therefore not be able to open the PIXCI(R) frame grabber;  a  typical
+    error is `Driver not installed ... or frame grabber not installed'.  Under
+    Linux, both drivers may have the frame grabber open, but interrupts  (IRQ)
+    may  not  occur;  or,  the  PIXCI(R)  frame  grabber  driver  may report a
+    `DDrequest_(mem)_region' error,  if  the  multimedia  driver  has  already
+    opened the PIXCI(R) frame grabber.
+
+
+    2.B  Windows 2000, XP Error: 'Drivers Not Installed'
+
+    If  in  response  to Windows initial detection of a PIXCI(R) frame grabber
+    and subsequent query for a driver, Windows 2000, or XP finds a Windows  95
+    or  98  driver, that driver will be loaded but not work properly.  Windows
+    2000, and XP will no longer query about loading PIXCI(R) drivers, but  the
+    Device  Manager will report that drivers are not installed, typically with
+    an error code of `28'.
+
+    To remedy: a) Delete the system copies of the PIXCI(R) driver's  .inf  and
+    .pnf  files,  b) Using the Device Manager, uninstall the driver associated
+    with the PIXCI(R) entry, c) Using the XCAP Driver Assistant, uninstall the
+    PIXCI(R)  driver,  d) Reboot,  or using the Device Manager initiate a scan
+
+
+
+                                                 Drivers and Plug & Play   2-1
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    for hardware changes, e) When  the  PIXCI(R)  frame  grabber  is  detected
+    advise Windows that a specific driver `location' will be specified, but do
+    not select CDROM, f) Specify the location as the  DRIVERS\WIN2K  or  DRIV-
+    ERS\WINXP folder under the XCAP installation folder, g) Reboot.
+
+
+    2.C  Windows 2000, XP Error: 'Invalid Data'
+
+    On  some  Windows  2000  and  XP  Dell  systems, after Windows Plug & Play
+    detects the PIXCI(R) frame grabber and queries for a driver, Plug  &  Play
+    may  report  an  `Invalid Data' error.  This occurs when Windows has erro-
+    neously marked the PCI/PCIe slot in the registry as `READ ONLY'.
+
+    To remedy: (a) Click Start,  Run,  and  `regedt32'  (using  the  alternate
+    `regedit' editor will NOT work).  (b) Navigate to:
+
+             HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\ENUM\PCI
+
+    (c) Select  a VEN_xxxx&DEV_xxxx..  entry which corresponds to the PIXCI(R)
+    frame grabber being used (see list above).   (d) Right  click  and  select
+    `Permissions'.   (e) Click  `Allow'.  (f) Close regedt32 and continue with
+    driver installation (i.e. Start, System, Control Panel, Add New  Hardware,
+    etc.).
+
+
+    2.D  Windows XP Error: 'Required section was not found in the INF'
+
+    Under  some  Windows  XP  installations,  attempts to install the PIXCI(R)
+    driver result in a Windows `Required section was not  found  in  the  INF'
+    error.   This  is not a PIXCI(R) specific problem.  A Windows registry key
+    is missing, namely:
+
+             HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Class\{6BDD1FC6-810F-11D0-BEC7-08002BE2092F}
+
+    Instructions for correcting the Windows registry can be found at:
+
+             http://h10025.www1.hp.com/ewfrf/wc/genericDocument?lc=en&cc=us&docname=c00206488
+
+    (Circa 2005?)
+
+
+    2.E  Windows XP Error: 'The class installer has denied the request to
+         install or upgrade this device'
+
+    Under Windows XP, attempts to install the PIXCI(R) driver result in a Win-
+    dows  `The  class  installer  has denied the request to install or upgrade
+    this device' error.  This is not a PIXCI(R) specific problem.   The  error
+    is  typically  caused by a computer virus attacking and modifying the Win-
+    dows registry.  The virus may still be present, or the virus may have been
+    destroyed; but the effects of the changes to the registry remain.
+
+    Use `regedit' to remove the
+
+
+
+
+    2-2
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+             HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\EPIXXCW2
+
+    entry,  reboot,  and  then  use  Windows'  Device Manager to reinstall the
+    PIXCI(R) driver.  XCAP's PIXCI, PIXCI Open/Close, Driver Assistant,  Unin-
+    stall PIXCI Driver can be used instead of `regedit'.  (Circa 2005?)
+
+
+    2.F  Windows 8/10/11: Shutdown versus Restart
+
+    After installing a driver, installing an updated driver, or changing frame
+    buffer memory allocation settings, under Windows 8, 10, or  11,  the  sys-
+    tem's  Restart, not Shutdown, must be used for the changes to have effect!
+    (Circa 04-Dec-2012).
+
+
+    2.G  Windows 8/10/11 Error: 'Drivers Not Installed' or 'Frame Grabber not
+         Found'
+
+    XCAP/XCLIB  V3.8  software  reports  that  the  PIXCI(R)  driver  is   not
+    installed,  but  the  Windows  Device Manager shows that the V3.8 PIXCI(R)
+    driver is installed and working properly.
+
+    A change was made to the driver so as  to  pass  Microsoft's  verifier.exe
+    tests regarding `style' issues; previous versions of the driver used older
+    kernel API functions that the verifier  found  objectionable.   The  newer
+    driver  requires use of a newer XCAP/XCLIB DLL; the newer DLL is backwards
+    compatible can can operate with the older driver.
+
+    Either update to a newer release of the XCAP/XCLIB V3.8 software.  Or  set
+    the `Windows' Symbolic Link for V3.8.0 Driver Compatibility' option (XCAP,
+    PIXCI, PIXCI Open/Close, Advanced) so that the driver operates in  a  com-
+    patibility mode.  (Circa May 2015)
+
+
+    2.H  Windows 10 Error: 'Drivers Not Installed' or 'Frame Grabber not
+         Found'
+
+    XCAP/XCLIB software reports that the PIXCI(R) driver is not installed, but
+    the Windows Device Manager reports that the PIXCI(R) driver  is  installed
+    and working properly.
+
+    On  Windows  10,  the  Windows  Device  Manager, after installing PIXCI(R)
+    driver, doesn't always prompt for  Windows  to  be  restarted;  rather  it
+    incorrectly  reports  that the driver is working normally.  (This has only
+    been observed under unusual circumstances; such as after using the  Device
+    Manager  to  explicitly  uninstall  the  PIXCI(R) frame grabber, and then,
+    later, restart Windows, find the PIXCI(R) frame grabber, and reinstall the
+    driver).
+
+    Restart Windows to resolve problem.  (Circa Feb 2022)
+
+
+
+
+
+
+                                                 Drivers and Plug & Play   2-3
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    2.I  PCIe/104 Error: 'Drivers Not Installed' or 'Frame Grabber not Found'
+
+    PCIe/104 slots can be configured in two different ways: a) As one x16 bus,
+    or b) As bifurcated into two x8 buses.  The PIXCI(R) e104x4  requires  the
+    bifurcated configuration.  If the bus is not bifurcated, the frame grabber
+    might not be detected by the  operating  system,  or  additional  PCIe/104
+    devices  cannot  be  added above the frame grabber in the stack.  Refer to
+    the motherboard documentation about implementing bus bifurcation.   (Circa
+    2016).
+
+
+    2.J  Windows Vista/7: Invalid Driver Digital Signature & Error Code 52
+
+    Microsoft has changed the behavior of Windows 7 and later so as to require
+    the new SHA-2 style digital signature on any driver  which  is  dated  Jan
+    2016  or  later.   The  Windows  Device  Manager may report `code 52' if a
+    driver with an incorrect signature is installed.
+
+    EPIX, Inc. now supplies drivers with both SHA-1 and SHA-2  signatures,  as
+    well  as  supplying  drivers signed only with SHA-1 for compatibility with
+    older systems.
+
+    However, Windows 7 may require an update to use drivers signed with SHA-2;
+    see Microsoft's:
+
+             Microsoft Security Advisory 2949927
+             Microsoft Security Advisory 3033929
+
+    Windows Vista may also require an update; see:
+
+             Microsoft Article ID 2763674
+
+    Synopsis:  Updating  Windows with all Service Packs is necessary for reli-
+    able loading of any drivers dated Jan 2016 or later.  (Circa 2016)
+
+
+    2.K  Windows 10/11 64-Bit: Driver Digital Signature & Error Code 52
+
+    Newer releases of Windows 10 64-bit require  drivers  to  be  signed  with
+    Extended  Validation  (EV) signatures and countersigned by Microsoft.  The
+    Windows Device Manager may report `code 52' if a driver with an  incorrect
+    signature is installed.
+
+    PIXCI(R)  drivers  released  April 2017 comply with these requirements for
+    desktop operating systems.
+
+    Older drivers can be used by disabling Windows'  requirements  for  signa-
+    tures, such as via:
+
+
+
+             bcdedit /set TESTSIGNING ON
+
+
+
+
+    2-4
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    or  by  holding  left-shift while clicking restart, then (after navigating
+    through several screens, accessing `Driver Signature Enforcement'.
+
+    Windows 11 has the same requirements for Extended Validation  (EV)  signa-
+    tures.  (Circa 2017, 07-Oct-2021)
+
+
+    2.L  Windows 10/11 64-Bit: Driver Digital Signature & Error Code 52
+
+    Newer releases of Windows 10 64-Bit, and Windows 11, require drivers to be
+    signed with Extended Validation (EV) signatures and countersigned  by  Mi-
+    crosoft.  The Windows Device Manager may report `code 52' if a driver with
+    an incorrect signature is installed.
+
+    Use the Windows file browser and check the digital signature of:
+
+             c:\Windows\System32\Drivers\epixxc6.sys
+
+    under its Properties.  The driver should be signed by EPIX, Inc. and coun-
+    tersigned by Microsoft.
+
+    Under some conditions, early releases of Windows 10 may incorrectly report
+    a driver's valid signature as invalid; update  Windows  with  all  Service
+    Packs.
+
+    A driver for an older version of Windows, using a different digital signa-
+    ture, may have been installed; this may happen if,  on  initial  installa-
+    tion,  the  Device Manager is allowed to search for a driver and selects a
+    driver with, perhaps, Windows 7 style signatures.  Use the Device Manager,
+    select  the  PIXCI(R) imaging device, `Properties', `Driver', click `Unin-
+    stall Device', and restart Windows.  The Device Manager should prompt  for
+    a driver; do not let it search, instead point it to:
+
+             c:\Program Files\...\EPIX\XCAP\Drivers\Win11x64
+
+    or
+
+             c:\Program Files\...\EPIX\XCAP\Drivers\Win10x64
+
+    (The  actual  path may vary depending on Windows configuration and options
+    used when installing XCAP; if necessary, use  Windows'  File  Explorer  to
+    search for `XCAP').  (Circa 26-Jul-2018, 07-Oct-2021)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                 Drivers and Plug & Play   2-5
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    2-6
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+                          3.  PCI/PCIe Interrupts (IRQ)
+
+
+
+
+
+
+    3.A  IRQ Sharing
+
+    The  Plug  &  Play  system may assign multiple PCI/PCIe cards to share the
+    same interrupt.  Depending on the characteristics of  the  two  (or  more)
+    devices  sharing  an  interrupt,  and  the characteristics of the selected
+    operating system, one or both devices may always work, may never work,  or
+    may work intermittently.
+
+    IRQ  sharing  is  a concern for cards using the older PCI bus w. IRQ pins,
+    but not for PCI Express using its Message Signaled Interrupts (MSI).
+
+    Test for IRQ sharing by using XCAP:
+
+            PIXCI(R)
+            PIXCI(R) Open/Close
+            Advanced
+            Allow Shared IRQ: Uncheck
+            OK
+            Open
+
+    If the Open succeeds, then the IRQ was not being shared.  If the Open does
+    not  succeed  and  a `Configuration Error or Fault' dialog is shown with a
+    message such as `Bad or conflicting IRQ', then the IRQ  was  being  shared
+    with  another  device.   This tests for conflict, but does not resolve the
+    conflict.
+
+    IRQ sharing may or may  not  work,  depending  upon  the  various  devices
+    involved.   On  some motherboards, IRQs are assigned by physical slot; try
+    moving the PIXCI(R) frame grabber to a different slot.  On  other  mother-
+    boards, the BIOS Setup may allow assigning IRQs to different slots; or may
+    at least allow specifying which IRQ's are to be parceled out  amongst  all
+    slots.
+
+
+
+
+
+
+
+
+
+    3.B  Linux: Interrupts (IRQ) Inoperative
+
+
+
+
+                                               PCI/PCIe Interrupts (IRQ)   3-1
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    The  measured video frame rate is zero; for Camera Link, serial communica-
+    tion does not work.
+
+    Some Linux systems require
+
+             pci=nomsi
+
+    to be added to the kernel boot command line for PCI or PCIe interrupts  to
+    function correctly.  (Circa 23-Jan-2018).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    3-2
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+                  4.  PCI/PCIe Bus Master (DMA) & Bus Bandwidth
+
+
+
+
+
+
+    4.A  Bus Mastering
+
+    Imaging  boards without on-board memory use PCI/PCIe bus master mode (i.e.
+    DMA) to transfer image data to the PC's memory in real time.   The  avail-
+    able  bandwidth  of PCI/PCIe motherboards differs widely; not all PCI/PCIe
+    motherboards can support continuous, full field, real time capture into PC
+    memory.
+
+    Some  motherboards  may  not support Bus Mastering in every PCI/PCIe slot;
+    the motherboard's documentation should describe which slots may  be  used.
+    Also,  some older motherboards may have PCI/PCIe slots, but are not Plug &
+    Play compatible; the BIOS Setup screens may  require  manual  enabling  of
+    master mode and assignment of IRQ's for each PCI/PCIe slot:
+
+             Device Select:      Slot 0
+             Enable Device:      Enabled
+             Enable Master:      Enabled
+             Device IRQ Line:    IRQ 11
+
+    Older  motherboards  may initialize with PCI Burst Mode deactivated; other
+    motherboards may not support PCI Burst Mode at all.   PCI  Burst  Mode  is
+    critical to utilizing the full bandwidth of the PCI bus.  Some versions of
+    BIOS Setup allow enabling PCI Burst Mode:
+
+             PCI Burst Mode      Enabled
+
+    Older graphic display (S/VGA) cards may not operate  properly  with  Burst
+    Mode  enabled;  consult  the graphic display (S/VGA) card manufacturer for
+    updated drivers which allow use of Burst Mode.  (Circa 1995?)
+
+
+    4.B  BIOS - Memory Parity Error (MPE)
+
+    See Windows - Blue Screen of Death (BSoD), below.
+
+
+
+
+
+
+
+    4.C  Windows - Blue Screen of Death (BSoD)
+
+
+
+
+                               PCI/PCIe Bus Master (DMA) & Bus Bandwidth   4-1
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    The PIXCI(R) PCI Express and ExpressCard frame grabbers (D3XE,  E1,  E1DB,
+    E4,   E4DB,  E4G2-2F,  E4G2-4B,  E4G2-F2B,  E8,  E8CAM,  E8DB,  e104x4-2f,
+    e104x4-4b,  e104x4-f2b,  EB1,   EB1-PoCL,   EB1mini,   miniH2B,   miniH2F,
+    miniH2x4F,  mf2280,  EC1, ECB1, ECB1-34, ECB2, EL1, ELS2, EL1DB, SI1, SI2,
+    or SI4), and frame generators (EB1tg or EB1miniTg), require:
+
+             PCI SERR# Generation    Disable(d)
+
+    to be set in the BIOS.  Otherwise, a BSoD or MPE (Memory Parity Error) may
+    occur  when  the  PIXCI(R) imaging card is opened.  For some motherboards,
+    this option may not exist and is, by default, disabled.
+
+    The PIXCI(R) PCI Express and ExpressCard frame grabbers require:
+
+             ASSERT NMI on SERR      Disable(d)
+
+    Otherwise, a BSoD or MPE may occur  when  the  PIXCI(R)  imaging  card  is
+    opened.   On some motherboards, this option is a jumper rather than a BIOS
+    setting.
+
+
+    4.D  Bus Mastering: Insufficient Bandwidth
+
+    A bus mastering (DMA) type  of  PIXCI(R)  frame  grabber  transfers  video
+    across  the  PCI/PCIe  bus;  high  resolution, high bit depth, and/or high
+    frame rate all contribute to increased use of PCI/PCIe bus bandwidth.
+
+    The PCI/PCIe bus bandwidth of a given computer motherboard is  not  depen-
+    dent  on  the  speed of the CPU, but on the attributes of the PCI/PCIe and
+    memory controller chipsets, and whether the connection between the  former
+    and latter is routed through other chipsets (bridges) and bottlenecks.
+
+    Often  the  problem  is resolved by updating the motherboard BIOS, mother-
+    board firmware, and graphic display driver (even on relatively new comput-
+    ers), along with disabling power conservation.
+
+
+    4.D.1  PCI
+
+    For  PCI  (not  PCIe), each group of PCI slots - by design - shares memory
+    bandwidth.  The PCI bus bandwidth available for video capture  depends  on
+    what  other  devices are utilizing PCI bandwidth.  PCI versions of graphic
+    display (S/VGA) cards and PCI based disk controllers all consume PCI band-
+    width.   The  on-board  (i.e.  built onto the motherboard) graphic display
+    (S/VGA) feature or disk controllers may also be internally attached to the
+    PCI bus and consume PCI bandwidth.
+
+    Using  an  AGP or PCI Express type graphic display (S/VGA) card, or an PCI
+    Express disk controller, may help alleviate PCI bus bandwidth limitations.
+
+
+
+
+
+
+
+    4-2
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    4.D.2  PCIe & Motherboard Selection
+
+    Unlike PCI, the PCIe design can provide  full  bandwidth  from  each  PCIe
+    slot.  However, how the motherboard routes PCIe data may introduce bottle-
+    necks and reduce bandwidth.
+
+    Typically, Intel and other major  brand  motherboards  provide  full  PCIe
+    bandwidth  and  their  `high-end' motherboards.  Lesser motherboards often
+    cut corners, perhaps expecting that the average  desktop  PC  user  rarely
+    plugs anything into the PCIe bus.
+
+    For  Intel motherboards, circa 2022, avoid lower tier `H' and `B' chipsets
+    which route PCIe data through the southbridge along with other data.   The
+    `Z' chipsets connect the PCIe slots directly to the MCH (memory controller
+    hub).
+
+
+    4.D.3  Windows Configuration
+
+    With some Intel S/VGA drivers circa 2010, use of Windows' `Aero' mode  may
+    cause  the  `PCI  FIFO  Overflow' error message.  Disable the Windows Aero
+    mode.
+
+
+    4.D.4  Power Conservation & BIOS Configuration
+
+    Circa 2010 and later motherboards may implement aggressive power conserva-
+    tion,  reducing the available bandwidth on the PCI/PCIe bus for video rate
+    data transfer.
+
+    In BIOS, disable the:
+
+             CPU C-State
+
+    option.  On some HP systems, the option is instead:
+
+             Idle Power Savings
+
+    and should be set to `Normal' rather than `Extended'.  Other common termi-
+    nology  &  features  in BIOS related to power conservation that can impact
+    PCI/PCIe bandwidth are:
+
+             C3/C6/C7/EIST
+             C3/C6 State Support
+             CPU Power Management
+             CPU Dynamic Voltage Management
+             CPU Enhanced Halt (C1E)
+             Renderer Standby (RC6)
+
+    and should be disabled.
+
+    Other common options & features in BIOS that might impact  PCI/PCIe  band-
+    width are:
+
+
+
+                               PCI/PCIe Bus Master (DMA) & Bus Bandwidth   4-3
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+             Intel Enhanced Speed-Step Technology (EIST)
+             Speed-Step Technology
+             Turbo Mode
+             Turbo Boost
+             Wifi Network
+
+    and should, experimentally, be disabled.
+
+    Some  systems  may not have a suitable BIOS option, or the BIOS option may
+    be ignored.
+
+    If using Linux, disabling all of ACPI (Advanced  Configuration  and  Power
+    Interface)  as  a  boot time option should disable the C-State option (add
+    `acpi=off' to the kernel boot command line).  Or,  disabling  PCIe's  ASPM
+    (Active State Power Management) as a boot time option (add `pcie_aspm=off'
+    to the kernel boot command line).  Other possible Linux boot options are:
+
+             processor.max_cstate=1
+             intel_idle.max_cstate=0
+
+    Some laptop computers may enable C-State when  using  battery  power,  and
+    disable C-State when using external power.
+
+    In Windows 7, selecting:
+
+             Power Plans: High Performance
+
+    should  disable  C-State; however tests with Windows 7 and various mother-
+    boards show inconsistent results.
+
+
+    4.D.5  Computer Configuration
+
+    Aside from trying  a  different  motherboard:  a) Use  PCI  Express  style
+    graphic  display  (S/VGA)  card instead of a PCI or on-board style graphic
+    display (S/VGA) card, b) Set the graphic display (S/VGA) to lower  resolu-
+    tion, c) Upgrade the motherboard's microcode - especially for motherboards
+    or computers purchased soon after release of a new design,  d) Reduce  the
+    size  of  the  image  display window during live capture, and/or e) Select
+    half video rate capture and display, the so-called Alternate Snap  &  Dis-
+    play  mode  (in  XCAP: View, Display, Live Mode) so that video capture and
+    image display alternates.
+
+
+
+
+
+
+
+
+
+    4.E  PC Halts or Reboots
+
+
+
+
+    4-4
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    Generally: If the PC halts or reboots after the PIXCI(R) frame grabber has
+    been  opened  but is not yet capturing video, the problem may be an IRQ or
+    other resource conflict; see IRQ Sharing, above.  For PCI Express PIXCI(R)
+    frame grabbers, also see Windows - Blue Screen of Death (BSoD), above.
+
+    If  the  PC  halts  or  reboots  only  after a bus mastering (DMA) type of
+    PIXCI(R) frame grabber is capturing video, the problem may be insufficient
+    bandwidth  on  the PCI/PCIe bus.  See Bus Mastering, above, and check that
+    burst mode is enabled.  See Bus Mastering: Insufficient Bandwidth,  above.
+    Also, in XCAP, use:
+
+             PIXCI
+             PIXCI Video Setup
+
+    and  reduce  the  horizontal  resolution  (i.e.  data  pixels per line) to
+    (approximately) 1/4 or 1/10 of the previous value.  If video can  be  suc-
+    cessfully  captured (ignoring the truncated appearance), then PCI/PCIe bus
+    bandwidth was likely insufficient.
+
+
+    4.F  Asus/VIA P4X266A
+
+    Asus motherboards and VIA PCI chipsets, such as P4X266A (circa June  2002)
+    do  not  implement  DMA transfers properly.  An unofficial patch by George
+    Bresse (see www.tech-report.com/onearticle.x/3280) improves performance of
+    these chipsets but does not entirely fix the problem.
+
+
+    4.G  x4 & x8 PCI Express Slots
+
+    On  some  motherboards  (circa  2009),  the  x4  or x8 PCI Express Slot is
+    intended only for a S/VGA card - providing high bandwidth  transfers  from
+    PC  memory  to  the  PCI  Express  card, but only supporting low bandwidth
+    transfers from the PCI Express card into PC memory.  The  latter  mode  is
+    required by PIXCI(R) frame grabbers.
+
+    XCAP  may,  or  may not, be able to explicitly warn the user if a PIXCI(R)
+    E4,  E4DB,  E4G2-2F,  E4G2-4B,  E4G2-F2B,  E8,  E8CAM,  E8DB,   e104x4-2f,
+    e104x4-4b, e104x4-f2b, or SI4 is used in such a slot, depending on how the
+    motherboard implements the bandwidth reduction.
+
+
+    4.H  x1 & x4 PCI Express Slots
+
+    On some motherboards with x4 PCI Express slots, BIOS provides  options  as
+    to  whether  the slot is configured as a single x4 PCI Express slot, or as
+    four x1 PCI Express slots (using an adapter to `break-out'  the  necessary
+    signals  to  four x1 PCI Express cards.  A x4 PCI Express card can be used
+    with the slot configured to the four x1 PCI Express  slot  mode,  but  the
+    slot  will  not  provide  the bandwidth expected of a x4 PCI Express slot.
+    (Circa 24-Jan-2012).
+
+
+
+
+
+                               PCI/PCIe Bus Master (DMA) & Bus Bandwidth   4-5
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    4.I  Linux: Bus Mastering (DMA) Inoperative
+
+    The camera appears to operate correctly, the measured video frame rate and
+    capture  frame  rate are correct, no errors are reported by XCAP.  But the
+    frame buffer retains its previous pixel data  (typically  black);  a  test
+    pattern  drawn by XCAP (use XCAP's Modify, Patterns) is displayed properly
+    and not overwritten by pixel data.   There  may  be  errors  reported  via
+    Linux' `dmesg' related to `DMA' or `IOMMU'.
+
+    Some Linux systems, using AMD processors, require
+
+             iommu=soft
+
+    to  be added to the kernel boot command line for PCI or PCIe Bus Mastering
+    (DMA) to function correctly.  (Circa 09-Sep-2022).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    4-6
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+                       5.  Graphic Display (S/VGA) Settings
+
+
+
+
+
+
+    5.A  Windows - Colors & Grey Levels
+
+    The XCAP program for Windows display's imagery on the  computer's  graphic
+    display (S/VGA) monitor.  The quality of the displayed images is dependent
+    on Window's settings and operation of the graphics display (S/VGA) card.
+
+    A `High Color (16 bit or 65536 Color)', `True Color (24  bit  or  16777216
+    Color)',  or `True Color (32 bit)' setting for the graphic display (S/VGA)
+    adapter is required for proper display of images and overlay graphics; the
+    `True  Color  (24 bit or 16777216 Color)' or `True Color (32 bit)' is sug-
+    gested for higher quality, and quicker,  display  of  images  and  overlay
+    graphics.   in  Windows 2000, under `Control Panel', `Display', `Effects',
+    the `Show window contents while dragging' should be disabled.  Or in  Win-
+    dows XP, under `Control Panel', `Appearance & Themes', `Display', `Appear-
+    ance', `Effects', the `Show window contents while dragging' should be dis-
+    abled.
+
+
+    5.B  Windows - S/VGA Accelerators
+
+    There  are  reports  of  problems with later releases XCAP V2.2 using Java
+    1.3.1 and some S/VGA cards under Windows 2000, causing XCAP to lock up the
+    PC (whether or not the PIXCI(R) frame grabber is installed or open).  Dis-
+    able the S/VGA Accelerator by using Start, Control  Panel,  Display,  Set-
+    tings,  Advanced,  Troubleshooting  and  set  the Hardware Acceleration to
+    None.  (Circa 2000)
+
+
+    5.C  Linux - Colors & Grey Levels
+
+    Under Linux, for best image display quality and display rate, the graphics
+    display system (S/VGA) should be in TrueColor or DirectColor mode.  (Circa
+    2002)
+
+
+
+
+
+
+
+
+    5.D  Graphics Display Resolution
+
+
+
+
+                                        Graphic Display (S/VGA) Settings   5-1
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    For flat panel LCD and other `discrete' graphics display systems, set  the
+    resolution  specified  in  the operating system identical to the display's
+    physical resolution.  Other choices cause the display system  to  interpo-
+    late pixels, causing aliasing, poor graphics, and hard to read text.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    5-2
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+                               6.  Memory Resources
+
+
+
+
+
+
+    6.A  Frame Buffer Memory Allocation
+
+    Under  Linux  and under Windows NT and later operating systems, a computer
+    can be populated with 4 GiBytes of memory.  Under 64  bit  operating  sys-
+    tems, a computer can be populated with more than 4 GiBytes of memory.  The
+    Intel architecture overlaps  BIOS,  PCI  configuration  space,  and  other
+    resources  onto  the high end of the 4 GiByte address space; the memory at
+    the high end of the 4 GiByte address space is inaccessible to the  operat-
+    ing system and can't be used as frame buffer memory.[1] Some 64 bit  moth-
+    erboards provide a
+
+             Remap memory above 4GB
+
+    BIOS  option  so that memory which overlaps BIOS, PCI configuration space,
+    and other resources is `moved' above 4 GiBytes and is not lost.
+
+    The address space `takeaway' is of special  concern  when  using  forceful
+    memory  allocation.   The  operating system is instructed to use less than
+    the available memory (e.g. only the first 1 GiByte of 4 GiByte),  and  the
+    PIXCI(R)  frame  grabber must be instructed to use an explicit address and
+    size of frame buffer memory (e.g. starting at  the  1 GiByte  address  and
+    using  2.5 GiByte).   Or under 64 bit operating systems where the PIXCI(R)
+    frame grabber can be instructed to use an explicit  address  and  size  of
+    frame  buffer memory and an explicit exclusion for the `takeaway' (e.g. on
+    a computer with 8 GiByte of memory, starting at the 1 GiByte  address  and
+    using 7 GiByte excluding the 0.5 GiByte `takeaway').
+
+    If the PIXCI(R) frame grabber is instructed to use forceful memory alloca-
+    tion with frame buffer memory overlapping `takeaway' address  space:  dis-
+    playing  frame  buffers  which  overlap  may result in all white or random
+    pixel values, capturing frame buffers  which  overlap  may  result  in  no
+    effect on the contents of the frame buffer, or may severely degrade opera-
+    tion of the computer system.
+
+    BIOS typically reports how much physical memory is installed, and how much
+    is  available  after `takeaways'.  Note that motherboards with PCI Express
+
+
+    __________
+
+     1. See the Intel white paper, Intel Chipset 4 GB System Memory Support,
+        dated February 2005.
+
+
+
+
+                                                        Memory Resources   6-1
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    support tend to have much larger `takeaways' than older motherboards  with
+    32  or  64  bit PCI support.  The XCAP, Driver Assistant, Set Frame Buffer
+    Memory Size feature can't  automatically  determine  the  `takeaway',  but
+    takes an educated guess and sets:
+
+             BIOS Reserved Memory Hole Size
+
+    appropriately.   The  user  should  review the default `takeaway' size and
+    correct as needed.
+
+    The Intel Dynamic Video Memory Technology (DVMT) (circa  2006)  may  cause
+    similar  problems  when  using  forceful  memory  allocation, as it uses 8
+    MiByte or more allocated by BIOS at the high end of physical memory.  When
+    the  computer  has less than 4 GiByte of memory and this `takeaway' occurs
+    at, for example, immediately below the  2  GiByte  address,  the  PIXCI(R)
+    frame  grabber  must  be instructed to use an explicit address and size of
+    frame buffer memory (e.g. starting at  the  1  GiByte  address  and  using
+    1016 Mbyte) so as to exclude the memory used by DVMT.
+
+    The  Intel  vPro Technology (circa 2010?)  may cause similar problems when
+    using forceful memory allocation, as it uses memory between the 768 MiByte
+    and  1024 MiByte addresses.  The PIXCI(R) frame grabber must be instructed
+    to use an explicit address and size of frame buffer memory (e.g.  starting
+    not  lower  than the 1024 MiByte address) so as to exclude the memory used
+    by vPro.
+
+
+    6.B  Frame Buffer Memory vs. S/VGA Memory Space
+
+    When trying to configure a computer for the maximum amount of frame buffer
+    memory  and  the  maximum amount of frame buffers, using a S/VGA card with
+    the minimal amount of S/VGA memory is often beneficial.  The S/VGA  memory
+    is  mapped into the computer's memory space, reducing the amount of acces-
+    sible computer memory (even if not reducing the amount  of  physical  com-
+    puter  memory),  and thereby reducing the amount of available frame buffer
+    memory.  (Added 19-Jan-2012).
+
+
+    6.C  Using a 32 bit Frame Grabber or 32 bit Application on 64 bit O.S.
+
+    A 32 bit frame grabber, such as the PIXCI(R) D2X, CL1, or SV5 can't access
+    frame  buffer memory above the 4 GiB address.  Use on a 64 bit system with
+    more than 4 GiB of memory might fail, depending on the location of  memory
+    provided  by  the  O.S., showing the `Unable to access 64 bit frame buffer
+    memory w. 32 bit frame grabber' error.
+
+    A 32 bit application, using 32 bit XCLIB, has a similar restriction.   Use
+    on a 64 bit system with more than 4 GiB of memory might fail, depending on
+    the location of memory provided by the O.S.,  showing  the  `Frame  buffer
+    memory  extends  above the 4 GiB address limit with 32 bit XCLIB on 64 bit
+    O.S.'  error.
+
+
+
+
+
+    6-2
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    Set the `Restrict Non-Forceful Memory to be below 4 GiByte' (in  PIXCI(R),
+    PIXCI(R) Open/Close, Advanced) option followed by reboot.
+
+    Alternately,  on Windows systems without XCAP: Use `regedit', and navigate
+    into:
+
+             HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\EPIXXCW6
+
+    Edit the `PIXCI' key; if it doesn't exist, create it with  `String'  type.
+    If the `PIXCI' key's value doesn't have a `-WT' flag, append a space and:
+
+             -WT 0x80
+
+    to  the key's value; alternately, modify the numeric value following `-WT'
+    so as to set the `0x80' (base 16) bit.  Reboot.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                        Memory Resources   6-3
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    6-4
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+                        7.  Desktops & GUI's & Privileges
+
+
+
+
+
+
+    7.A  Linux: Running XCAP as 'root'
+
+    Generally, XCAP need not be run as `root' or with `super-user' status.
+
+    The Driver Assistant in XCAP provides a convenient GUI  for  configuration
+    tasks such as installing drivers, or configuring frame buffer memory.  But
+    use of the Driver Assistant feature requires that XCAP be run  as  `root',
+    or  with `super-user' status.  On most Linux distributions, this is easily
+    done by opening a `terminal', using `sudo' to  obtain  super-user  status,
+    and then running XCAP from the `terminal'.
+
+    On openSUSE, Java based GUI programs (such as XCAP) can't be run via `ter-
+    minal' and `sudo'.  The error may state `Unsatisfied Link Error' and  ref-
+    erence `awt_FreeDrawingSurface'.  This problem is not specific to XCAP.
+
+    Advice from the Linux community is to use `xdg-su', `kdesu', or `gnomesu'.
+    Or use `su -' instead of `sudo'.  (Circa Jan-2018)
+
+    Some systems may prevent any GUI programs from running  via  the  terminal
+    with  super-user  status.  Typical error is `No Protocol Specified'.  This
+    problem is not specific to XCAP.
+
+    Advice from the Linux community is to use:
+
+             export DISPLAY=:0
+
+    or
+
+             export DISPLAY=:0.0
+             export XAUTHORITY=~/.Xauthority
+
+    before running the GUI program, such as XCAP.
+
+    Other advice suggests executing:
+
+             xhost:localhost:root
+
+    before using `sudo' and running the GUI program.  (Circa Apr-2017)
+
+    Some systems will run the GUI program, but restrict its access to external
+    utility programs.
+
+
+
+
+
+                                           Desktops & GUI's & Privileges   7-1
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    Newer  releases of XCAP, in conjunction with many Linux distributions sup-
+    porting the `gnome terminal' or `xterm', allow using XCAP's Driver  Assis-
+    tant  without  running  XCAP  as super-user.  XCAP's Driver Assistant will
+    instead, as needed, prepare a shell script, open a `terminal' window,  use
+    `sudo'  to  prompt  the user for the appropriate password, and have `sudo'
+    execute the shell script.  On  some  systems  `gnome  terminal'  can't  be
+    started from XCAP; installing `xterm' is recommended, such as via:
+
+             apt-get install xterm
+
+    (on systems using `apt-get').  (Circa Jan-2021)
+
+
+    7.B  Linux SUSE Error: 'xcb_xlib_unlock: Assertion c->xlib.lock failed'
+
+    On distributions of openSUSE 10.x an error:
+
+             xcb_xlib_unlock: Assertion 'c->xlib.lock' failed
+
+    may  occur  (reported  on stderr) when running a Java application, such as
+    XCAP.  This problem is not specific to XCAP.
+
+    Workaround:
+
+             export LIBXCB_ALLOW_SLOPPY_LOCK=1
+
+    before running the GUI program, such as XCAP.  The workaround can be added
+    to   the  /usr/local/bin/xcap  or  to  the  /usr/local/xcap/xcaplnx  shell
+    scripts.  (Circa 2007)
+
+
+    7.C  Linux Error: 'Cannot restore segment prot after reloc'
+
+    Selected releases of Linux have enabled  new  security  extensions  called
+    `SELinux'.   The SELinux may prevent loading of XCAP's libjpxiplhl_i386.so
+    file, and perhaps other shared objects.  These problems are  not  specific
+    to XCAP.
+
+    Disable SELinux by editing /etc/selinux/config and setting
+
+             SELINUX=disabled
+
+    Or prevent SELinux from loading by using the
+
+             chcon
+
+    command on each file to which SELinux objects.  (Circa 2007)
+
+
+
+
+
+
+
+
+
+    7-2
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    7.D  Linux Error: 'Cannot execute .bin file(s)'
+
+    Attempt to execute a .bin file, such as a self contained software install-
+    er, may result in a `file can't be found' error.
+
+    Some versions of the .bin files expected the `Linux Standard  Base  (lsb)'
+    libraries  which may not be automatically installed with all Linux distri-
+    butions.
+
+    Install the `Linux Standard Base (lsb)' libraries with a command such as:
+
+             apt-get install lsb-base
+
+    although the specific command may differ on various Linux distributions.
+
+    Alternately, using:
+
+             readelf -a software.bin | grep interpreter:
+
+    should yield something similar to:
+
+             /lib/ld-lsb.so.3              (for 32 bit pgms)
+         or  /lib64/ld-lsb-x86-64.so.3     (for 64 bit pgms)
+
+    (which, parenthetically, is the loader file that `can't be found').  Do:
+
+             chdir /lib                    (for 32 bit pgms)
+         or  chdir /lib64                  (for 64 bit pgms)
+
+    it should contain an existing loader such as:
+
+             ld-linux.so.2                 (for 32 bit pgms)
+         or  ld-linux-x86-64.so.2          (for 64 bit pgms)
+
+    Create a symlink:
+
+             ln -s {existing loader} {loader expected by software.bin}
+
+    (Circa 2013)
+
+
+    7.E  Linux Error: 'Cannot execute .bin file(s)'
+
+    Attempt to execute a .bin file, such as a self contained software install-
+    er, may result in a `command not found' error.
+
+    This will occur when attempting to execute a program in the current direc-
+    tory using its (simple) name:
+
+
+
+             software.bin
+
+
+
+
+                                           Desktops & GUI's & Privileges   7-3
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    Instead, execute with:
+
+             ./software.bin
+
+    (Circa 2005?)
+
+
+    7.F  Linux Error: 'Cannot execute .bin file(s)'
+
+    Attempt to execute a .bin file, such as a self contained software install-
+    er, may result in a `permission denied' error.
+
+    This  often  occurs after downloading an executable program, or copying an
+    executable program from CD/DVD; as the necessary file  `mode'  bits  don't
+    survive up/downloads and aren't supported on CD/DVD media.
+
+    Change the file mode:
+
+             chmod a+x software.bin
+
+    before executing:
+
+             ./software.bin
+
+    (Circa 2005?)
+
+
+    7.G  Linux Error: 'Unsatisfied Link Error: libjawt.so'
+
+    When  running  a  Java  application, such as XCAP, with Java OpenJDK-11 an
+    error:
+
+             Unsatisfied Link Error: libjawt.so
+
+    may occur (reported on stderr).  This problem is not specific to XCAP.
+
+    This error does not occur when using XCAP on  i386  and  x86-64  platforms
+    when  using  the  JRE included with XCAP.  This error occurs more often on
+    ARM platforms, for which XCAP does not include a  preferred  copy  of  the
+    Java JRE.
+
+    Workaround: Find the location of libjawt.so:
+
+             find /usr -name libjawt.so -print
+
+    and set:
+
+             export LD_LIBRARY_PATH='...'
+
+    to  the proper location before running the GUI program, such as XCAP.  The
+    workaround  can  be  added  to   the   /usr/local/bin/xcap   or   to   the
+    /usr/local/xcap/xcaplnx shell scripts.
+
+
+
+
+    7-4
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    On most systems with as single installed Java, using:
+
+             LIBJAWT=$( find /usr -name libjawt.so | sed -e s:/libjawt.so:: )
+             export LD_LIBRARY_PATH=$LIBJAWT
+
+    or on most systems with typical installation of multiple Java's, using:
+
+             LIBJAWT=$( find $( readlink -f /usr/bin/java | sed -e s:/bin/.*:: ) -name libjawt.so | sed -e s:/libjawt.so:: )
+             export LD_LIBRARY_PATH=$LIBJAWT
+
+    will  automate  the  process.   On newer releases of XCAP, these lines are
+    provided in /usr/local/xcap/xcaplnx, as comments.  (Circa 2018)
+
+    Newer releases of XCAP implement a  workaround  for  this  issue;  editing
+    /usr/local/xcap/xcaplnx is not required.  (Circa July 2021).
+
+
+    7.H  Linux Error: 'Assistive Technology not found: org.GONE.Accessibil-
+         ity.AtkWrapper'
+
+    When  running  a  Java  application, such as XCAP, with Java OpenJDK-8, an
+    error:
+
+             java.awt.AWTError: Assistive Technology not
+             found: org.GONE.Accessibility.AtkWrapper
+
+    may occur (reported on stderr).  Or, a Java stack trace, incorporating:
+
+             ...
+             at org.GNOME.Accessibility.AtkUtil.invokeInSwing(AtkUtil.java:68)
+             at org.GNOME.Accessibility.AtkObject.hashCode(AtkObject.java:234)
+             at org.GNOME.Accessibility.AtkWrapper.emitSignal(Native Method)
+             ...
+
+    may appear in XCAP's Message Log.  This problem is not specific to XCAP.
+
+    One solution is to disable assistive technologies.  Edit  the  accessibil-
+    ity.properties file for OpenJDK-8:
+
+             sudo gedit /etc/java-8-openjdk/accessibility.properties
+
+    Find line:
+
+             assistive_technologies=org.GNOME.Accessibility.AtkWrapper
+
+    and comment out the line by prepending a `#', such as:
+
+             #assistive_technologies=org.GNOME.Accessibility.AtkWrapper
+
+    (Circa 2020)
+
+
+
+
+
+
+                                           Desktops & GUI's & Privileges   7-5
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    7.I  Linux Error: 'ld.so assertion failed'
+
+    When  running  a  Java application, such as XCAP, with Java OpenJDK-11, an
+    error:
+
+             Inconsistency detected by ld.so: dl-lookup.c: 111:
+             check_match: Assertion `version->filename == NULL
+             || ! _dl_name_match_p (version->filename, map)' failed!
+
+    may occur (reported on stderr).
+
+    Disable XCAP's use of `XWindows/X11  API'  for  rendering  of  images  and
+    video,  in  favor of the `AWT API'.  Either by editing xcap.ini to disable
+    auto open of the frame grabber on startup, allowing an opportunity to con-
+    figure  `API'  options  in  the  Utility,  Program  Setup.   Or by editing
+    xcap.ini and set:
+
+             api.display.awt=1
+             api.display.x11=0
+
+    Or, use OpenJDK-8 instead of OpenJDK-11.  (Circa 2021?)
+
+
+    7.J  Windows Error: 'Data Execution Protection (DEP)'
+
+    The Data Execution Protection (DEP) feature may prevent XCAP  from  start-
+    ing,  or  may  allow XCAP to start but later abruptly terminate XCAP.  The
+    Data Execution Protection (DEP) should be disabled, either in BOOT.INI  or
+    via the Windows' Control Panel.
+
+    This  problem  affects many Java based applications and is not specific to
+    XCAP XCLIB and PXIPL are compatible with DEP.  (Circa 2012)
+
+
+    7.K  Windows 8/10/11: Running XCAP as Administrator
+
+    Generally, XCAP need not be run as with administrator privileges.
+
+    The Driver Assistant in XCAP provides a convenient GUI  for  configuration
+    tasks  such as installing drivers, or configuring frame buffer memory.  On
+    Windows 8, 10, and 11 - and possibly earlier versions of Windows depending
+    on  user  access  control  settings - use of the Driver Assistant requires
+    that XCAP be explicitly granted with administrator privileges  -  even  if
+    the user's account has administrator privileges.
+
+    For newer versions of XCAP V3.8 (Jan 2021 and later), XCAP's Driver Assis-
+    tant will open a User Account Control (UAC) dialog, asking  the  user  for
+    permissions as needed.
+
+    Alternately,  for  older  versions of XCAP, right click on XCAP's shortcut
+    and select `Run as Administrator'.  The newer versions of XCAP  can  still
+    be  run  as Administrator; which may be more convenient when installing or
+    configuring several of the Driver Assistant's features so as  to  avoid  a
+
+
+
+    7-6
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    UAC prompt for each use and feature.
+
+
+    7.L  Windows: Anti-Viral Software with Registry Protection
+
+    McAfee  anti-viral software with registry protection, circa 2008, prevents
+    users - even those with Administrator privileges - from editing  the  reg-
+    istry.   This  is, by itself, only a minor annoyance when trying to change
+    PIXCI(R) frame grabber parameters.
+
+    However, the registry protection may also prevent  Windows  Service  Packs
+    from  installing  properly  (specifically  reported  with Windows XP SP3),
+    causing all kinds of mischief and problems.   For  example,  the  PIXCI(R)
+    driver's  `Unable  to  Map  Image  Memory (DDK MmMapIoSpace)' error may be
+    intermittently reported.  (Circa Dec-2008)
+
+
+    7.M  Windows & XCAP: 'Bad module(s) signature!'
+
+    Upon startup, XCAP may report `Bad module(s) signature!'  and exit.   Most
+    often,  the  `Bad module(s) signature!'  is the result of using a combina-
+    tion of files from two different XCAP releases; such as might occur if  an
+    XCAP  update  is  interrupted and incomplete.  The error can also occur if
+    XCAP's installed files have been modified, such as by a virus or by  anti-
+    viral software.  (Circa Dec-2020)
+
+
+    7.N  Windows: TrendMicro Security Anti-Viral Software
+
+    With  TrendMicro Security security enabled, the Windows Device Manager may
+    show the PIXCI(R) driver as disabled.  The PIXCI(R) driver can be manually
+    enabled; but a moment later will be disabled.
+
+    The TrendMicro application (a background process) disables drivers that it
+    dos not recognize.  See TrendMicro's instructions for adding driver(s)  to
+    its `White List' of recognized and authorized drivers.  (circa Feb-2023)
+
+
+
+    7.O  Windows: DRIVER VERIFIER DMA VIOLATION BSoD
+
+    On Windows 10 or 11, upon opening the PIXCI(R) frame grabber (and prior to
+    attempting to capture and DMA data), Windows displays  a  Blue  Screen  of
+    Death (BSoD) and `DRIVER VERIFIER DMA VIOLATION'.
+
+    This  has  been observed when Windows Virtualization Support is enabled in
+    conjunction to using Cisco Security.  Disable one or  the  other.   (circa
+    Apr-2023)
+
+
+
+
+
+
+
+
+                                           Desktops & GUI's & Privileges   7-7
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    7-8
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+                           8.  Camera & Capture Issues
+
+
+
+
+
+
+    8.A  Capture Issue: Pixel Data is Black
+
+    The camera appears to operate correctly, the measured video frame rate and
+    capture frame rate are correct, no errors are  reported.   But  the  frame
+    buffer retains its default, black, pixel data.
+
+    Check whether a test pattern drawn by XCAP (using XCAP's Modify, Patterns)
+    is displayed properly, and whether it is replaced by a  black  image  upon
+    capture  of  video.  If so, the most likely explanation is that the camera
+    is sending black pixels.  Check the camera's  gain  &  exposure  settings,
+    check whether the lens aperture is closed, and whether there is a cap over
+    the lens!
+
+
+    8.B  Capture Issue: Pixel Data not Captured
+
+    The camera appears to operate correctly, the measured video frame rate and
+    capture  frame  rate  are  correct, no errors are reported.  But the frame
+    buffer retains its default pixel data (typically black or green);  a  test
+    pattern  drawn  by XCAP (using XCAP's Modify, Patterns) is displayed prop-
+    erly and not replaced upon capture of video.
+
+    See PCI/PCIe Bus Master (DMA) & Bus Bandwidth, above.
+
+
+    8.C  Digital Camera Capture Issue: Pixel Data not Captured
+
+    The camera appears to operate correctly, the measured video frame rate and
+    capture  frame  rate  are  correct, no errors are reported.  But the frame
+    buffer retains its default pixel data (typically black or green);  a  test
+    pattern  drawn  by XCAP (using XCAP's Modify, Patterns) is displayed prop-
+    erly and not replaced upon capture of video.
+
+    Many digital cameras allow setting an Area of Interest  (AOI),  so  as  to
+    output  a  sub-area  of the full image.  Independently, the PIXCI(R) frame
+    grabber has options to allow capturing a sub-area of the image  output  by
+    the camera - regardless of whether then camera supports AOI.
+
+    When  using  a  camera  AOI,  the PIXCI(R) frame grabber's pixel width and
+    height should be set to the camera AOI's width and  height;  the  PIXCI(R)
+    frame  grabber's  H-Offset and V-Offset should typically be zero - and NOT
+    the same as the camera AOI's left and top offset.   If  both  offsets  are
+    set, all of the image data may be skipped.
+
+
+
+                                                 Camera & Capture Issues   8-1
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    For  example,  a  1280x1024 camera might be set to capture the lower right
+    corner: width=320, height=256, left-offset=960, top-offset=768 and  output
+    an  image  of  320x256.   If the frame grabber's H-Offset and V-Offset are
+    also set to 960 and 768, respectively, it would skip the first 960  pixels
+    of  each  line and skip the first 768 lines output by the camera.  Between
+    camera and frame grabber settings, all of the image data is skipped.
+
+
+    8.D  Camera Link Capture Issue: Pixel Data not Captured
+
+    The camera appears to operate correctly, the measured video frame rate and
+    capture  frame  rate  are  correct, no errors are reported.  But the frame
+    buffer retains its default pixel data (typically black or green);  a  test
+    pattern  drawn  by XCAP (using XCAP's Modify, Patterns) is displayed prop-
+    erly and not replaced upon capture of video.
+
+    Selecting the `Use DVAL' option in XCAP (Generic Camera  Link,  Capture  &
+    Adjust  dialog)  in  conjunction  with  a  camera that does not assert the
+    optional DVAL signal prevents any pixel  data  from  being  captured.   No
+    error is reported, as the imaging card, camera, and software are operating
+    correctly as per the selected configuration of DVAL.  (Circa Jan-2017).
+
+
+    8.E  Camera Link Capture Issue: Measured Frame Rate Incorrect and/or Pixel
+         Data Garbled
+
+
+
+    8.E.1  Medium/Full/Deca Modes
+
+    The two cables for Medium, Full or Deca Camera Link  modes  use  different
+    signal  &  wire  assignments;  control signals in one are data bits in the
+    other.  Interchanging cables will often yield an extremely high and  fluc-
+    tuating  frame  rate,  or a zero frame rate, Serial communication will not
+    work, and will often report `Framing Error'.
+
+    Check that the Base connector of the camera is connected to the Base  con-
+    nector of the PIXCI(R) frame grabber.
+
+
+    8.E.2  Poor Quality Cables
+
+    Use  of  cables  that  do  not  meet the Camera Link specification, or are
+    longer than allowed by the specification for the camera's clock  rate,  or
+    have been spliced in a such a manner that the assembly no longer meets the
+    Camera Link specification, will yield incorrect frame  rates  and  garbled
+    pixel  data.   Serial communication will typically work, as the specifica-
+    tion for the signals & wires used for  serial  communication  are  not  as
+    stringent as for pixel data.
+
+
+
+
+
+
+
+    8-2
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    8.F  Capture Error: 'Video not captured! (PCI FIFO Overflow)'
+
+    A  bus  mastering  (DMA)  type  of  PIXCI(R) frame grabber transfers video
+    across the PCI/PCIe bus; high resolution,  high  bit  depth,  and/or  high
+    frame  rate all contribute to increased use of PCI/PCIe bus bandwidth.  If
+    sufficient PCI/PCIe bus bandwidth is not available  during  capture,  XCAP
+    software reports a `PCI FIFO Overflow' error message.
+
+    The  PCI/PCIe  bus bandwidth of a given computer motherboard is not depen-
+    dent on the speed of the CPU, but on the attributes of  the  PCI/PCIe  and
+    memory controller chipsets.
+
+    See  PCI/PCIe  Bus Master (DMA) & Bus Bandwidth, and specifically Bus Mas-
+    tering: Insufficient Bandwidth, above, for suggestions  regarding  mother-
+    board selection and configuration.
+
+
+    8.F.1  Frame Grabber Configuration
+
+    The  PIXCI(R) SV2, SV3, SV4, SV5, SV5A, SV5B, and SV5L frame grabbers are,
+    by default, configured for capturing color pixels.   For  monochrome  cam-
+    eras, using:
+
+             PIXCI
+             PIXCI Open/Close
+             Camera & Format
+
+    to specify RS-170 format (or CCIR where appropriate) will reduce the band-
+    width requirements (and,  by  disabling  color  burst  filtering  actually
+    improve image sharpness!).  Also note that in color mode the PIXCI(R) SV4,
+    SV5, SV5A, SV5B, and SV5L frame grabbers transfer 3 bytes per pixel (RGB);
+    they  can  be reconfigured to transfer 2 bytes per pixel (UYVY) decreasing
+    PCI bandwidth requirements, albeit at the expense of increasing CPU  over-
+    head when the image is rendered or saved.
+
+    For  PIXCI(R) A110, A310, CL2, D3XE, E1, E1DB, E4, E4DB, E4G2-2F, E4G2-4B,
+    E4G2-F2B, E4TX2-2F,  E4TX2-4B,  E4TX2-F2B,  E8,  E8CAM,  E8DB,  e104x4-2f,
+    e104x4-4b,   e104x4-f2b,   EB1,   EB1-PoCL,   EB1mini,  miniH2B,  miniH2F,
+    miniH2x4F, mf2280, EC1, ECB1, ECB1-34, ECB2, EL1, EL1DB, ELS2,  SI1,  SI2,
+    SI4,  SV7,  and SV8 frame grabbers can, depending on camera, be configured
+    to capture 8 or more bits per pixel value.  In 10 or 12 bit mode the frame
+    grabber  can  use  two  bytes per value; or `pack' four 10 bit values into
+    five bytes or two 12 bit values into three bytes.  Use of the  `Bit  Pack-
+    ing' option will reduce PCIe bandwidth requirements by 3/8 for 10 bit val-
+    ues or by 1/4 for 12 bit values, albeit at the expense of  increasing  CPU
+    overhead  when  the  image  is  rendered or saved.  The PIXCI(R) EB1tg and
+    EB1miniTg frame generators also provide a `Bit Packing'  option,  reducing
+    PCIe bandwidth when generating 10 or 12 bit pixel values.
+
+
+
+
+
+
+
+
+                                                 Camera & Capture Issues   8-3
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    8.F.2  Camera Cabling
+
+    For  systems  using  Camera Link or Parallel LVDS, the `PCI FIFO Overflow'
+    can be caused by excessive cable length (relative to  the  camera's  pixel
+    clock  frequency),  poor  quality  cables, or cable connectors not tightly
+    fastened in place, causing degradation of the  camera's  pixel  clock  and
+    data to be `clocked in' at a higher rate than intended.
+
+
+    8.G  Capture Issue: Measured Frame Rate is Zero
+
+    The measured video frame rate is zero, no errors are reported.
+
+
+    8.G.1  Camera
+
+    For  PIXCI(R)  SV2,  SV3, SV4, SV5, SV7, and SV8 frame grabbers, the video
+    rate will be non-zero with, or without a camera attached.  But  for  other
+    frame  grabbers, if the camera is not attached, the camera not powered on,
+    or the camera in trigger mode w/out being triggered,  the  measured  frame
+    rate will be zero.
+
+
+    8.G.2  Interrupts (IRQ)
+
+    Measurement  of the video rate, as does video capture, depends upon inter-
+    rupts (IRQ).  See PCI/PCIe Interrupts (IRQ), above.
+
+    As an interim solution, polling can be used instead  of  interrupts.   See
+    XCAP's  PIXCI(R),  PIXCI(R) Open/Close, Close, Advanced, Interrupts.  How-
+    ever, polling is less efficient and is primarily intended to help diagnose
+    interrupt issues.
+
+
+    8.H  Camera Link Issue: Serial Communication Failure
+
+    Serial communication depends upon interrupts (IRQ).
+
+    See PCI/PCIe Interrupts (IRQ), above.
+
+    Check  that  the baud rate selection matches the camera's baud rate.  Some
+    cameras have selectable baud rate and its current baud rate may not  match
+    the  default  rate specified in camera documentation; experiment with dif-
+    ferent baud rate selections.
+
+    As an interim solution, for cameras using slower baud rates,  polling  can
+    be  used instead of interrupts.  See XCAP's PIXCI(R), PIXCI(R) Open/Close,
+    Close, Advanced, Interrupts.  However, polling is less  efficient  and  is
+    primarily intended to help diagnose interrupt issues.
+
+
+
+
+
+
+
+    8-4
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+                             9.  Miscellaneous Topics
+
+
+
+
+
+
+    9.A  XCAP Startup Issues
+
+    By default, XCAP automatically opens the PIXCI(R) frame grabber, automati-
+    cally displays an image,  and  automatically  (optionally)  captures  live
+    video.  To help determine the cause of a startup problem, such as software
+    hangup or abort, it is helpful to separate these actions.
+
+    Edit file:
+
+             xcap.ini
+
+    in XCAP's installation directory.  Change line:
+
+             videosetup.xc.autoopen=1
+
+    to:
+
+             videosetup.xc.autoopen=0
+
+    and change line:
+
+             videosetup.xc.autolive=1
+
+    to:
+
+             videosetup.xc.autolive=0
+
+    Start XCAP to see if it crashes w/out having tried to display an image  or
+    open the PIXCI(R) frame grabber.
+
+    In XCAP, do:
+
+             Images
+             New Image
+             OK
+             Modify (in Image View Window)
+             Patterns
+             OK
+
+    If  XCAP  crashes,  it  is  likely  a problem with the API used to display
+    images.  Restart XCAP and try:
+
+
+
+
+
+                                                    Miscellaneous Topics   9-1
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+             Utility
+             Program Setup
+             API's
+             GDI API?
+
+    to select a different API for image display and again try:
+
+             Images
+             New Image
+             ..
+
+    When Images, New Image operates correctly, use:
+
+             PIXCI
+             PIXCI Open/Close
+             Open
+
+    to explicitly open the PIXCI(R) frame grabber, then use:
+
+             Capture
+             Live
+
+    to explicitly start live capture.
+
+
+    9.B  XCAP/XCLIB Error: 'Can't access 18V8/16LV8'
+
+    The `Can't access 18V8/16LV8' error normally indicates a hardware  problem
+    on  a  PIXCI(R)  SV2,  SV3,  SV4, SV5, SV5A, SV5B, SV5L, or SV6.  The same
+    error can also occur if the PIXCI(R) driver has  been  associated  with  a
+    non-PIXCI card; see PCI Vendor and Device ID Conflict, above.
+
+    The  same  error may also occur under Windows Vista, 7, 8, 10, or 11 after
+    awaking from hibernation or sleep mode.  Disabling Sleep  and  Hibernation
+    modes  in  Windows  is  recommended.   An  updated  driver,  circa 6/2015,
+    (a) Will prevent Windows from sleeping while the PIXCI(R) frame grabber is
+    in  use,  and (b) Has an option to enable recovery after Windows sleeps w.
+    the PIXCI(R) frame grabber not in use.
+
+    Under Windows 10 or 11, the same  error  may  occur  with  Windows'  `Fast
+    Startup'  option  enabled;  disabling  the  option is recommended.  (Circa
+    2009, 2015, 2022)
+
+
+
+
+
+
+
+
+
+    9.C  XCAP/XCLIB Error: 'Data path error'
+
+
+
+
+    9-2
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    The `Data path error' error normally indicates a  hardware  problem  on  a
+    PIXCI(R) A110, A310, D3XE, CL1, CL2, E1, E1DB, E4, E4DB, E4G2-2F, E4G2-4B,
+    E4G2-F2B, E4TX2-2F,  E4TX2-4B,  E4TX2-F2B,  E8,  E8CAM,  E8DB,  e104x4-2f,
+    e104x4-4b,   e104x4-f2b,   EB1,   EB1-PoCL,   EB1mini,  miniH2B,  miniH2F,
+    miniH2x4F, mf2280, EC1, ECB1, ECB1-34, ECB2, EL1, EL1DB, ELS2,  SI1,  SI2,
+    SI4,  SV7, or SV8 frame grabber, or on a PIXCI(R) EB1tg or EB1miniTg frame
+    generator.
+
+    The same error will also occur under Windows Vista, 7, 8, 10, or 11  after
+    awaking  from  hibernation or sleep mode.  Disabling Sleep and Hibernation
+    modes in  Windows  is  recommended.   An  updated  driver,  circa  6/2015,
+    (a) Will prevent Windows from sleeping while the PIXCI(R) frame grabber is
+    in use, and (b) Has an option to enable recovery after Windows  sleeps  w.
+    the  PIXCI(R)  frame  grabber  not in use.  Less often, the hibernation or
+    sleep problem may be reported as `Invalid register base address', with the
+    same remedy.
+
+    On  Windows  10  or  11,  the same error can occur with the Windows' `Fast
+    Startup' option enabled; disabling  the  option  is  recommended.   (Circa
+    2009, 2015)
+
+    On  Windows  10  or  11, the same error can occur with the Windows' `Power
+    Button does ...'  option set to `Hibernate' or `Sleep'; use of  `Shutdown'
+    is recommended.  (circa 2018)
+
+    The  same  error can occur due to EMI interference with the PCIe signals -
+    especially when the PIXCI(R) frame grabber is used with a bus extender  or
+    bus extension cable.  (circa 2022)
+
+    Generally, the error will persist until the computer is restarted.
+
+
+    9.D  XCAP/XCLIB Error: 'Drivers Not Installed' or 'Frame Grabber not
+         Found'
+
+    Under Windows (XP & later) and under Linux, a bus manager or bus driver is
+    responsible for configuring the PCI Express slot, detecting  the  PIXCI(R)
+    frame  grabber,  and  (indirectly) loading the appropriate PIXCI(R) driver
+    (or setting conditions so that the driver remains loaded).
+
+    After an application reports that the PIXCI(R) driver isn't available,  it
+    is  often helpful to distinguish whether the PIXCI(R) frame grabber is not
+    present, or whether the frame grabber is present but the driver  is  miss-
+    ing.
+
+    Under Linux, the
+
+             lspci
+
+    command  lists  all  detected  PCI  and  PCI Express cards - regardless of
+    whether a card-specific driver is installed.
+
+
+
+
+
+                                                    Miscellaneous Topics   9-3
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    Under Windows, the Device Manager (i.e.  `devmgmt.msc') lists all detected
+    PCI  and  PCI Express cards - regardless of whether a card-specific driver
+    is installed.  Although, without an installed driver  the  PIXCI(R)  frame
+    grabber  may not be listed by name under `Imaging Devices', but may appear
+    as an unnamed card under the `Unknown' or `Coprocessor'  sections;  deter-
+    mine  whether the unnamed card is a PIXCI(R) frame grabber via: (a) Power-
+    off computer, remove card, reboot, observe whether the Device Manager list
+    has  changed,  or  (b) In  the  Device Manager, under a suspected device's
+    `Properties', `Details' select and  compare  the  `Hardware  IDs'  to  the
+    PIXCI(R) frame grabber's Vendor and Device ID as listed under Required Bus
+    Resources, above.
+
+    If the PIXCI(R) frame grabber does not appear via `lspci'  or  the  Device
+    Manager,  then  tweaking  PIXCI(R) driver options or trying different ver-
+    sions of the PIXCI(R) driver won't help.
+
+    Suggested remedies are to check that the card is firmly seated in the  PCI
+    or  PCIe  slot,  check  BIOS for options which may enable/disable PCI/PCIe
+    slots, and/or consult the motherboard documentation.
+
+    The PIXCI(R) miniH2B, miniH2F, and miniH2x4F frame grabbers are  not  pow-
+    ered  from the motherboard, but require a separate +12V power supply.  For
+    those cards, also check that the +12V is connected and powered on  at  the
+    same time as the computer.
+
+
+    9.E  Use of M.2 Interface Adapters
+
+    PIXCI(R)  frame  grabber's designed for PCIe mini slots can use a M.2 slot
+    via a third party adapter.  M.2 slots can support either the PCIe or  SATA
+    interface, as selected by pin 69 (grounded for SATA, or N/C for PCIe).  If
+    the PIXCI(R) frame grabber isn't found by the O.S.  (i.e.  doesn't  appear
+    in  Device  Manager  or  `lspci'), check the specifications of the adapter
+    and/or check whether the adapter's pin 69 is grounded.  (Circa 2019)
+
+
+    9.F  Mice and Graphics Display (S/VGA) Cards
+
+    If the mouse cursor blinks on and off while the mouse cursor is positioned
+    over the live video image display, either:
+
+      a.  Switch  to  a  graphics  display (S/VGA) card that provides hardware
+          mouse cursor support.
+
+      b.  If the graphics display (S/VGA) card does  provides  hardware  mouse
+          cursor  support,  contact  the graphics display (S/VGA) manufacturer
+          for an improved driver.
+
+      c.  As a last resort, in XCAP, switch graphics display  (S/VGA)  display
+          modes  from the faster, default `DirectX API' to a (possibly slower)
+          alternative:
+
+
+
+
+
+    9-4
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+                   View
+                   Display
+                   API
+
+          and select:
+
+                   GDI API
+
+          or
+
+                   Video for Windows API
+
+          or any selection other than `DirectX API'.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                    Miscellaneous Topics   9-5
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    9-6
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+                             10.  Authorization Keys
+
+
+
+
+
+
+    10.A  Parallel Port Style Keys
+
+    Selected versions of EPIX(R) imaging software are provided with an  autho-
+    rization  key which must be connected to printer parallel port 1, 2, or 3.
+    Should software advise that the authorization key is not found:
+
+      a.  Check that the key is connected to printer parallel port 1, 2, or 3,
+          and   not   to  an  RS-232  or  other  port  using  the  same  style
+          connector,[2]
+
+      b.  For PC's with plug in parallel port adapters which are  not  Plug  &
+          Play:  Check that multiple parallel port adapters with the same port
+          number are not installed or enabled,[3]
+
+      c.  For PC's using DOS, or Windows 95/98 with a dual boot option to DOS:
+          After  running  the  MSD  program,  use `L' to check whether any LPT
+          ports are configured,
+
+      d.  Check that the BIOS setting, if any, for  the  printer  port  allows
+          PC-AT compatibility.  A typical BIOS Setup entry is:
+
+                   Parallel Port Type      Compatible
+
+          Settings such as:
+
+                   Parallel Port Type      EPP
+                   Parallel Port Type      ECP
+
+          may  prevent  recognition  of  the  key,  or  may  prevent  reliable
+
+
+    __________
+
+     2. Connection to a 25-pin serial (RS-232) port, or to any other interface
+        which happens to use the same style connector, may permanently damage
+        the authorization key and void its warranty.
+
+     3. Multiple parallel port adapters set at the same port number may have
+        no adverse impact on printer operation; but an authorization key
+        attached to these ports will not operate correctly.  Even though the
+        printer works, the parallel port adapter configuration must still be
+        checked.
+
+
+
+
+                                                     Authorization Keys   10-1
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+          printing.
+
+      e.  On rare combinations of PC's and printers, the authorization key may
+          not  be  recognized  if  the  printer  (connected to the back of the
+          authorization key) is powered off;  either  disconnect  the  printer
+          cable or turn the printer on.
+
+      f.  On  certain  PC's,  the printer port and therefore the authorization
+          key may be improperly reset  during  boot.   Under  DOS  or  Windows
+          95/98, add:
+
+                   HLRESET.COM     (precede with path name to directory of EPIX(R) software!)
+
+          as the last line of AUTOEXEC.BAT to reset the key.
+
+    Typically,  the authorization key can be `stacked' on the printer parallel
+    port with other authorization keys for other software; however due to  the
+    wide variety of key types provided by other companies, there is no guaran-
+    tee of mutual compatibility.  (Circa 1996).
+
+    Newer versions of EPIX(R) imaging software can optionally use a  USB  ver-
+    sion  of the authorization for use in conjunction with an operating system
+    with USB support.  Use of a USB key eliminates printer parallel port  con-
+    figuration issues.
+
+
+    10.B  Parallel Port Keys vs. Xilinx Keys
+
+    The  JTAG programming tools key from Xilinx should NOT be stacked onto the
+    XCAP authorization key.  (Circa 2004).
+
+
+    10.C  64 Bit Linux Driver for Parallel Port Keys
+
+    The driver to support parallel port style authorization keys may not  com-
+    pile  on  newer  64  bit  kernels in which the register_ioctl32_conversion
+    function has been deprecated.  Use of  the  USB  style  authorization  key
+    avoids  the  problem  and is recommended for 64 bit Linux systems.  (Circa
+    2005).
+
+
+    10.D  USB Style Blue Keys
+
+    It may assist with some system configuration issues to know that  the  USB
+    Blue  key  has Vendor ID of 0529 and a Device ID of 0001, and may be vari-
+    ously identified as a Aladdin Hardlock, Aladdin  USB  Key,  Aladdin  HASP,
+    Safenet HASP device, or Gemalto HASP device.
+
+    The   smaller   version   of  the  USB  authorization  key  (approximately
+    5.2x1.6x0.8 cm), has a LED visible through  the  plastic  case.   The  LED
+    illuminates  after  the  key  has  been  connected and identified as a USB
+    device, regardless of whether XCAP  is  running  or  the  appropriate  key
+    driver(s)  are installed.  An unlit LED typically implies a bad key, a bad
+
+
+
+    10-2
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    USB slot, or the operating system's USB drivers are not (yet) loaded.
+
+    On Linux Ubuntu distributions with 2.6.31 and later kernels,  the  `usbde-
+    vfs'  and  `usbfs'  Linux  features  used  by the authorization key daemon
+    aksusbd as supplied with XCAP V3.0 or V3.7 are  no  longer  supported.   A
+    newer  aksusbd  and  its  associated hasp.rules and dinst as supplied with
+    XCAP V3.8 (Oct 2013 release) resolves  the  issue.   Those  files  can  be
+    extracted  from  the V3.8 release for use with XCAP V3.0 or V3.7; however,
+    the authorization key must be installed manually  via  dinst,  the  Driver
+    Assistant in V3.0 or V3.7 should not be used.
+
+    The  Linux  aksusbd authorization key daemon for USB keys is a 32 bit pro-
+    gram; The Linux IA32 (32 bit compatibility) libraries must  be  installed.
+    Some  64  bit distributions are not pre-configured to allow running 32 bit
+    programs; use
+
+             sudo apt-get install ia32-libs
+
+    to allow running aksusbd.
+
+    The aksusbd must be installed as root to work  properly,  even  though  it
+    allows itself to be installed as non-root.  Check owner of:
+
+             ls -la /tmp/.aksusb
+
+    which reflects the (effective) user that was used to install aksusbd.
+
+
+    10.E  Windows Remote Desktop & Blue Keys
+
+    If  the first access to an authorization key is via a program (i.e. XCAP),
+    initiated via a remote desktop connection then the authorization  key  may
+    not be properly detected.
+
+    One  workaround  is  to have XCAP auto-started when Windows boots; running
+    XCAP from a remote desktop connection would no longer be the first  access
+    to  the  authorization  key.   The  XCAP  `Auto Startup: Wait for Drivers'
+    option should be enabled, as Windows might auto start XCAP before  loading
+    the authorization key's driver.  (Circa 2008).
+
+
+    10.F  Authorization Blue Key Not Found under Windows 2000 and later
+
+    The  authorization  key  vendor  reports  that  some USB keys manufactured
+    between 2006 and 2008 may appear to fail.   A  new  authorization  driver,
+    Version 4.115.5.55 (Oct 2008), or later, fixes the problem.  (Circa 2008).
+
+
+
+
+
+    10.G  USB Style Green Keys
+
+
+
+
+                                                     Authorization Keys   10-3
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    It  may  assist with some system configuration issues to know that the USB
+    Green key has Vendor ID of 07F2 and a Device ID of 0001, and may be  iden-
+    tified as a Keylok II.  (Circa 2021)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    10-4
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+
+
+
+                                  11.  Archives
+
+
+
+
+
+
+    11.A  DOS4GW - Serial ATA's AHCI Mode
+
+    Running an XCLIB DOS4GW application in conjunction with a serial ATA (i.e.
+    hard drive) configured to AHCI mode  may  cause  the  computer  to  crash.
+    Selecting  serial  ATA  Compatibility  mode  instead  of AHCI mode in BIOS
+    appears to eliminate the problem.  (Circa Mar-2008)
+
+
+    11.B  DOS4GW - (S/VGA) Settings - Colors & Grey Levels
+
+    The XCIP program for DOS supports  graphic  display  (S/VGA)  cards  which
+    include  VESA  BIOS  support.   Adapters without VESA BIOS support will be
+    operated in VGA mode.  Within MSD[4], the `V' command  will  show  whether
+    VESA  BIOS support is available.  For display cards lacking VESA BIOS sup-
+    port, a TSR (Terminate and Stay Resident program) supplied by  the  card's
+    manufacturer must be loaded before XCIP is run.
+
+    For  S/VGA modes which provide 224 colors, (the default choice of XCIP for
+    DOS when used with color video), some  S/VGA  cards  require  2 MiByte  of
+    S/VGA  memory, but allow switching to this mode even when only 1 MiByte of
+    memory is installed.  The  symptom  is  a  VGA  screen  wraparound,  which
+    appears  about 5 text lines from the top and/or bottom.  Additional memory
+    should be added to the S/VGA card, a different S/VGA card  used,  or  XCIP
+    advised  to  forgo  color  display by use of the `-svga 640x480x8' command
+    line option.
+
+
+    11.C  DOS4GW - PCI Bus Master (DMA) - EMM386.SYS Issues
+
+    For application programs running under DOS or Windows 95/98, the  presence
+    of  EMM386  may  prevent proper operation of bus mastering PCI cards.  The
+    EMM386.SYS should be removed from CONFIG.SYS.
+
+
+
+
+
+    __________
+
+     4. The Microsoft MSD.EXE program, provided with Windows 3.1, DOS 6.0,
+        C 7.0, and other Microsoft programs is a valuable tool for identifying
+        use of memory and other resources.
+
+
+
+
+                                                               Archives   11-1
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    11.D  Windows 95/98 - PCI Bus Master (DMA) - EMM386.SYS Issues
+
+    For application programs running under DOS or Windows 95/98, the  presence
+    of  EMM386  may  prevent proper operation of bus mastering PCI cards.  The
+    EMM386.SYS should be removed from CONFIG.SYS.  (Circa 1995)
+
+
+    11.E  Windows 95/98 - DOS Box & Bus Mastering
+
+    DOS versions of EPIX(R) imaging software will not work with PCI  bus  mas-
+    tering  cards  when  run under a DOS prompt under Windows.  Either boot to
+    real DOS, or under Windows 95/98 use `Start', `Shut  Down',  and  `Restart
+    the Computer in MS-DOS Mode'.  (Circa 1995)
+
+
+    11.F  Windows 95/98 - IRQ Sharing
+
+    Under  Windows 95 and 98, on some motherboards, the Windows Device Manager
+    may be able to change the assigned IRQ.  In  the  Control  Panel,  System,
+    Device  Manager, click `Computer', `Properties', `Interrupt Request (IRQ)'
+    to display a list of devices and their IRQ's.  Find the device  using  the
+    same  IRQ as the PIXCI(R) frame grabber.  In the Device Manager, highlight
+    the offending card and  click  `Properties',  `Resources'.   Uncheck  `Use
+    automatic settings', highlight the IRQ, click `Change Setting', and select
+    a different IRQ.
+
+
+    11.G  Windows 95/98 - Drivers - Registry Issues
+
+    Under Windows 95 and 98, automatic recognition  and  installation  of  PCI
+    cards  is  dependent  upon each PCI card's unique ID, and gets confused if
+    there are two or more different cards with the same ID,  even  if  one  of
+    them  is no longer installed.  For example, the PIXCI(R) SV2 and SV3 frame
+    grabber ID's are determined by a Philips PCI Bus Interface chip, and  thus
+    share  the  same  ID  as  other cards using the same chip.  Similarly, the
+    PIXCI(R) SV4, SV5, SV5A, SV5B, SV5L, and SV6 frame grabber  ID  is  deter-
+    mined  by a Brooktree (Conexant) PCI Bus Interface chip.  Before automatic
+    installation of the PIXCI(R) frame grabber's drivers can succeed, the Win-
+    dows  95  and 98 registry entries and .INF files for all impostors must be
+    removed:
+
+      a.  In Windows 95, using REGEDIT, remove folder:
+
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_10E8&DEV_82B1      (for PIXCI(R) A)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_C300      (for PIXCI(R) CL3SD)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_C301      (for PIXCI(R) CL3SD)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_C100      (for PIXCI(R) CL1)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_C10A      (for PIXCI(R) CL1)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_C200      (for PIXCI(R) CL2)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_10E8&DEV_80D6      (for PIXCI(R) D, D24, D32)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_D200      (for PIXCI(R) D2X)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_D201      (for PIXCI(R) D2X)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_D20A      (for PIXCI(R) D2X)
+
+
+
+    11-2
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_D300      (for PIXCI(R) D3X)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_10E8&DEV_817F      (for PIXCI(R) DVO)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_C000      (for PIXCI(R) SI)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_C001      (for PIXCI(R) SI)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_0350      (for PIXCI(R) SV4)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_036E      (for PIXCI(R) SV5)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_0878      (for PIXCI(R) SV5)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_036E      (for PIXCI(R) SV5A)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_0878      (for PIXCI(R) SV5A)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_036E      (for PIXCI(R) SV5B)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_0878      (for PIXCI(R) SV5B)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_036E      (for PIXCI(R) SV5L)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_0878      (for PIXCI(R) SV5L)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_14F1&DEV_8800      (for PIXCI(R) SV6)
+
+          In Windows 98, using REGEDIT, remove folder:
+
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_10E8&DEV_82B1&SUBSYS_00000000&REV_**   (for PIXCI(R) A)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_C300&SUBSYS_00000000&REV_**   (for PIXCI(R) CL3SD)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_C301&SUBSYS_00000000&REV_**   (for PIXCI(R) CL3SD)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_C100&SUBSYS_00000000&REV_**   (for PIXCI(R) CL1)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_C10A&SUBSYS_00000000&REV_**   (for PIXCI(R) CL1)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_C200&SUBSYS_00000000&REV_**   (for PIXCI(R) CL2)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_10E8&DEV_80D6&SUBSYS_00000000&REV_**   (for PIXCI(R) D, D24, D32)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_D200&SUBSYS_00000000&REV_**   (for PIXCI(R) D2X)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_D201&SUBSYS_00000000&REV_**   (for PIXCI(R) D2X)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_D20A&SUBSYS_00000000&REV_**   (for PIXCI(R) D2X)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_D300&SUBSYS_00000000&REV_**   (for PIXCI(R) D3X)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_10E8&DEV_817F&SUBSYS_00000000&REV_**   (for PIXCI(R) DVO)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_C000&SUBSYS_00000000&REV_**   (for PIXCI(R) SI)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_165A&DEV_C001&SUBSYS_00000000&REV_**   (for PIXCI(R) SI)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_8086&DEV_1223&SUBSYS_00000000&REV_**   (for PIXCI(R) SV2, SV3)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_0350&SUBSYS_00000000&REV_**   (for PIXCI(R) SV4)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_036E&SUBSYS_00000000&REV_**   (for PIXCI(R) SV5)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_0878&SUBSYS_00000000&REV_**   (for PIXCI(R) SV5)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_036E&SUBSYS_00000000&REV_**   (for PIXCI(R) SV5A)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_0878&SUBSYS_00000000&REV_**   (for PIXCI(R) SV5A)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_036E&SUBSYS_00000000&REV_**   (for PIXCI(R) SV5B)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_0878&SUBSYS_00000000&REV_**   (for PIXCI(R) SV5B)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_036E&SUBSYS_00000000&REV_**   (for PIXCI(R) SV5L)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_109E&DEV_0878&SUBSYS_00000000&REV_**   (for PIXCI(R) SV5L)
+               \HKEY_LOCAL_MACHINE\ENUM\PCI\VEN_14F1&DEV_8800&SUBSYS_00000000&REV_**   (for PIXCI(R) SV6)
+
+          where the **'s may be any digits (assigned and  created  by  Windows
+          after detection of the PIXCI(R) frame grabber).
+
+      b.  In C:\WINDOWS\INF, remove all .INF files which contain:
+
+
+
+
+               PCI\VEN_10E8&DEV_82B1                                  (for PIXCI(R) A)
+               PCI\VEN_165A&DEV_C100                                  (for PIXCI(R) CL1)
+
+
+
+                                                               Archives   11-3
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+               PCI\VEN_165A&DEV_C10A                                  (for PIXCI(R) CL1)
+               PCI\VEN_165A&DEV_C200                                  (for PIXCI(R) CL2)
+               PCI\VEN_165A&DEV_C300                                  (for PIXCI(R) CL3SD)
+               PCI\VEN_165A&DEV_C301                                  (for PIXCI(R) CL3SD)
+               PCI\VEN_10E8&DEV_80D6                                  (for PIXCI(R) D, D24, D32)
+               PCI\VEN_10E8&DEV_817F                                  (for PIXCI(R) DVO)
+               PCI\VEN_165A&DEV_D200                                  (for PIXCI(R) D2X)
+               PCI\VEN_165A&DEV_D201                                  (for PIXCI(R) D2X)
+               PCI\VEN_165A&DEV_D20A                                  (for PIXCI(R) D2X)
+               PCI\VEN_165A&DEV_D300                                  (for PIXCI(R) D3X)
+               PCI\VEN_165A&DEV_C000                                  (for PIXCI(R) SI)
+               PCI\VEN_165A&DEV_C001                                  (for PIXCI(R) SI)
+               PCI\VEN_8086&DEV_1223                                  (for PIXCI(R) SV2, SV3)
+               PCI\VEN_109E&DEV_0350                                  (for PIXCI(R) SV4)
+               PCI\VEN_109E&DEV_036E                                  (for PIXCI(R) SV5)
+               PCI\VEN_109E&DEV_0878                                  (for PIXCI(R) SV5)
+               PCI\VEN_109E&DEV_036E                                  (for PIXCI(R) SV5A)
+               PCI\VEN_109E&DEV_0878                                  (for PIXCI(R) SV5A)
+               PCI\VEN_109E&DEV_036E                                  (for PIXCI(R) SV5B)
+               PCI\VEN_109E&DEV_0878                                  (for PIXCI(R) SV5B)
+               PCI\VEN_109E&DEV_036E                                  (for PIXCI(R) SV5L)
+               PCI\VEN_109E&DEV_0878                                  (for PIXCI(R) SV5L)
+               PCI\VEN_14F1&DEV_8800                                  (for PIXCI(R) SV6)
+
+          For  safety,  move these to a new subdirectory (of any name), rather
+          than deleting the files.  The Driver Assistant in XCAP  can  perform
+          the registry cleanup automatically, although it does not save any of
+          the removed files.
+
+      c.  Reboot the PC.  When Windows requests drivers for the PIXCI(R) frame
+          grabber,  specify the directory into which XCIP or XCAP software was
+          previously unpacked.
+
+    Alternately, use the manual installation of the driver and modification of
+    the registry, as per the installation instructions.
+
+
+    11.H  Windows 95/98 - Frame Buffer Memory Allocation
+
+    Under  Windows  95 and 98, when using EPIXXC.SYS to allocate large amounts
+    of frame buffer memory, problems may arise if other devices require memory
+    within  a specific range of physical addresses.  In particular ATI graphic
+    display (S/VGA) cards and some 3COM  network  interface  cards  appear  to
+    require  memory  below  64 MiByte.  Memory for these needs can be reserved
+    with the:
+
+             -MH KiByte_to_reserve
+
+    parameter to EPIXXC.SYS.  Using `-MH 1024' is sufficient  for  ATI  cards,
+    using `-MH'8192 or `-MH'16384 is sufficient for the 3COM 3C900.
+
+
+
+
+
+
+    11-4
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+    11.I  Windows 95/98 - BIOS Plug & Play - Other BIOS Issues
+
+    Some versions of BIOS may have a setting to select the operating system:
+
+             Operating System: Windows 95/98
+                               Other
+
+    These  systems might run under Windows NT with the wrong BIOS setting, but
+    Plug & Play PCI cards may not operate correctly.
+
+
+    11.J  Windows 95/98 - Graphic Display (S/VGA) Settings
+
+    The XCIP and XCAP programs for Windows display imagery on  the  computer's
+    graphic  display  (S/VGA) monitor.  The quality of the displayed images is
+    dependent on Window's settings  and  operation  of  the  graphics  display
+    (S/VGA)  card.   The default Windows 95 installation, for example, may use
+    the 16 Color setting, resulting in poor quality image display!   For  Win-
+    dows  95/98  and  Windows NT, the settings can be modified in the `Control
+    Panel', `Display', `Settings'.
+
+    For the XCIP program for Windows, a `256 Color' setting is  suggested  for
+    display of monochrome images, a `True Color (24 bit or 16777216 Color)' or
+    `True Color (32 bit)' setting is suggested for display of color or pseudo-
+    colored images.
+
+    For  the XCAP program for Windows, a `High Color (16 bit or 65536 Color)',
+    `True Color (24 bit or 16777216 Color)', or `True Color (32 bit)'  setting
+    for  the graphic display (S/VGA) adapter is required for proper display of
+    images and overlay graphics; the `True Color (24 bit or  16777216  Color)'
+    or  `True  Color  (32  bit)' is suggested for higher quality, and quicker,
+    display of images and overlay graphics.  Also, in Windows 95, under  `Con-
+    trol Panel', `Display', `Plus!', the `Show window contents while dragging'
+    must be disabled (this feature is not present in older versions of Windows
+    95).   Or  in Windows 98, under `Control Panel', `Display', `Effects', the
+    `Show window contents while dragging' should be disabled.
+
+    After changing the settings a full shutdown and CTRL+ALT+DEL reboot should
+    be  used.  (The quick restart offered by older versions of Windows 95, and
+    the dynamic graphic display (VGA) reconfiguration performed by newer  ver-
+    sions of Windows 95/98, may not re-initialize all devices properly).
+
+
+    11.K  Windows NT - PCI Card Resources - Resource Allocation
+
+    Later  versions  of  Windows NT may re-allocate PCI resources allocated by
+    BIOS, when it `moves the PCI device resources on top of another PCI device
+    that has not yet been claimed' (see Microsoft article Q152044).  This most
+    often causes a problem when multiple PIXCI(R) frame grabbers are used.  It
+    may be prevented by adding the /PCILOCK option to a C:\BOOT.INI entry, for
+    example:
+
+
+
+
+
+                                                               Archives   11-5
+
+
+
+
+
+
+    ==== EPIX(R) =============================================================
+
+
+             [operating systems]
+             multi(0)disk(0)rdisk(0)partition(7)\WINNT="Windows NT V 4.00"  /PCILOCK
+
+    Do not copy this new line exactly as is; the first  portion  of  the  line
+    must  be  copied  from  an existing configuration line in your C:\BOOT.INI
+    file.
+
+
+    11.L  Windows NT - Serial Mice versus Cameras w. RS-232 Control
+
+    Under Windows NT, the  auto  configuration  performed  while  booting  can
+    incorrectly  identify  certain  cameras  with  RS-232 controls as a serial
+    mouse.  Any COM port incorrectly identified  becomes  unavailable  to  all
+    applications, such as XCAP.
+
+    A simple solution is to leave the camera powered off or disconnected while
+    booting.  Alternately, in Control Panel, Services or  Devices,  the  `ser-
+    mouse'  service  can be set to manual.  Alternately, the boot.ini file can
+    be edited adding:
+
+             /NoSerialMouse              disable detection on all COM ports
+             /NoSerialMouse:COMx         disable detection on COMx ports
+             /NoSerialMouse:COMx,y,z     disable detection on COMx, y, and z ports
+
+    to the end of any or all boot descriptor lines, such as:
+
+             multi(0)disk(0)rdisk(0)partition(7)\WINNT="Windows NT ..." /NoSerialMouse
+
+    Some versions of Windows NT may instead require the:
+
+             /FASTDETECT
+
+    option in boot.ini; consult your Windows systems administrator  for  addi-
+    tional guidance.  (Circa 1996)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    11-6
+
+
+
+
+

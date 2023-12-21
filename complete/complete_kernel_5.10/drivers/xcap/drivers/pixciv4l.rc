@@ -1,0 +1,139 @@
+#!/bin/sh
+# 11-Apr-2023
+#
+
+### BEGIN INIT INFO
+# Provides: PIXCI-V4L2
+# Required-Start: PIXCI
+# Required-Stop: PIXCI
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 1 6
+# Short-Description: EPIX(R) PIXCI(R) V4L2 driver
+# Description: V4L2 Driver for EPIX(R) PIXCI(R) frame grabbers
+### END INIT INFO
+
+if [ `id -u` -ne 0 ]; then
+    echo "$0 must be run as root"
+    exit 1
+fi
+
+ARCH=$(uname -m | sed -e s/i.86/i386/)
+UNAMER=$(uname -r)
+MAJVERS=$(uname -r | sed -e s/-/./ | cut -f1-2 -d.)
+
+
+PIXCI_DIR0=/lib/modules/$UNAMER/extra
+PIXCI_DIR1=/lib/modules/$UNAMER/kernel/drivers/misc
+PIXCI_DIR2=/usr/sbin
+PIXCI_FILE=pixciv4l.ko
+PIXCI_MODULE=pixciv4l
+PIXCI_RESOURCE=v4lPIXCI
+
+PIXCI_DIR=$PIXCI_DIR0
+if [ ! -d $PIXCI_DIR ]; then
+    PIXCI_DIR=$PIXCI_DIR1
+fi
+if [ ! -d $PIXCI_DIR ]; then
+    PIXCI_DIR=$PIXCI_DIR2
+fi
+
+# Exit if the driver is not installed
+if [ ! -f $PIXCI_DIR/$PIXCI_FILE ]; then
+    echo "$0 missing $PIXCI_DIR/$PIXCI_FILE"
+    exit 1
+fi
+
+#Read configuration variable file if it is present?
+[ -r /etc/default/$PIXCI_MODULE ] && . /etc/default/$PIXCI_MODULE
+
+# Load the VERBOSE setting and other rcS variables?
+# . /lib/init/vars.sh
+
+# Define LSB log_* functions or other variants?
+# . /etc/rc.status
+# . /lib/lsb/init-functions
+# . /etc/rc.d/init.d/functions
+
+
+start()
+{
+# Install V4L2 core - but it might already be installed  - ignore errors
+    echo "modprobe" "v4l2-common"
+    modprobe v4l2-common || true
+    echo "modprobe" "videobuf2-dma-contig"
+    modprobe videobuf2-dma-contig || true
+    echo "modprobe" "videobuf2-v4l2"
+    modprobe videobuf2-v4l2 || true
+    echo "modprobe" "videobuf2-core"
+    modprobe videobuf2-core || true
+
+    PIXCI_PARM=""
+    if  [ -n "$VIDEO_NR" ]; then
+        PIXCI_PARM="$PIXCI_PARM video_nr=$VIDEO_NR"
+    fi
+    if  [ -n "$STREAM_MODE" ]; then
+        PIXCI_PARM="$PIXCI_PARM stream_mode=$STREAM_MODE"
+    fi
+    if  [ -n "$STREAM_BUFFERS" ]; then
+        PIXCI_PARM="$PIXCI_PARM stream_buffers=$STREAM_BUFFERS"
+    fi
+    if  [ -n "$READ_MODE" ]; then
+        PIXCI_PARM="$PIXCI_PARM read_mode=$READ_MODE"
+    fi
+    if  [ -n "$DATA_MODE" ]; then
+        PIXCI_PARM="$PIXCI_PARM data_mode=$DATA_MODE"
+    fi
+    if  [ -n "$VERBOSE" ]; then
+        PIXCI_PARM="$PIXCI_PARM verbose=$VERBOSE"
+    fi
+    if  [ -n "$CAPT_OPTIONS" ]; then
+        PIXCI_PARM="$PIXCI_PARM capt_options=$CAPT_OPTIONS"
+    fi
+    if [ ! -f $PIXCI_DIR/$PIXCI_FILE ]; then
+        echo "$0 missing $PIXCI_DIR/$PIXCI_FILE"
+        exit 1
+    fi
+    echo "insmod" "$PIXCI_DIR/$PIXCI_FILE" "$PIXCI_PARM"
+    insmod $PIXCI_DIR/$PIXCI_FILE $PIXCI_PARM
+}
+
+
+stop()
+{
+    lsmod | grep $PIXCI_MODULE > /dev/null
+    if [ $? -eq 0 ]; then
+        echo "rmmod" "$PIXCI_MODULE"
+        rmmod $PIXCI_MODULE
+    fi
+}
+
+status()
+{
+    lsmod | grep $PIXCI_MODULE > /dev/null
+    if [ $? -eq 0 ]; then
+        echo "$2 driver is running!"
+    else
+        echo "$2 driver is not running!"
+    fi
+}
+
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status
+        ;;
+    force-reload|restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|force-reload|status}"
+        exit 1
+        ;;
+esac

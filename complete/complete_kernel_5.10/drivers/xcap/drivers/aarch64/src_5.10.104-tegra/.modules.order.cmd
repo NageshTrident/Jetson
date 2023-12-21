@@ -1,0 +1,1 @@
+cmd_/usr/local/xcap/drivers/aarch64/src_5.10.104-tegra/modules.order := {   echo /usr/local/xcap/drivers/aarch64/src_5.10.104-tegra/pixci.ko; :; } | awk '!x[$$0]++' - > /usr/local/xcap/drivers/aarch64/src_5.10.104-tegra/modules.order

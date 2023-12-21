@@ -1,0 +1,1 @@
+cmd_/usr/local/xcap/drivers/aarch64/src_5.10.104-tegra/Module.symvers := sed 's/ko$$/o/' /usr/local/xcap/drivers/aarch64/src_5.10.104-tegra/modules.order | scripts/mod/modpost -m  -E  -o /usr/local/xcap/drivers/aarch64/src_5.10.104-tegra/Module.symvers -e -i Module.symvers   -T -

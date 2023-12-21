@@ -1,0 +1,558 @@
+<!--								    -->
+<!--	PIXCI User's Manual Extract  External   25-Oct-2020         -->
+<!--								    -->
+<!--	Copyright (C)  2020  EPIX, Inc.  All rights reserved.	    -->
+<!--								    -->
+<!--								    -->
+<!DOCTYPE HTML PUBLIC "-//WSC//DTD HTML 3.2 FINAL//EN">
+<HTML>
+<HEAD>
+<TITLE>PIXCI User's Manual Extract</TITLE>
+<STYLE>
+    BODY {
+        font-family: times,serif;
+        color: black;
+        font-size: 12pt;
+        padding: 0px;
+        margin: 60px;
+    }
+    PRE {
+        color: black;
+        font-size: 9pt;
+    }
+    H1 {
+        font-family: Helvetica,sans-serif,sansserif;
+        color: black;
+        font-size: 20pt;
+        background-color: #66CCFF;
+        padding-left: 5px;
+    }
+    H2 {
+        font-family: Helvetica,sans-serif,sansserif;
+        color: black;
+        font-size: 18pt;
+        background-color: #88DDFF;
+        padding-left: 10px;
+    }
+    H3 {
+        font-family: Helvetica,sans-serif,sansserif;
+        color: black;
+        font-size: 16pt;
+        background-color: #AAEEFF;
+        padding-left: 15px;
+    }
+    H4 {
+        font-family: Helvetica,sans-serif,sansserif;
+        color: black;
+        font-size: 14pt;
+        background-color: #BBEEFF;
+        padding-left: 20px;
+    }
+    H5 {
+        font-family: Helvetica,sans-serif,sansserif;
+        color: black;
+        font-size: 12pt;
+        background-color: #CCEEFF;
+        padding-left: 25px;
+    }
+    H6 {
+        font-family: Helvetica,sans-serif,sansserif;
+        color: black;
+        font-size: 12pt;
+        background-color: #DDEEFF;
+        padding-left: 30px;
+    }
+    EM {
+        font-family: times,serif;
+        color: black;
+        font-size: 12pt;
+        font-style=italics;
+    }
+    EM.Ep {
+        font-family: Helvetica,sans-serif,sansserif;
+        color: black;
+        font-size: 10pt;
+    }
+    EM.Ss {
+        font-family: Helvetica,sans-serif,sansserif;
+        color: black;
+        font-size: 14pt;
+    }
+    B.Fg {
+        font-family: Helvetica,sans-serif,sansserif;
+        color: black;
+        font-size: 12pt;
+    }
+    HR {
+        border:thin solid #999999;
+    }
+    TABLE {
+        border: 1px solid #999999;
+        background-color: #EEEEEE;
+    }
+    A:link {
+        color:#0044FF;
+    }
+    A:visited {
+        color:#0000CC;
+    }
+    A:focus {
+        color:#FF0000;
+    }
+    A:hover {
+        color:#FF0000;
+    }
+    A:active {
+        color:#0000FF;
+    }
+</STYLE>
+</HEAD>
+<BODY BGCOLOR="#ffffff">
+<HR SIZE="3">
+<P>&nbsp;<P>&nbsp;<P>&nbsp;
+<A NAME="SILICON VIDEO&reg; 15C5 Video Adjustments"CLASS="Ch"></A>
+<A NAME="1.  SILICON VIDEO&reg; 15C5 Video Adjustments"></A>
+<H1>1.  SILICON VIDEO&reg; 15C5 Video Adjustments</H1>
+<A NAME="SILICON VIDEO&reg; 15C5 Video Adjustments NX0"CLASS="NX"></A>
+<P>&nbsp;
+<A NAME="Video Resolution"CLASS="Ch"></A>
+<A NAME="1.1.  Video Resolution"></A>
+<H2>1.1.  Video Resolution</H2>
+<A NAME="Video Resolution NX1"CLASS="NX"></A>
+<P>
+Reducing the video resolution (the number of pixels captured per line
+and column) allows capturing more video frames in a given size of frame
+buffer memory.
+From the PIXCI&reg; Image Viewer, click:
+<BLOCKQUOTE>
+<PRE>
+    Capture
+    Adjustments
+    Res(olution)
+</PRE>
+</BLOCKQUOTE>
+Click:
+<BLOCKQUOTE>
+<PRE>
+    Set Video Window
+</PRE>
+</BLOCKQUOTE>
+and draw the new desired area to be captured
+by left clicking and dragging over the displayed image.
+Click:
+<BLOCKQUOTE>
+<PRE>
+    OK
+</PRE>
+</BLOCKQUOTE>
+to accept the new capture resolution.
+Note: Changing the capture resolution will destroy
+any images previously captured in the frame buffers!
+<P>
+The
+<BLOCKQUOTE>
+<PRE>
+    Capt(ure)
+    Frame Buffers
+</PRE>
+</BLOCKQUOTE>
+shows the number of frame buffers available with the
+current selections.
+<P>&nbsp;
+<A NAME="Saving the Video Configuration"CLASS="Ch"></A>
+<A NAME="1.2.  Saving the Video Configuration"></A>
+<H2>1.2.  Saving the Video Configuration</H2>
+<A NAME="Saving the Video Configuration NX2"CLASS="NX"></A>
+<P>
+The selections under the PIXCI&reg; Image Viewer:
+<BLOCKQUOTE>
+<PRE>
+    Adjustments
+</PRE>
+</BLOCKQUOTE>
+are automatically saved when the PIXCI&reg; frame grabber is closed,
+and/or XCAP is exited.
+When the PIXCI&reg; frame grabber is next opened, clicking (from the XCAP Main Window):
+<BLOCKQUOTE>
+<PRE>
+    PIXCI&reg;
+    PIXCI&reg; Open/Close
+    Camera &amp; Format
+</PRE>
+</BLOCKQUOTE>
+Choose:
+<BLOCKQUOTE>
+<PRE>
+    Open w. last used Video Setup
+</PRE>
+</BLOCKQUOTE>
+to use the previous video setup, or choose:
+<BLOCKQUOTE>
+<PRE>
+    Open w. default Video Setup
+</PRE>
+</BLOCKQUOTE>
+to start afresh with the default video format and resolution.
+<P>&nbsp;
+<A NAME="Camera Controls"CLASS="Ch"></A>
+<A NAME="1.3.  Camera Controls"></A>
+<H2>1.3.  Camera Controls</H2>
+<A NAME="Camera Controls NX3"CLASS="NX"></A>
+<P>
+XCAP integrates controls for both the
+PIXCI&reg; frame grabber and the SILICON VIDEO&reg; 15C5 cameras
+within the Capture &amp; Adjust window.
+The left side of the Capture &amp; Adjust window contains controls for the PIXCI&reg; frame grabber.
+The right side of the Capture &amp; Adjust window provides camera specific controls.
+<P><IMG SRC="./xcapimg/sv15c5_a.jpg" align="middle"></P>
+<P>
+The
+<A NAME="Item Gain NX4"CLASS="NX"></A>
+<EM CLASS="Ep">Gain</EM>
+allows adjusting the camera's gain.
+Increased gain allows capturing dark scenes, but at the expense
+of slightly decreased image quality (increased random noise);
+Whenever possible, increase illumination or increase
+exposure instead of increasing gain.
+The
+<A NAME="Item Digital Gain NX5"CLASS="NX"></A>
+<EM CLASS="Ep">Digital Gain</EM>
+allows adjusting the camera's post A-D digital gain.
+<P>
+The
+<A NAME="Item Exposure NX6"CLASS="NX"></A>
+<EM CLASS="Ep">Exposure</EM>
+allows adjusting the camera's exposure (shutter) period.
+When using AC powered lighting,
+an
+<A NAME="Item Exposure NX7"CLASS="NX"></A>
+<EM CLASS="Ep">Exposure</EM>
+which is a multiple of half of the power
+line's period (i.e. 16.6/2 msec. in the U.S. and other locations using 60 Hz,
+20.0/2 msec. in Europe and other locations using 50 Hz)
+is suggested to prevent varying image brightness
+due to the illumination's cyclical change of brightness.
+Selecting
+<A NAME="Item Exp. Mult. of 1/50 NX8"CLASS="NX"></A>
+<EM CLASS="Ep">Exp. Mult. of 1/50</EM>
+or
+<A NAME="Item Exp. Mult. of 1/60 NX9"CLASS="NX"></A>
+<EM CLASS="Ep">Exp. Mult. of 1/60</EM>
+automatically forces the
+<A NAME="Item Exposure NX10"CLASS="NX"></A>
+<EM CLASS="Ep">Exposure</EM>
+to a multiple of the corresponding period.
+<P><IMG SRC="./xcapimg/sv15c5_b.jpg" align="middle"></P>
+<P>
+The
+<A NAME="Item Scan Direction NX11"CLASS="NX"></A>
+<EM CLASS="Ep">Scan Direction</EM>
+allows adjusting the direction in which pixels are read-out,
+allowing inversion or mirroring of the image.
+<P>
+The
+<A NAME="Item AOI Left NX12"CLASS="NX"></A>
+<EM CLASS="Ep">AOI Left</EM>,
+<A NAME="Item AOI Width NX13"CLASS="NX"></A>
+<EM CLASS="Ep">AOI Width</EM>,
+<A NAME="Item AOI Top NX14"CLASS="NX"></A>
+<EM CLASS="Ep">AOI Top</EM>,
+and
+<A NAME="Item AOI Height NX15"CLASS="NX"></A>
+<EM CLASS="Ep">AOI Height</EM>
+allow selecting an area of interest which is read-out and captured.
+Capturing fewer columns or fewer lines decreases the image size
+and allows a faster frame rate.
+If
+<A NAME="Item Center Aoi L(eft)-R(ight) NX16"CLASS="NX"></A>
+<EM CLASS="Ep">Center Aoi L(eft)-R(ight)</EM>
+or
+<A NAME="Item Center Aoi T(op)-B(ottom) NX17"CLASS="NX"></A>
+<EM CLASS="Ep">Center Aoi T(op)-B(ottom)</EM>
+is selected, the
+<A NAME="Item AOI Left NX18"CLASS="NX"></A>
+<EM CLASS="Ep">AOI Left</EM>
+or
+<A NAME="Item AOI Top NX19"CLASS="NX"></A>
+<EM CLASS="Ep">AOI Top</EM>,
+respectively,
+is automatically adjusted so as to center the
+capture AOI, the
+<A NAME="Item AOI Width NX20"CLASS="NX"></A>
+<EM CLASS="Ep">AOI Width</EM>
+or
+<A NAME="Item AOI Height NX21"CLASS="NX"></A>
+<EM CLASS="Ep">AOI Height</EM>,
+within the camera's field of view.
+<P><IMG SRC="./xcapimg/sv15c5_c.jpg" align="middle"></P>
+<P>
+The
+<A NAME="Item Subsampling NX22"CLASS="NX"></A>
+<EM CLASS="Ep">Subsampling</EM>
+allows selecting subsampling (decimation)
+of the AOI by a factor of &times;2 or &times;4 horizontally and
+by a factor of &times;2, &times;4, &times;8, &times;16, or &times;32 vertically,
+producing an image of lower
+resolution with smaller size, and
+allowing a faster frame rate.
+The
+<A NAME="Item (Subsample) with Binning NX23"CLASS="NX"></A>
+<EM CLASS="Ep">(Subsample) with Binning</EM>
+allows selecting whether the
+<A NAME="Item Subsampling NX24"CLASS="NX"></A>
+<EM CLASS="Ep">Subsampling</EM>
+uses averaging of pixels in each
+subsampled group rather than decimation, to reduce random noise.
+The
+<A NAME="Item (Subsample) with Binning NX25"CLASS="NX"></A>
+<EM CLASS="Ep">(Subsample) with Binning</EM>
+is only available
+with a
+<A NAME="Item Subsampling NX26"CLASS="NX"></A>
+<EM CLASS="Ep">Subsampling</EM>
+selection of 2&times;2 or 4&times;4.
+Further, the
+<A NAME="Item (Binning) with Summation NX27"CLASS="NX"></A>
+<EM CLASS="Ep">(Binning) with Summation</EM>
+allows selecting whether the binning uses averaging, or uses summation
+along columns (but not rows) for increased sensitivity.
+<P>
+The
+<A NAME="Item Pixel Clock NX28"CLASS="NX"></A>
+<EM CLASS="Ep">Pixel Clock</EM>
+allows specifying the pixel clock rate.
+A faster pixel clock increases the allowable frame rate,
+but with reduced image quality (increased fixed pattern noise);
+a slower pixel clock increases the allowable exposure
+periods for longer integration and greater sensitivity.
+<P>
+The
+<A NAME="Item Video Mode NX29"CLASS="NX"></A>
+<EM CLASS="Ep">Video Mode</EM>
+allows selecting
+<A NAME="Item Free-Run NX30"CLASS="NX"></A>
+<EM CLASS="Ep">Free-Run</EM>
+or
+<A NAME="Item Controlled GRRR (Global Reset, Rolling Readout) NX31"CLASS="NX"></A>
+<EM CLASS="Ep">Controlled GRRR (Global Reset, Rolling Readout)</EM>
+frame mode.
+In
+<A NAME="Item Free-Run NX32"CLASS="NX"></A>
+<EM CLASS="Ep">Free-Run</EM>
+mode the camera exposure and read-out is free-running;
+continuously exposing and sending frames
+to the frame grabber at a constant frame rate without need of a trigger.
+In
+<A NAME="Item Controlled GRRR (Global Reset, Rolling Readout) NX33"CLASS="NX"></A>
+<EM CLASS="Ep">Controlled GRRR (Global Reset, Rolling Readout)</EM>
+modes the
+<A NAME="Item Controlled Frame Rate NX34"CLASS="NX"></A>
+<EM CLASS="Ep">Controlled Frame Rate</EM>,
+<A NAME="Item Continuous NX35"CLASS="NX"></A>
+<EM CLASS="Ep">Continuous</EM>,
+and
+<A NAME="Item Single Shot NX36"CLASS="NX"></A>
+<EM CLASS="Ep">Single Shot</EM>
+provide frame rate and triggering
+control through the PIXCI&reg;&nbsp;SI1, SI2, or SI4 frame grabber.
+The
+<A NAME="Item Controlled GRRR (Global Reset, Rolling Readout) NX37"CLASS="NX"></A>
+<EM CLASS="Ep">Controlled GRRR (Global Reset, Rolling Readout)</EM>
+mode provides shorter delay from trigger to exposure, but expects use of strobed flash illumination.
+<P>
+The
+<A NAME="Item Strobe Mode NX38"CLASS="NX"></A>
+<EM CLASS="Ep">Strobe Mode</EM>
+and
+<A NAME="Item Strobe Period NX39"CLASS="NX"></A>
+<EM CLASS="Ep">Strobe Period</EM>
+allows enabling an output strobe
+to synchronize a flash or other
+external device to the camera's exposure.
+<P>&nbsp;
+<A NAME="Color Cameras"CLASS="Ch"></A>
+<A NAME="1.4.  Color Cameras"></A>
+<H2>1.4.  Color Cameras</H2>
+<A NAME="Color Cameras NX40"CLASS="NX"></A>
+For color cameras with so-called
+''Bayer format output'',
+it is XCAP software which performs color adjustments
+and white balancing, not the camera.
+<P><IMG SRC="./xcapimg/sv15c5_e.jpg" align="middle"></P>
+From the PIXCI&reg; Image Viewer, click:
+<BLOCKQUOTE>
+<PRE>
+    Capture
+    Adjustments
+    Color (or Clr)
+</PRE>
+</BLOCKQUOTE>
+For most common conditions:
+<OL TYPE="a">
+<P>
+<LI>
+Select one of the pre-defined correlated color temperatures, either
+based on best appearance, or matching the color
+temperature of the current illumination.
+The
+<A NAME="Item 5000&deg;K NX41"CLASS="NX"></A>
+<EM CLASS="Ep">5000&deg;K</EM>
+selection is average overcast daylight,
+the
+<A NAME="Item 4100&deg;K NX42"CLASS="NX"></A>
+<EM CLASS="Ep">4100&deg;K</EM>
+selection is a typical cool white fluorescent bulb,
+and the
+<A NAME="Item 2800&deg;K NX43"CLASS="NX"></A>
+<EM CLASS="Ep">2800&deg;K</EM>
+selection is a typical 60 to 100 watt tungsten bulb.
+<P>
+<LI>
+Choose one of the predefined color qualities, trading quality for speed.
+<P>
+<LI>
+If none of the predefined settings is satisfactory,
+start with the best setting
+and click:
+<BLOCKQUOTE>
+<PRE>
+    Customize
+</PRE>
+</BLOCKQUOTE>
+Cover the camera's lens and click:
+<BLOCKQUOTE>
+<PRE>
+    Black Balance
+</PRE>
+</BLOCKQUOTE>
+Finally point the camera at a white target
+(but preferably not a target using fluorescent brighteners)
+and click:
+<BLOCKQUOTE>
+<PRE>
+    White Balance
+</PRE>
+</BLOCKQUOTE>
+</OL>
+<P>&nbsp;
+<A NAME="Automatic Gain &amp; Exposure Control"CLASS="Ch"></A>
+<A NAME="1.5.  Automatic Gain &amp; Exposure Control"></A>
+<H2>1.5.  Automatic Gain &amp; Exposure Control</H2>
+<A NAME="Automatic Gain &amp; Exposure Control NX44"CLASS="NX"></A>
+The AGC controls provide automatic adjustment of the
+camera's gain, digital gain, or exposure as the image intensity changes.
+From the PIXCI&reg; Image Viewer, click:
+<BLOCKQUOTE>
+<PRE>
+    Capture
+    Adjustments
+    AGC
+</PRE>
+</BLOCKQUOTE>
+Select whether gain, digital gain, or exposure,
+or any combination, should be modified to darken a too-bright image
+or brighten a too-dark image:
+<BLOCKQUOTE>
+<PRE>
+    AGC Adjusts Gain
+    AGC Adjusts Dig. Gain
+    AGC Adjusts Exposure
+</PRE>
+</BLOCKQUOTE>
+Using only gain adjustments avoids increased blur due to moving objects
+when exposure is increased.
+Using only exposure adjustments avoids increased pixel noise at high
+gain settings.
+If selecting more than one adjustment, the
+<BLOCKQUOTE>
+<PRE>
+    AGC Adjust Priority
+</PRE>
+</BLOCKQUOTE>
+allows selecting whether gain, digital gain, or exposure should be adjusted first
+for an image which is too dark (the opposite is done for an image
+which is too bright); again trading off image blur versus noise.
+Finally click:
+<BLOCKQUOTE>
+<PRE>
+    AGC On
+</PRE>
+</BLOCKQUOTE>
+to enable AGC.
+<P><IMG SRC="./xcapimg/sv15c5_f.jpg" align="middle"></P>
+<P><IMG SRC="./xcapimg/sv15c5_g.jpg" align="middle"></P>
+<P>&nbsp;
+<A NAME="Image Quality"CLASS="Ch"></A>
+<A NAME="1.6.  Image Quality"></A>
+<H2>1.6.  Image Quality</H2>
+<A NAME="Image Quality NX45"CLASS="NX"></A>
+The SILICON VIDEO&reg; 15C5 camera, as
+does virtually all high resolution CMOS sensors (as well as most CCD sensors),
+has several pixels which are totally or partially unresponsive.
+The number and pattern of pixels is unique for each camera and sensor.
+Software can compensate for the unresponsive pixels.
+While some cameras hide the unresponsive pixels' existence,
+the SILICON VIDEO&reg; 15C5
+defaults to showing all pixel values as output by the sensor,
+so that the user can be aware of these unique pixels.
+<P>
+To enable software compensation for the most common, bright,
+unresponsive pixels,
+from the PIXCI&reg; Image Viewer, click:
+<BLOCKQUOTE>
+<PRE>
+    Capture
+    Adjustments
+    FFC
+</PRE>
+</BLOCKQUOTE>
+Select
+<BLOCKQUOTE>
+<PRE>
+    Pixel Normalization: Offset
+</PRE>
+</BLOCKQUOTE>
+Close the lens' aperture or install the lens cap.
+Click:
+<BLOCKQUOTE>
+<PRE>
+    Extract Offset Ref.
+</PRE>
+</BLOCKQUOTE>
+and select
+<BLOCKQUOTE>
+<PRE>
+    Normalization On
+</PRE>
+</BLOCKQUOTE>
+<P>
+To also correct for the less common and less visible
+dark unresponsive pixels, instead select:
+<BLOCKQUOTE>
+<PRE>
+    Pixel Normalization: Offset &amp; Defect
+</PRE>
+</BLOCKQUOTE>
+Close the lens' aperture or install the lens cap.
+Click:
+<BLOCKQUOTE>
+<PRE>
+    Extract Offset Ref.
+</PRE>
+</BLOCKQUOTE>
+Uncover and open the lens and point the camera
+at an even grey or white (but not saturated) target.
+Click:
+<BLOCKQUOTE>
+<PRE>
+    Extract Defect Ref.
+</PRE>
+</BLOCKQUOTE>
+and select
+<BLOCKQUOTE>
+<PRE>
+    Normalization On
+</PRE>
+</BLOCKQUOTE>
+</BODY>
+</HTML>

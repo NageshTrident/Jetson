@@ -1,0 +1,59 @@
+#
+#
+# Default settings for pixciv4l driver.
+
+#
+# The /dev/videoN index, -1 for autodetect default
+#
+VIDEO_NR=-1
+
+#
+# Support streaming modes
+#  0x01 (bit):   Support MMAP
+#  0x02 (bit):   Support USERPTR   // future?
+#  0x10 (bit):   Support DMABUF
+#
+# Number of streaming buffers?
+# While many V4L2 drivers default to 32 buffers,
+# we must consider high resolution, high bit depth cameras;
+# a handful of buffers should be enough w. the
+# proper application software.
+#
+STREAM_MODE=1
+STREAM_BUFFERS=5
+
+#
+# Non Stream video capture modes.
+# 1: Non Stream Read - Snap.
+#        In btn trigger mode will also trigger camera with each read()
+# 2: Non Stream Read - Live, Newest
+# 3: Non Stream Read - Live, Oldest
+# Currently takes affect only after close & re-open of V4L2.
+#
+READ_MODE=1
+
+#
+# 0x01 (bit): If capture card provides DMAed field counter,
+# choose whether the field counter should be retained
+# (but will cause the image/pixel format to be non-standard)
+#
+# 0x02 (bit): Force description of image data to be 8-bit monochrome;
+# does not modify the image data.
+#
+DATA_MODE=0
+
+#
+# Verbose options
+# (0=quiet)
+#
+VERBOSE=1
+
+#
+# Various capture options; 0 is normal, safe value.
+# See pixciv4l.c
+#
+CAPT_OPTIONS=0
+
+
+#
+#

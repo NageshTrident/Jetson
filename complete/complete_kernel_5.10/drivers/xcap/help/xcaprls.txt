@@ -1,0 +1,2508 @@
+
+
+
+                                         - 1 -
+
+
+
+    RELEASE NOTES: XCAP  -- Version 3.0, V3.7, V3.8
+
+      1.  Version  3.0 released.  Adds support for Windows Vista, Windows XP(x64),
+          and Linux 64 Bit.  (28-Feb-2007).
+
+      2.  Fixed Feature: Blob analysis, using Retain Regions and  not  using  Full
+          Statistics  would  show  the  bounding rectangle in incorrect locations.
+          (26-Mar-2007)
+
+      3.  New Feature: The Birger EF232 Lens Mount, providing aperture  and  focus
+          lens  control  in  conjunction  with  Canon EF lenses, is now supported.
+          (05-Jun-2007)
+
+      4.  Improved Feature: Sequence Capture now offers both event start and event
+          stop  triggers,  for both Linear Sequence and Circular Sequence.  Previ-
+          ously, event start was available only with  Linear  Sequence  and  event
+          stop was available only with Circular Sequence.  (19-Jun-2007).
+
+      5.  Fixed  Feature:  Under Windows, depending on PC speed, the Video to Disk
+          will run once, correctly, but may  then  issue  a  `Invalid  Parameters'
+          error  until the PIXCI(R) is closed and re-opened.  The Video to Virtual
+          memory will run multiple times until that feature is closed;  thereafter
+          may  issue  the  same  error until the PIXCI(R) is closed and re-opened.
+          (10-Aug-2007)
+
+      6.  Improved Feature: Sequence Capture, Video  to  Image  Files  now  allows
+          specifying  .avi  format  - with the entire sequence saved into a single
+          file.  (Previously supported .bmp, .tif. jpg formats saved one image per
+          file.)   However,  saving all images into a single .avi precludes use of
+          Circular Capture mode, precludes modifying the images after capture, and
+          precludes  viewing  the  images  as captured (although live video in the
+          PIXCI(R) Viewer window is still displayed).  For time lapse photography,
+          using  single  file  has the disadvantage that in event of power failure
+          during  capture,  the  previously   captured   images   may   be   lost.
+          (18-Sep-2007)
+
+      7.  Improved  Feature:  Sequence  Capture, Video to Image Files and Video to
+          Disk has been improved so that in non-circular mode and with the  number
+          of  images  captured not greater than the number of frame buffers, there
+          will never be a `A captured image could not be saved - Use a faster disk
+          or  a slower capture rate.'  error.  Thus, these can be used as a conve-
+          nient replacement for doing Sequence Capture,  Video  to  Frame  Buffers
+          followed by saving the captured images to disk.  (21-Sep-2007)
+
+      8.  Modified  Feature: The popup helpful hints are now, by default disabled.
+          Even for XCAP-Lite.  (13-Dec-2007)
+
+      9.  Modified Feature: Under Windows NT, 2000, XP, and Vista the default XCAP
+          installation  directory  has  been changed to \Program Files\EPIX\XCAP .
+          When installing a newer version over an older version  in  C:\XCAP,  the
+
+
+
+
+
+
+
+
+
+
+
+
+                                         - 2 -
+
+
+
+          installer will continue to default to C:\XCAP .
+
+             XCAP for 32 bit Windows 2000, XP, and Vista now uses a newer Java run
+          time environment, which is not compatible with Windows 95,  98,  ME,  or
+          NT.   The  new run time environment supports the Vista `Aero' interface,
+          as well as other improvements.  There are now two  distributions:  XCAP-
+          WIN32.EXE  for  Windows 2000, XP, and Vista and XCAPWIN32JRE9598MENT.EXE
+          for Windows 95, 98, ME, and NT.  There is also a  XCAPWIN32NOJRE.EXE;  a
+          smaller  service  pack  for updating XCAP without re-installing the Java
+          run time environment.  (17-Dec-2007)
+
+     10.  Fixed Feature: When installing to the aforementioned new default  direc-
+          tory  under Vista, the installer must be explicitly run with Administra-
+          tor privileges, or else a `Can't write file  (err=6)'  occurs.   Not  so
+          when installing to the old default directory.  (31-Jan-2008).
+
+     11.  Improved  Feature:  XCAP for Windows now includes the Camera Link Serial
+          API DLL, which is required when using a camera  manufacturer's  software
+          to  configure  a camera via serial commands.  It is not needed when XCAP
+          provides its own integrated serial control GUI.  Inclusion of  the  DLL,
+          rather  than  obtaining  it  separately,  makes  use of the cameras with
+          XCAP's `Generic Camera Link' controls more convenient.  The Camera  Link
+          Serial API DLL is installed via the `Driver Assistant'.  (11-Feb-2008)
+
+     12.  Fixed  Feature: The `Script Tool Bar' was inadvertently disabled in XCAP
+          V3.0.  Loading of .avi files larger than 4 GB was inadvertently disabled
+          in XCAP V3.0.  (11-Feb-2008)
+
+     13.  Added  Feature:  XCAP for Windows now supports Windows Vista 64-Bit with
+          Service Pack 1 or later; use with Vista 64-Bit prior to SP1 is not  rec-
+          ommended.  (13-Apr-2008)
+
+     14.  Fixed/Added  Feature: 64 bit versions of XCAP now support PC based image
+          sequences larger  than  4 GB,  previously  only  PIXCI(R)  frame  buffer
+          sequences larger than 4 GB were supported.  (14-May-2008)
+
+     15.  Improved Feature: The Script Player now allows starting operations, such
+          as sequence capture, and continuing  execution  of  the  script  without
+          awaiting completion of the operation.  (04-Jun-2008)
+
+     16.  New  Feature:  Now  has  partial  and beta-level support for new SILICON
+          VIDEO(R) 9C10 camera.  (01-Jul-2008)
+
+     17.  Fixed Feature: On 64 bit systems, the Advanced Color  Space  Calibration
+          feature  (for Bayer output cameras), the Warping with Fiducials feature,
+          and the Spatial Calibration with Rotation feature  may  XCAP  to  abort.
+          (20-Aug-2008)
+
+     18.  Specifications  for  XCAP-Ltd  stated that polar reticles, that protrac-
+          tors, and that line profile with any  but  a  straight  line,  were  not
+
+
+
+
+
+
+
+
+
+
+
+
+                                         - 3 -
+
+
+
+          provided;  these features were in fact allowed by XCAP-Ltd, but have now
+          been disabled.  Specifications for XCAP-Ltd stated that paint  fill  was
+          provided,  this  feature was in fact disallowed by XCAP-Ltd, but has now
+          been enabled.  (03-Sep-2008)
+
+     19.  New Feature: For the SILICON VIDEO(R) 5C10 and 5M10  cameras,  defective
+          pixel substitution is now provided.  (15-Oct-2008)
+
+     20.  Fixed  Feature:  With  a  PIXCI(R) D2X, CL1, or SI, with versions of the
+          V3.0 driver with added support for PCI Express, using the PIXCI(R)  Dia-
+          log  while  video  capture is pending or in progress may cause the video
+          capture to be aborted.  (10-Mar-2009)
+
+     21.  New Feature: XCAP now includes a /dev/tty Linux driver for the  PIXCI(R)
+          frame grabbers, installable via the Driver Assistant.  The tty driver is
+          not needed by XCAP, but allows third party applications  to  communicate
+          with Camera Link cameras.  (21-Apr-2009)
+
+     22.  New  Feature:  Now  has  beta-level support for new SILICON VIDEO(R) 643
+          camera.  (24-Aug-2009)
+
+     23.  Fixed Feature:  In  rare  cases,  USB  authorization  keys  manufactured
+          between  2006  and  2008  may fail and not be recognized by XCAP.  A new
+          authorization key driver, version 4.115.5.55 (Oct  2008),  now  included
+          with   XCAP,   provides   a  remedy  without  having  to  replace  keys.
+          (14-Sep-2009)
+
+     24.  Version  3.7   released,   adding   support   for   Windows 7 32/64-Bit.
+          (07-Nov-2009).
+
+     25.  Improved Feature: The Driver Assistant now provides an option to install
+          a Camera Link Serial DLL with either V1.0 or V1.1  of  the  API;  previ-
+          ously,  only  V1.1  was  available  from XCAP (with V1.0 available sepa-
+          rately).  Under 64 bit Windows, the Driver  Assistant  now  provides  an
+          option  to  install either a 32 or 64 bit DLL version of the Camera Link
+          Serial DLL, so as to  match  the  manufacturer's  application  software.
+          (22-Dec-2009)
+
+     26.  Improved Feature: Under Windows using `Aero' display, the Screen Capture
+          feature no longer operates extremely slowly.  (30-Dec-2009)
+
+     27.  New Feature: Now  has  support  for  new  PIXCI(R)  SI2  frame  grabber.
+          (03-Feb-2010)
+
+     28.  New Feature: The AGC/AEC feature for SILICON VIDEO(R) and other selected
+          cameras now allows ignoring `whitish' pixels, for  better  results  when
+          capturing portraits.  (22-Jun-2010)
+
+     29.  New  Feature:  The  32  bit  version of XCAP can now open PIXCI(R) frame
+          grabbers under under 64 bit Windows; previously only the 64 bit  version
+
+
+
+
+
+
+
+
+
+
+
+
+                                         - 4 -
+
+
+
+          of  XCAP could be used under 64 bit Windows.  The 32 bit version is lim-
+          ited to less than than 4 GiByte of frame buffer memory.  Also, the frame
+          buffer memory must be in the lower 4 MiByte of PC memory.  (11-Oct-2010)
+
+     30.  Improved  Feature:  For PIXCI(R) frame grabbers with multiple functional
+          units (e.g. EL1DB, E4DB, SI2, SI4, ...)  and under a Windows Plug & Play
+          O.S.   (i.e. Windows 2000 and later) the default Multiple Devices selec-
+          tion of which boards or functional units are to  be  opened  is  changed
+          from  the  first board or functional unit to all functional units of the
+          first physical board.  (15-Nov-2010)
+
+     31.  New Feature: Now supports the SILICON VIDEO(R) WGA-C and WGA-M  cameras.
+          (14-Dec-2010)
+
+     32.  New  Feature: For color cameras that output Bayer format color, the Mod-
+          ify features now allow selecting a Bayer color space.  This is  particu-
+          larly useful for averaging corresponding pixels of a sequence of images.
+          (04-Jan-2011)
+
+     33.  New  Feature:  Now   supports   the   PIXCI(R)   SV5L   frame   grabber.
+          (06-Jan-2011)
+
+     34.  Modified  Feature:  The Zoom shortcut now activates or deactivates zoom,
+          instead of popping up the  Zoom,  Pan,  Scroll  dialog.   Increasing  or
+          decreasing  magnification  can  now  be done via mouse click; previously
+          changes  to  magnification  could  only   be   done   in   the   dialog.
+          (14-Feb-2011)
+
+     35.  Fixed Feature: Under Windows Vista & 7, XCAP's auto-restart after enter-
+          ing a software activation code would not work if XCAP  was  run  without
+          administrator  privileges.   The  fix,  using a different section of the
+          Windows registry, affects the TWAIN and ImagePro Sourcery driver  `auto-
+          start' feature; updated drivers must be used.  (01-Mar-2011)
+
+     36.  New  Feature:  Now  has beta-level support for new SILICON VIDEO(R) 10C6
+          camera.  (08-Mar-2011)
+
+     37.  Fixed Feature: The Video to Disk, when used with the Include Date & Time
+          Stamp  option,  and  depending on camera type and resolution, may record
+          the last few pixels of each image as zero.  (14-Apr-2011)
+
+     38.  New Feature: Now has beta-level support for new PIXCI(R) E8 frame  grab-
+          ber.  (19-Jul-2011)
+
+     39.  Improved Feature: When used with multiple frame grabbers and common con-
+          trols, the Video to Disk feature now allows explicitly specifying a path
+          and filename for each board, rather than a single file pattern that gen-
+          erates filenames for all.  This provides easier  mapping  of  a  board's
+          file to a specific disk and disk controller.
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                         - 5 -
+
+
+
+             Similarly,  when  used  with  multiple frame grabbers and common con-
+          trols, the Video to Image Files feature now allows explicitly specifying
+          a  file  pattern  for each board, instead of a single file pattern which
+          generates multiple files names for all boards.  (10-Aug-2011)
+
+     40.  New Feature: Now has  support  for  new  PIXCI(R)  A310  frame  grabber.
+          (08-Sep-2011)
+
+     41.  Improved  Feature:  The  Video  to  Disk  feature now records all of the
+          active parameters displayed in the Capture &  Adjust  to  the  Video  to
+          Disk's .ini file.  This is primarily intended so that the camera's expo-
+          sure, gain, and similar parameters in effect during the sequence capture
+          are  saved  along with the image data.  The specific parameters saved is
+          dependent  on  the  PIXCI(R)  frame  grabber  and  camera  being   used.
+          (20-Sep-2011)
+
+     42.  Improved Feature: Integer, non-decimal, constants in numeric expressions
+          are now shown and  entered  in  the  more  obvious  form  `1234(base16)'
+          instead of prefix coded with `0x' for base 16, `0b' for base 2, etc.  An
+          xcap.ini option allows reversion to the previous format.  (15-Dec-2011)
+
+     43.  Improved Feature: The Palette, in Black & Gain mode, now allows  setting
+          Black  and  White  levels,  as an alternative to setting Black Level and
+          Gain.  (03-May-2012)
+
+     44.  Improved Feature: The per-pixel defect correction,  available  for  some
+          cameras  as  part  of  per-pixel  normalization, now also corrects for 2
+          adjacent bad pixels (monochrome cameras only).  The feature  now  allows
+          saving a list of defective pixel coordinates as a text file, and loading
+          a list of defective pixel coordinates from a text file.  (07-Jun-2012)
+
+     45.  Improved Feature: The PIXCI(R) SV7 now offers a square pixel option (see
+          PIXCI  Open/Close,  Camera & Format).  However, unlike the PIXCI(R) SV5,
+          the option involves software resizing of the frame  buffer.   Therefore,
+          as for Bayer format frame buffers, `serious' image processing, graphics,
+          and/or analysis might be better done by first making a duplicate of  the
+          image, rather than modifying the underlying frame buffer.  (11-Jul-2012)
+
+     46.  Improved  Feature:  Includes  Beta support for Linux V3.x kernels.  How-
+          ever, the current Hardlock driver does not work w. V3.x kernels,  limit-
+          ing XCAP's functionality to that of XCAP-Lite.  (05-Sep-2012)
+
+     47.  Improved  Feature:  XCAP-Demo (i.e. w/out Hardlock key, without software
+          activation  code)  now  allows  loading  and  viewing  image  and  image
+          sequences from files!  (Regardless of whether a PIXCI(R) is open - which
+          XCAP-Demo doesn't support).  This allows playing  video  to  disk  files
+          (.vif),  and unlike other multi-media players, allows playing .avi files
+          while controlling the playback rate.  XCAP-Lite &  XCAP-Ltd  now  allows
+          the same (regardless of whether a PIXCI(R) is installed and open - which
+          previously was required).
+
+
+
+
+
+
+
+
+
+
+
+
+                                         - 6 -
+
+
+
+             XCAP-Demo is now labeled XCAP-Viewer.  (19-Sep-2012).
+
+     48.  Improved Feature: The  Clear  Frame  Buffers  on  Format  Change  option
+          enables  clearing  (i.e.  set to zero) of frame buffer memory and memory
+          used for recording per frame buffer's capture status whenever  the  cap-
+          ture  format  resolution, bit depth, bit packing, or color space options
+          are changed.  This is intended so that display of the  contents  of  the
+          frame  buffer(s),  under  the  new format but before a new image is cap-
+          tured, will show a black image (or green for YUYV formats)  rather  than
+          `garbled'  pixel data.  This option is ignored when using forceful image
+          frame buffer allocation, or for PIXCI(R) CL3SD and  SI2  frame  grabbers
+          with on-board frame buffer memory.  (05-Oct-2012)
+
+     49.  Improved  Feature: The PIXCI(R) CL3SD is now supported under 64 bit Win-
+          dows and Linux.  (26-Oct-2012).
+
+     50.  Version 3.8 released, adding support for Windows 8 32/64-Bit.  Also adds
+          support  for  Linux  3.x  kernels (however Hardlock USB keys are not yet
+          supported under 3.x).  Has completed support for  PIXCI(R)  E8CAM  along
+          with the SILICON VIDEO(R) 2KS-C, 2KS-M camera.  (12-Dec-2012).
+
+     51.  Fixed Feature: For Windows 7 & 8 64-Bit, the V3.8 PIXCI(R) frame grabber
+          driver was not accepted due to digital signature  issues;  an  error  is
+          shown in the Device Manager.  (26-Dec-2012)
+
+     52.  New Feature: Now supports PIXCI(R) D3XE.  (24-Jan-2013)
+
+     53.  Added  Feature:  The `Pixie Copy' feature allows copying color component
+          values within each pixel.  For example, it can create  monochrome  pixel
+          values identical to the original pixel's green value.  (14-May-2013)
+
+     54.  Improved Feature: The `Full Screen' now supports multiple monitors, dis-
+          playing full screen of whichever monitor the image  viewer  appears  on.
+          (21-May-2013)
+
+     55.  Fixed  Feature:  Recent  versions  of 32-bit XCAP for Windows may not be
+          able to save PIXCI(R) Open/Close, Advanced parameters  to  the  registry
+          when run on 64-bit Windows.  (10-Jun-2013).
+
+     56.  Improved  Feature:  The  Black  Board's  `Attributes', `Connections' now
+          allows filtering incoming values, discarding imported values that  don't
+          contain  a  desired  string or that don't satisfy a Mathematical Expres-
+          sion.  (22-Jul-2013)
+
+     57.  Fixed Feature: The `Install Authorization key driver' may  not  work  on
+          Windows 7 & 8, reporting `Unsupported Operating System', unless XCAP was
+          started in Vista compatibility mode.  However, this feature isn't needed
+          on  most  systems  as the drivers are automatically loaded by the Device
+          Manager when the USB key is detected.  (23-Jul-2013)
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                         - 7 -
+
+
+
+     58.  Improved Feature: Under Linux: The Driver  Assistant  now  installs  via
+          /etc/rc)  the  PIXCI(R)  and  authorization key drivers so that they are
+          automatically loaded when Linux boots, rather than loading them only via
+          the Driver Assistant or when XCAP is started.  One benefit is for appli-
+          cations which use XCLIB but not XCAP.   Configuration  options  for  the
+          PIXCI(R)  driver  are  now  stored  in /etc/default/pixci rather than in
+          XCAP's pixci.ini file (however, as before, this file merely contains the
+          configuration  options  to be passed as a parameter via insmod; the file
+          is not directly read by the driver).  The XCAP  installer  now,  option-
+          ally, creates a desktop shortcut to start XCAP.  (16-Aug-2013)
+
+     59.  Improved  Feature: Now includes final support for SILICON VIDEO(R) 1C45,
+          1M45, and 15C5 cameras.  (02-Sep-2013)
+
+     60.  Improved Feature: Hardlock USB keys are now supported  under  Linux  3.x
+          kernels.   In  addition to a newer aksusbd, the hasp.rules must be added
+          to /etc/udev/rules.d and the system rebooted.  Use of the dinst  instal-
+          lation script is suggested.  (02-Sep-2013)
+
+     61.  Improved  Feature: Under Linux, XCAP's shared libraries (i.e.  *.so) are
+          now compiled w. LSB (Linux System Base) tools, rather  than  the  native
+          GNU  tools  provided  with  a  selected Linux distribution.  This should
+          eliminate GLIBC compatibility issues when the libraries are used on var-
+          ious Linux distributions.  (24-Sep-2013)
+
+     62.  Improved  Feature:  The  menu `Help' now offers links to PIXCI(R) User's
+          Manuals and SILICON VIDEO(R) User's Manuals on the www.epixinc.com  web-
+          site.  (08-Oct-2013)
+
+     63.  Improved  Feature:  The  new  `Tap Correction: User Defined ...'  allows
+          applying different multi-tap correction algorithms;  particularly  algo-
+          rithms not yet built into the PIXCI(R) libraries.  (14-Oct-2013)
+
+     64.  Improved  Feature:  The  new `Copy & Reorder' is similar to `Tap Correc-
+          tion: User Defined ...', above, but also allows the source and  destina-
+          tion image sizes to differ.  (19-Dec-2013)
+
+     65.  Improved  Feature: Instead of entering a filename for saving an image or
+          image sequence, a unique file name can be  automatically  generated  via
+          right-click and Stamp Date & Time.  (00-Feb-2014)
+
+     66.  Improved Feature: After entering a file name pattern for loading or sav-
+          ing a sequence of images, the scan to check whether any such files exist
+          is  now quicker.  Also, a pop-up dialog now announces and allows cancel-
+          ing the scanning process.  (00-Feb-2014)
+
+     67.  Improved Feature: When saving an image (or script, or any other type  of
+          file)  if  a  directory in the path does not exist, a pop-up dialog will
+          inquire whether to create the directory.  (08-Feb-2014)
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                         - 8 -
+
+
+
+     68.  Fixed Feature: Linux versions of XCAP would not allow loading .vif files
+          larger  than  4 GB.  (08-Apr-2014) Improved Feature: When used with cam-
+          eras for which XCAP has integrated  camera  controls,  images  saved  in
+          TIFF,  AVI,  JPEG, and FITS formats can now, easily, include the current
+          camera settings.  Previously, such as feature required XCAP-Std and  its
+          Black Board feature.  (22-May-2014)
+
+     69.  Improved  Feature:  A  virtual  COM port driver is now available for use
+          with PIXCI(R) Camera Link frame grabbers for Windows XP and  later,  The
+          virtual  COM  port  driver is not needed by XCAP, but allows third party
+          applications to communicate with Camera Link cameras.  install  via  the
+          Driver's Assistant.  (30-Jun-2014)
+
+     70.  Improved Feature: The Driver Assistant's option to install a Camera Link
+          Serial DLL now allows overriding the default installation  directory  by
+          choosing  whether  the  V1.0,  V1.1,  or  V2.0 Camera Link specification
+          should be followed.  This choice is  independent  of  which  DLL  is  to
+          installed,  as  some  camera  manufacturer  software  has  been found to
+          require, for example, a V1.1 API DLL installed as per the V1.0  specifi-
+          cation.  (30-Jun-2014)
+
+     71.  Improved  Feature:  An  `Apply Palette at - Auto Select' option has been
+          added to the `Apply Palette at Image's Bit Depth' vs `Apply  Palette  at
+          Display's Bit Depth' options.  The automatic selection minimizes display
+          overhead, where possible, and automatically switches  to  avoid  banding
+          effects, when necessary.  (22-Jul-2014)
+
+     72.  Improved  Feature: For Camera Link cameras with serial controls, and for
+          SILICON VIDEO(R) cameras with I2C  controls,  the  serial  communication
+          will  always  be  retried  each  time  the PIXCI(R) is re-opened (unless
+          Serial Mode
+           was set to Offline), even if communication previously failed  (such  as
+          due  to  not  having  the  the camera connected) and Open with last used
+          Video Setup was selected.  In short: the Serial Connect button need  not
+          be clicked so as to recover from not having the camera connected or pow-
+          ered on.  (23-Oct-2014)
+
+     73.  Version 3.8 supports Windows 10, a new release  of  XCAP  isn't  needed.
+          (31-Jul-2015)
+
+     74.  Improved Feature: The `TWAIN Select Source' and `TWAIN New Acquire' fea-
+          tures are now available  under  64-bit  Windows.   The  `PIXCI(R)  TWAIN
+          Sourcery'  feature  and  the corresponding TWAIN Data Source (i.e. TWAIN
+          `driver') is now available for 64-bit  Windows.   A  new  `TWAIN  Source
+          Info'  provides  information  about the currently selected TWAIN source.
+          (07-Dec-2015)
+
+     75.  Improved Feature: The Video to Disk and Video to  Image  Files  features
+          now  provide  a Auto File Name upon Record option - auto-generating file
+          names  and  patterns  each  time   the   Record   button   is   clicked.
+
+
+
+
+
+
+
+
+
+
+
+
+                                         - 9 -
+
+
+
+          (22-Dec-2015)
+
+     76.  Improved  Feature:  PIXCI(R)  epixxcs2.sys  and epixxcs6.sys drivers for
+          Windows are now signed with the new SHA-2 algorithm,  as  Microsoft  now
+          requires  for  Windows  7  and  later for any drivers created in 2016 or
+          later.  Note that Windows 7 requires an update  to  use  drivers  signed
+          with   SHA-2;  see  Microsoft's  `Microsoft  ccccccknlSecurity  Advisory
+          2949927' and `Microsoft Security Advisory 3033929'.  Windows Vista  also
+          requires an update; see `Microsoft Article ID 2763674'.  (01-Jan-2016)
+
+     77.  Improved  Feature:  Supports  the  PIXCI(R)  EB1tg frame generator (i.e.
+          phantom Camera Link camera).  As a specialty card, the PIXCI(R) EB1tg is
+          not mentioned in the XCAP documentation.  (05-Jan-2016)
+
+     78.  Added  Feature:  The  menu bar may now be removed from the image display
+          window, either via View or Program Setup.   With  menu  bar  removed,  a
+          mouse right-click can be used to up the menu, select any feature, and/or
+          restore the menu bar.  (11-Apr-2016)
+
+     79.  Improved Feature: Saving and loading of image  sequences  in  TIFF  (one
+          file  per sequence or one file per image) is now available in XCAP-Lite;
+          these features previously required XCAP-Ltd or XCAP-Std.  (04-May-2016)
+
+     80.  Improved Feature: PIXCI(R) epixxcs2.sys  and  epixxcs6.sys  drivers  for
+          Windows  are  now also provided with only SHA-1 signatures, for use with
+          Windows XP or Vista and where Windows has not  been  updated  to  accept
+          newer signatures.  (24-May-2016)
+
+     81.  Improved Feature: The Full Screen display feature is now available under
+          Linux and with XCAP-Lite, albeit with the window  frame  still  visible.
+          Exit from Full Screen display mode now uses a mouse right-click to popup
+          a menu.  For images smaller than screen resolution, the displayed  image
+          is now centered on the screen.  (06-Jun-2016)
+
+     82.  New  Feature:  Support  for the nVidia TX1 with ARM Cortex-A57 processor
+          running a 64 bit Linux kernel and 64 bit applications  has  been  added.
+          (The  preliminary  version of Linux for TX1 with 64 bit Linux kernel and
+          32 bit applications is not supported).  XCAP for nVidia TX1 is primarily
+          intended  as  a  configuration  tool  for  XCLIB  and  also provides the
+          PIXCI(R) drivers; only XCAP-Lite is supported.  XCAP for nVidia TX1 does
+          not  include  a  Java  Runtime  Environment (JRE), the Linux default JRE
+          should be installed.  (11-Jul-2016)
+
+     83.  New  Feature:  Now  supports  the  SILICON   VIDEO(R)   1820CL   camera.
+          (19-Aug-2016)
+
+     84.  Improved  Feature: For selected Examine, Modify, and Measure operations,
+          the new Use Stack of Images  (under  Set  AOI/ROI)  allows  selecting  a
+          `stack'  of  several  image  buffers to be processed, analyzed, saved or
+          loaded, as if a single image.   For  example,  this  allows  creating  a
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 10 -
+
+
+
+          single Histogram of an entire image sequence.  (17-Nov-2016)
+
+     85.  Improved  Feature:  Under  Windows 8 & 10, the kernel's new `System Time
+          Precise' timer can now be selected for time stamping images.  In partic-
+          ular,  this simplifies reading of .vif files in third-party software and
+          decoding its time stamps.  (09-Dec-2016)
+
+     86.  Installation Note: Newer PIXCI(R) epixxcw6.sys drivers on some  releases
+          of  Windows  10  64  bit may not load due to new Microsoft `Secure Boot'
+          policies.  See https://msdn.microsoft.com/en-us/windows/hardware/commer-
+          cialize/manufacture/desktop/disabling-secure-boot  for  instructions  on
+          disabling Windows' secure boot.  (06-Feb-2017)
+
+     87.  New Feature: Support for the nVidia TK1 with ARM Cortex-A15 32 bit  pro-
+          cessor  has  been added.  XCAP for nVidia TK1 is primarily intended as a
+          configuration tool for XCLIB and also  provides  the  PIXCI(R)  drivers;
+          only  XCAP-Lite  is  supported.   XCAP for nVidia TK1 does not include a
+          Java  Runtime  Environment  (JRE),  the  Linux  default  JRE  should  be
+          installed.  (10-Feb-2017)
+
+     88.  Improved  Feature:  PIXCI(R)  drivers identified as being for Windows 10
+          are are now signed with a Extended Validation (`EV') Code  Signing  Cer-
+          tificate.   The new (`EV') Certificate is not used for drivers for older
+          versions  of  Windows,  so  as   to   ensure   backward   compatibility.
+          (27-Mar-2017)
+
+     89.  Improved  Feature:  When  installed under Linux using the `Shared Files'
+          option, the installer now configures XCAP's `data', `labels', `scripts',
+          `settings', `tmp', and `ini' directories to allow r/w by any user, along
+          with any files created (recursively) within those directories.  (Setting
+          permissions  affecting  subdirectories  requires  the optional Linux ACL
+          features to have been installed).  04-Apr-2017
+
+     90.  Improved Feature: The Video to Disk and Video to  Image  Files  features
+          now  provide a `Auto Protect after Record' option, automatically setting
+          Write Protect after recording, so as to help  prevent  overwriting  cap-
+          tured images.  (06-Apr-2017)
+
+     91.  Improved  Feature:  PIXCI(R)  drivers identified as being for Windows 10
+          are are now co-signed by Microsoft so as to allow loading by newer  Win-
+          dows 10 64 bit desktop systems.  (20-Apr-2017)
+
+     92.  Added  Feature: Support for the Boundary Devices NITROGEN6/imx6 with ARM
+          processor has been added.  (01-Jul-2017)
+
+     93.  New  Feature:  Now  supports  the  SILICON   VIDEO(R)   1514CL   camera.
+          (13-Oct-2017)
+
+     94.  Improved  Feature:  The Subpixel Edger now allows measuring the position
+          of `lines' (i.e. narrow two boundary feature)  in  addition  to  `edges'
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 11 -
+
+
+
+          (i.e. one boundary feature).  (29-Dec-2017)
+
+     95.  Improved  Feature:  XCAP  for Linux i386 can now be run on Linux x86-64,
+          requiring and including 64-bit drivers.  (27-Mar-2018)
+
+     96.  Fixed Feature: On i386 machines, the USB authorization key  may  not  be
+          detected if the machine does not have a parallel port.  (29-Mar-2018)
+
+     97.  Improved  Feature: Support added to save & load Portable Bit Map, Porta-
+          ble Gray Map, and Portable Pixel Map image  file  formats  (i.e.   .pbm,
+          .pgm, and .ppm).  (21-Aug-2018)
+
+     98.  Improved  Feature:  New parameters in Program Setup, GUI, allow limiting
+          XCAP's use of display screen `real estate'; this is particularly  useful
+          on  high  resolution  `letterbox' graphic displays which are much larger
+          and wider than needed.  The Image Viewer Window, or  any  other  window,
+          can be explicitly enlarged as needed; the Image Viewer Window also has a
+          new Fill Screen option.  (21-Nov-2018)
+
+     99.  Improved Feature: The Pixel Peek now allows displaying of  pixel  values
+          across  frame buffers; i.e. displaying numeric values from a 2-d `slice'
+          of the 3-d data.  The Pixel Peek now allows displaying  bar  graphs  and
+          `trends'  of  pixel  values.  Saving of data from Pixel Peek is now sup-
+          ported in XCAP-Lite.  (16-Jan-2019)
+
+    100.  Improved Feature: XCAP-Lite now supports up to 256 Mbyte of frame buffer
+          memory (instead of 64 Mbyte).  (12-Mar-2019)
+
+    101.  New  Feature:  Support  for the nVidia Xavier with ARM Cortex-A57 64 bit
+          processor has been added.  XCAP for nVidia Xavier is primarily  intended
+          as  a  configuration tool for XCLIB and also provides the PIXCI(R) driv-
+          ers; only XCAP-Lite is supported.   XCAP  for  nVidia  Xavier  does  not
+          include  a  Java Runtime Environment (JRE), the Linux default JRE should
+          be installed.  (17-Apr-2019)
+
+    102.  Improved Feature: The Examine, Pixel Plot now provides options to select
+          the  image buffer (rather than tracking the current buffer) and provides
+          graphing image lines and columns as they vary across frame buffers.  The
+          Examine,  Pixel  Plot now allows showing the recent trends of pixel val-
+          ues, as an fading `echo,' to help visually evaluate the fluctuations  of
+          live video.  or the effects of camera adjustments.  (04-Jun-2019).
+
+    103.  New  Feature:  For  PIXCI(R)  frame grabbers using an EEPROM specify the
+          default camera or video submodel (or preset): and option  to  `sanitize'
+          the  EEPROM  has been added.  Unused areas of the EEPROM are zero'ed, so
+          as to help prevent its use for illicit storage and transfer of  informa-
+          tion.  (18-Jun-2019)
+
+    104.  Fixed  Feature.   Changes  to Windows 10.0.18362.418 prevent the virtual
+          COM port driver from being installed (although a driver installed  prior
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 12 -
+
+
+
+          to updating Windows would continue to work).  (23-Oct-2019)
+
+    105.  New  Feature:  XCAP  for  Linux  now  includes  a Video for Linux (V4L2)
+          driver, installable via the Driver Assistant.  The V4L2  driver  is  not
+          needed by XCAP, but allows simple integration of PIXCI(R) frame grabbers
+          into GStreamer, Matlab and  other  programming  environments  supporting
+          V4L2;  allows  use  of  `vlc'  and other third party image/video display
+          applications; and provides an alternative API for creating custom appli-
+          cations  incorporating  PIXCI(R) frame grabbers.  Install via the Driver
+          Assistant.  (15-Jan-2020)
+
+    106.  New Feature: Support for the PIXCI(R) EB1miniTg and the new  version  of
+          the PIXCI(R)EB1Tg frame generators has been added.  (29-Jan-2020)
+
+    107.  New  Feature:  XCAP now includes the TWAIN driver for the PIXCI(R) frame
+          grabbers, rather than the TWAIN driver being  available  as  a  separate
+          package.  The TWAIN driver is not needed by XCAP, but allows third party
+          TWAIN compliant applications to  capture  images.   Ditto  the  ImagePro
+          driver.    Either   can   be   installed   via   the  Driver  Assistant.
+          (25-May-2020)
+
+    108.  New Feature: Support for the nVidia Nano with ARM Cortex-A57 64 bit pro-
+          cessor has been tested.  XCAP for nVidia Nano is primarily intended as a
+          configuration tool for XCLIB and also  provides  the  PIXCI(R)  drivers;
+          only  XCAP-Lite  is  supported.  XCAP for nVidia Nano does not include a
+          Java  Runtime  Environment  (JRE),  the  Linux  default  JRE  should  be
+          installed.  (26-May-2020)
+
+    109.  Fixed Feature: XCAP's Driver Assistant was unable to install, update, or
+          remove PIXCI(R) drivers on some versions of Windows 10; instead suggest-
+          ing  use  of  the  Windows'  Device  Manager.  Ditto the XCAP installer.
+          (23-Jun-2020)
+
+    110.  New Feature: XCAP for Windows now  includes  a  Media  Foundation  Frame
+          Server  driver  for  PIXCI(R) frame grabbers - providing a Windows Media
+          Foundation Media Source driver to control PIXCI(R)  frame  grabbers  and
+          retrieve video and image data.
+
+             The  PIXCI(R)  Frame  Source driver is not needed by XCAP, but allows
+          simple integration of PIXCI(R) frame grabbers into LabView,  Matlab  and
+          other programming environments supporting Media Foundation[1] or Direct-
+          Show API's; allows use of the Windows `Camera'  and  other  third  party
+          image/video  display  applications;  and  provides an alternative to the
+          XCLIB API for creating custom applications incorporating PIXCI(R)  frame
+          grabbers.  Install via the Driver Assistant.  (13-Jul-2020)
+
+    111.  New Feature: Support for the nVidia Xavier NX with ARM Cortex-A57 64 bit
+          processor has been tested.   XCAP  for  nVidia  Xavier NX  is  primarily
+          intended  as  a  configuration  tool  for  XCLIB  and  also provides the
+          PIXCI(R)  drivers;  only  XCAP-Lite  is  supported.   XCAP  for   nVidia
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 13 -
+
+
+
+          Xavier NX  does  not include a Java Runtime Environment (JRE), the Linux
+          default JRE should be installed.  (15-Jul-2020)
+
+    112.  Improved Feature: The XCAP de-installer no longer defaults to  prompting
+          for each removal action.  (22-Oct-2020)
+
+    113.  Note:  XCAP  for Windows now verifies that its various executable utili-
+          ties, drivers, and code have the correct  `signature'  for  the  instant
+          version.   Failure will post a `Bad module(s) signature' error; the most
+          common cause is interruption of the XCAP installation resulting in files
+          which are missing or reflect a combination of XCAP versions or releases.
+          (24-Nov-2020)
+
+    114.  Note: In XCAP for Windows released circa 7 Dec 2020 thru  20  Dec  2020,
+          the  Windows 10 drivers, while signed by EPIX, Inc with SHA2EV and coun-
+          tersigned by Microsoft, may not be accepted by the Device Manager (error
+          code  52),  depending  on  the  specific  Windows  10  release  in  use.
+          (21-Dec-2020)
+
+    115.  Improved Feature: For XCAP for Linux, in  conjunction  with  many  Linux
+          distributions  supporting  `gnome terminal' or `xterm', now allows using
+          XCAP's Driver Assistant without  running  XCAP  as  super-user.   XCAP's
+          Driver  Assistant  will  instead  open  a `terminal' window, have `sudo'
+          prompt the user for the appropriate password, and have the  `sudo'  exe-
+          cute a prepared shell script.  This allows using XCAP's Driver Assistant
+          on Linux distributions which prohibit the running  of  GUI  applications
+          with  super-user  status, and avoids running the entire XCAP application
+          as super-user.
+
+             XCAP can still be run as super-user; this may be more convenient when
+          installing  or  configuring  several of the Driver Assistant's features.
+          (04-Jan-2021)
+
+    116.  Improved Feature: For XCAP for Windows, using Vista and later with  User
+          Account Control (UAC), now allows using XCAP's Driver Assistant features
+          without running XCAP as Administrator (i.e.  `elevated').  XCAP's Driver
+          Assistant  will instead open a User Account Control (UAC) dialog, asking
+          the user for permissions as needed.  This avoid running the entire  XCAP
+          application as Administrator.
+
+             XCAP  can still be run as Administrator; which may be more convenient
+          when installing or configuring several of the  Driver  Assistant's  fea-
+          tures.  (19-Jan-2021)
+
+    117.  Improved  Feature:  Under  Windows 7 and later with User Account Control
+          (UAC), the XCAP installer (which runs in Administrator (i.e.  `elevated'
+          mode) will now de-elevate before starting XCAP.
+
+             Under Linux, the XCAP installer (which is normally run as super-user)
+          will now run XCAP as the  login  user,  instead  of  defaulting  to  the
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 14 -
+
+
+
+          installer's user id.
+
+             This avoids the default and unnecessary running of XCAP with elevated
+          or super-user privileges.  (19-Jan-2021)
+
+    118.  Modified Feature: The Multiple Devices will no longer set  the  PIXCI(R)
+          driver's  persistent  (i.e.  after re-boot) configuration, but will only
+          set the configuration used by XCAP.  This avoids annoying  warning  mes-
+          sages and/or popup `sudo' or `UAC' dialogs if XCAP is run without super-
+          user or Administrator privileges.  The driver's persistent configuration
+          can  still  be  changed  via  the  Advanced or Driver Assistant dialogs.
+          (19-Jan-2021)
+
+    119.  Improved Feature: For PIXCI(R) SV2, SV3, SV4, and SV5  the  interrelated
+          Chroma  U  Gain  Mod.  and Chroma V Gain Mod.  controls in the Capture &
+          Adjust dialog have been replaced by a single Saturation  Mod.   control.
+          The  few applications using individual chroma gains can use the PIXCI(R)
+          Video Setup.  (22-Mar-2021)
+
+    120.  Note: In the 12/2020 release of XCAP for Linux on i386 and  x86-64,  the
+          PIXCI(R)  driver's  `5.4  Binary Blob' was not updated and is the 6/2020
+          version.  (07-Apr-2021)
+
+    121.  Improved Feature: XCAP-Std and XCAP-Ltd now use a new  model  of  autho-
+          rization  key.   Unlike  the  old  key, this key does not have the issue
+          under Windows whereby the key is not recognized if XCAP is  started  via
+          remote  desktop.   (The workaround, having XCAP auto-started by Windows,
+          is not always convenient).  Under Linux on x86-64 platforms, the new key
+          does  not require installation of IA32 compatibility libraries.  To dis-
+          tinguish keys: old USB keys are blue,  new  USB  keys  are  green.   New
+          releases of XCAP accept either old or new keys.  (06-May-2021)
+
+    122.  New Feature: For selected cameras, XCAP-Std and XCAP-Ltd now offer auto-
+          matic image contrast enhancement as part of the video processing  stream
+          and  enabled  in the Capture & Adjust dialog This is typically used with
+          cameras outputting `raw' pixel values without in-camera black level cor-
+          rection or contrast correction - typically cameras for infrared (IR) and
+          scientific applications.  (01-Jun-2021)
+
+    123.  Improved Feature: The Video to Image Files now supports use of the  FITS
+          file format, with one file per image.  (14-Jul-2021)
+
+    124.  Improved  Feature:  The new Resize: Pixel Replication/Decimation display
+          mode uses (only) pixel replication or decimation.   Similar  to  Resize:
+          None  (Image Pixel = Display Pixel), any possible resizing artifacts are
+          avoided and is best used with images of square pixels (i.e. same as  the
+          display's  pixels).   But  the  Resize: Pixel Replication/Decimation can
+          enlarge the image display, and thus produces a better result when  using
+          a  high  resolution  display  with  a  low  or  medium resolution image.
+          (31-Aug-2021)
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 15 -
+
+
+
+    125.  New Feature: Under View, the new Flip & Mirror  option  allows  flipping
+          and  mirroring  the  displayed  image so that the top is oriented to the
+          top, left, right, or bottom.  (03-Sep-2021)
+
+    126.  Fixed Feature: The Driver Assistant, when  installing  Media  Foundation
+          Frame  Server  drivers  for two or more devices, does not prompt for UAC
+          elevation;   XCAP   must   be   run   with   administrator   privileges.
+          (28-Sep-2021)
+
+    127.  Note:  The  current  release  of  XCAP V3.8 supports the new Windows 11,
+          using the same drivers as for Windows 10.  (06-Oct-2021)
+
+    128.  Improved Feature: Under Multiple Devices, the  new  Select  All  Devices
+          allows convenient selection of all installed boards; further, the selec-
+          tion  is  updated  automatically  as  boards  are  added   or   removed.
+          (25-Oct-2021)
+
+    129.  Improved Feature: The Pixel Peek now offers an X Plank of Buffers option
+          -- displaying the content of image buffers as if they concatenated hori-
+          zontally -- to complement the Y Stack of Buffers option.  Similarly, the
+          Pixel Plot now offers an Plank of Buffers option to complement its Stack
+          of Buffers option.  (27-Oct-2021)
+
+    130.  Improved  Feature: Image & video display now has an option to use multi-
+          ple threads/CPU's so as to increase the display rate.  Use  of  multiple
+          threads/CPU's  is  particularly useful in conjunction with video formats
+          that require significant post-capture processing, such as pixel reorder-
+          ing, Bayer conversion, color space correction, and/or per-pixel FPN/PRNU
+          corrections.   Or  when  displaying  to  a  high   resolution   monitor.
+          (15-Nov-2021)
+
+    131.  New Feature: The new Pixel Magnifier allows enlarging the view of a por-
+          tion of the image, with an effect similar to  using  a  magnifying  lens
+          over  the  display.  In contrast to Zoom, Pan, Scroll which enlarges the
+          entire image -- creating a (virtual) larger image of which a section  is
+          viewed  via pan and scroll.  The Magnifier can be used `on top of' Zoom;
+          multiple Magnifiers can be used on a single  image  in  different  posi-
+          tions.  (16-Dec-2021)
+
+    132.  Improved Feature: The Sequence Thumbnails now provides easier adjustment
+          of thumbnail size, options to eliminate the menu bar and scroll bar, and
+          options to adjust the thumbnail border and spacing - all allowing trade-
+          off between convenience or thumbnail size versus the  number  of  thumb-
+          nails displayed (without scrolling).  (17-Dec-2021)
+
+    133.  Improved  Feature:  Under  Linux,  the  Pixel  Peek,  Plot  2D, Plot 3D,
+          Viewer's Palette and similar windows were not - to the desktop manager -
+          `children' of the Image Viewer Window and would not be forced to be dis-
+          played on top of the Image Viewer Window.  (21-Dec-2021)
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 16 -
+
+
+
+    134.  Fixed Feature: Changing the PIXCI(R) driver's persistent `unit' configu-
+          ration  via  the  Advanced  or Driver Assistant dialogs did not have any
+          effect.  (18-Jan-2022)
+
+    135.  Improved Feature: For selected Examine, Modify, and Measure  operations,
+          the  new Use Average Image Stack allows selecting the average (of corre-
+          sponding pixels) of several image buffers to be processed, analyzed,  or
+          saved as a single image.  (10-Mar-2022)
+
+    136.  Improved  Feature:  Although Windows 7 reached end of support on Jan 14,
+          2020, Microsoft changed driver signature requirements effective June 17,
+          2021.   The  driver  files  epixxcw6.sys and epixxcw6.cat are now signed
+          with SHA-2 by `Microsoft Windows  Hardware  Compatibilty  Publisher'  as
+          required  by  Microsoft,  instead  of by `EPIX, Inc.'.  Microsoft hasn't
+          made it clear whether Windows 7 requires  installation  of  all  service
+          packs  and  updates  in order to accept these drivers, but it is likely.
+          (30-Mar-2022)
+
+    137.  Improved Feature: The X/Y Ascii format of the  Image  Save  feature  now
+          allows  saving  the current camera settings and/or Capture & Adjust set-
+          tings as text.  This is analogous to Image Save's other format  options,
+          which  allows  saving  the  settings  as  a comment in the image's file.
+          (09-May-2022)
+
+    138.  Improved Feature: When saving Images in JPEG format, a new option allows
+          selecting use of more than one CPU or thread to perform the compression.
+          On computers with multiple CPUs or cores, this feature  can  reduce  the
+          time   required  to  perform  JPEG  compression  and  save  each  image.
+          (23-May-2022)
+
+    139.  Fixed Feature: Previously, the XCAP for Windows installer was changed so
+          that  when  auto-starting XCAP after installation, XCAP would not be run
+          with the installer's elevated privileges.  Previously, XCAP for  Windows
+          was  changed  so that it need not run with elevated privileges; instead,
+          the Driver Assistant would (ask Windows to) prompt for elevated  permis-
+          sions  as  needed.  But, the de-elevated XCAP run by installer could not
+          re-elevate.  Fixed so  that  the  de-elevated  XCAP  can  re-elevate  as
+          needed.  (31-May-2022)
+
+    140.  Improved Feature: When saving Images in TIFF format, a new option allows
+          selecting use of more than one CPU or thread to perform the compression.
+          On  computers  with  multiple CPUs or cores, this feature can reduce the
+          time  required  to  perform  TIFF  compression  and  save  each   image.
+          (25-Jun-2022)
+
+    141.  Improved  Feature: Images and image sequences can now be saved or loaded
+          using the BigTIFF format.  Classic TIFF is limited to  a  file  size  of
+          4 GiByte  (232  bytes);  BigTiff  supports a file size of 16 EiByte (264
+          bytes).  XCAP's support of BigTIFF provides  the  same  compression  and
+          multi-thread options as for classic TIFF.  (11-Jul-2022)
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 17 -
+
+
+
+    142.  Modified  Feature:  Options  for  saving images in PCX and Targa formats
+          have been hidden.  These formats are now archaic; and, as XCAP never had
+          (obvious)  support  for  loading  these  images, saving but not (easily)
+          reloading may cause disappointment.  (12-Oct-2022)
+
+    143.  Improved Feature: Image sequences can now be saved and loaded using  the
+          FITS file format.  (14-Oct-2022)
+
+    144.  Improved  Feature: Image sequences can now be saved and loaded using the
+          AVI file format with a MJPG codec and lossy compression.  The  Video  to
+          Image  Files  also  now  supports use of the AVI file format with a MJPG
+          codec.   These  allow   `one   step'   creation   of   compact   movies.
+          (04-Nov-2022)
+
+    145.  Fixed  Feature: A recent update of Windows 10 broke the XCAP installer's
+          ability  to  autostart  XCAP  after  the  completion  of   installation.
+          (05-Jan-2023)
+
+    146.  Fixed  Feature:  The  Download  New Release feature, under Windows, with
+          certain system configurations, might change the XCAP  shortcut's  `Start
+          In' directory to be the same as the `Target' directory (which would then
+          need to be manually changed).  Aside from the inconvenience of  changing
+          the  default  directory for image files, scripts, etc., under Windows 10
+          or 11 the `Target' directory (sub)directories are typically  write  pro-
+          tected  (except  by  admin)  leading  to  errors  when  XCAP updates its
+          `xcap.ini' file.  (10-Jan-2023)
+
+    147.  Improved Feature: The driver for Green authorization USB keys  has  been
+          updated, and can now be used with Windows 11 `Memory Integrity' enabled.
+          (16-Jan-2023)
+
+    148.  Improved Feature: XCAP-Ltd and XCAP-Std are now available for ARM  plat-
+          forms  in  conjunction  with  a Green authorization USB key.  Installing
+          `apt-get install libusb-dev' may be required.  (26-Jan-2023)
+
+    149.  Improved Feature: The Video to Image Files now extends  support  of  the
+          FITS  and  TIFF  file formats, with the image sequence saved in a single
+          file instead of one image per file.  (06-Feb-2023)
+
+    RELEASE NOTES: XCAP  -- Version 2.0, V2.1, V2.2
+
+      1.  Version 2.0 released.  (09-Mar-2000).
+
+      2.  Modified feature: Printing of images, graphics, and screen  capture  has
+          been  improved  to be both quicker and require less temporary space (the
+          later minimizing a Windows message that the spooler  temporary  file  is
+          full,  which  may  occur  when printing onto a large area of the paper).
+          (07-Apr-2000).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 18 -
+
+
+
+      3.  Added feature: Under Utility, Devices ..., support for  controlling  the
+          Volpi  intralux  dc-1100  and  the  Illumination Technologies 3900 light
+          sources through their RS-232 ports has been added.  (12-Apr-2000).
+
+      4.  Modified feature: XCAP no longer requires re-entering of the software ID
+          when  a  different  user  logs into a computer where XCAP was previously
+          installed.  XCAP can still, optionally, provide multiple users with dis-
+          tinct last used settings.  (02-May-2000).
+
+      5.  Improved  Feature.   XCAP's default size and position now does not cover
+          the task bar.  (09-May-2000).
+
+      6.  Added Feature.   The  Utility,  Program  Setup,  Start/End  now  allows,
+          a) Configuring  XCAP  as  a  Windows  background  task, b) Automatically
+          starting XCAP when Windows boots, and c) Automatically  minimizing  XCAP
+          on startup.  (12-May-2000).
+
+      7.  Added  Feature.   An  XCAP Uninstall feature, accessible from the  "XCAP
+          Imaging" group has been added.  (23-May-2000).
+
+      8.  Improved Feature.  Text and numeric fields now provide Cut, Copy, Paste,
+          and Delete editing and Clipboard controls.  (26-May-2000).
+
+      9.  Improved  Feature.  There is now a single XCAP shortcut, or entry in the
+          Start, Programs, XCAP Imaging group for the Windows 95/98  version,  for
+          the   Windows   NT   version,   and   for   the  Windows  2000  version.
+          (04-Jun-2000).
+
+     10.  Added Feature.  The Utility, Program Setup, Start/End now  allows  auto-
+          matically  switching  to  Live mode on startup, if the 'Open PIXCI(R) on
+          Startup' is also selected.  (06-Jun-2000).
+
+     11.  Improved Feature.  XCAP-Std and XCAP-Plus, which require  an  authoriza-
+          tion  key,  can now be ordered with a USB port authorization key instead
+          of the default printer port authorization key.  (15-Jun-2000).
+
+     12.  Improved Feature.  The Video to Disk has been improved to  use  multiple
+          I/O  buffers  and  to  use asynchronous I/O (subject to operating system
+          support).  These changes allow successful recording with disk subsystems
+          whose  average  bandwidth,  but not `instantaneous' bandwidth, is suffi-
+          ciently high.  Other improvements allow using Video to Disk with cameras
+          operating in single-shot trigger modes.  (19-Jun-2000).
+
+     13.  Improved  Feature:  The  hints which appear when the mouse hovers over a
+          shortcut now are popup windows, rather than appearing in the status bar.
+          The  status  bar,  with  cursor coordinates, buffer number, etc.  is now
+          under the displayed image instead of the detached shortcuts.  The status
+          bar can be hidden via View, Display, Windows.  (30-Jul-2000).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 19 -
+
+
+
+     14.  Improved  Feature:  The TWAIN and Image-Pro Sourcery's activation of the
+          video preview window has been `tuned' to improve  cooperation  with  the
+          TWAIN  or  Image-Pro  application  -  forcing XCAP to the foreground and
+          TWAIN or Image-Pro to the background, until the  preview  is  completed.
+          Also,  when  a  full  screen  XCAP  preview  is  chosen  and the TWAIN's
+          Acquire/Cancel buttons or Image-Pro's Snap/Stop Preview buttons are hid-
+          den,  XCAP  now  offer's  replacement controls (under the Capture Menu),
+          allowing these features to be clicked without having  to  `dig'  through
+          overlapping  Windows  for  the  TWAIN  or Image-Pro copy of the buttons.
+          (07-Aug-2000).
+
+     15.  Improved Feature: Using the PIXCI(R) Video Setup for line  scan  cameras
+          has  been improved, allowing the number of lines acquired to be adjusted
+          from the Resolution portion, and avoiding having to use the Custom  por-
+          tion.  (09-Aug-2000).
+
+     16.  Fixed  Feature:  The  Shape Analysis using a rectangular window shape (a
+          shape for which the analysis is trivial and useless,  but  unfortunately
+          the  default  shape),  would  yield  invalid  results  or  a page fault.
+          (14-Aug-2000).
+
+     17.  Fixed Feature: With Spatial Calibration enabled, the Annulus, Elliptical
+          Annulus  and  Rectangular  Frame graphic types did not always draw prop-
+          erly.  (14-Aug-2000).
+
+     18.  Fixed Feature: The Pixel Plot, in column mode with color  images,  would
+          occasionally cause page faults.  (23-Aug-2000).
+
+     19.  Version   2.1   released,  using  new  PIXCI(R)  drivers  (epixxcw5.vxd,
+          epixxcwt.sys).  (28-Aug-2000).
+
+     20.  Improved Feature: Windows ME is now supported, although  currently  lim-
+          ited   to   approximately   64  mbyte  of  image  frame  buffer  memory.
+          (31-Aug-2000).
+
+     21.  Fixed Feature: Under some  versions  of  NT,  opening  the  Message  Log
+          (explicitly, or implicitly due to message being produced) may cause XCAP
+          to cease re-drawing its Windows.  (Work-around? Activate command  prompt
+          window,  switch  to  full screen (Alt-Enter), switch back, close command
+          prompt window.  (10-Sep-2000).
+
+     22.  Improved Feature: Using Modify, Src+Dst style operation,  the  Set  AOI,
+          Apply,  and  OK  buttons  stay greyed out, rather than greying with each
+          operation  cycle.   While  this  eliminates  visual  feedback,  it  also
+          decreases overhead for video rate processing.  (10-Sep-2000).
+
+     23.  Fixed  Feature:  Using  the Driver Assistant under Windows NT or Windows
+          2000 to `Request Forceful Frame Buffer Allocation'  may  leave  multiple
+          `PIXCI(R)' boot lines within boot.ini.  (24-Sep-2000).
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 20 -
+
+
+
+     24.  Improved  Feature: The Program Setup now has a `GUI' section from which,
+          a) The `% Done / Abort' boxes seen during  length  processing  can  dis-
+          abled,  b) The numeric field up/down `browse' buttons can be eliminated,
+          c) The color field `browse swatch' buttons can be eliminated, and d) The
+          shortcuts' tool tip can be disabled.  These save a small amount of over-
+          head, primarily for applications where XCAP is being  used  non-interac-
+          tively.  (29-Sep-2000).
+
+     25.  Fixed  Feature:  The  shortcuts'  tool tips occasionally appeared if the
+          mouse's cursor was only briefly over the shortcut, rather  than  waiting
+          for the mouse to hover for (approx.) a second.  (29-Sep-2000).
+
+     26.  Fixed  Feature:  The `E-Mail Image' feature would not work properly with
+          some UNIX based SMTP servers.  The Program Setup,  `E-Mail  Name'  field
+          (the  sender's  descriptive  name),  would  not  be remembered and used.
+          (08-Oct-2000).
+
+     27.  Fixed Feature: The Capture & Adjust feature's `Load  Preset'  and  `Save
+          Preset' would not operate and would produce an indecipherable error mes-
+          sage.  (12-Oct-2000).
+
+     28.  Improved Feature: Two new options in Utility, Program Setup,  Start/End,
+          `PIXCI(R) Viewer is Minimal TWAIN Sourcery' and `PIXCI(R) Viewer is Min-
+          imal Image-Pro Sourcery', allow selecting a  simplified  PIXCI(R)  Image
+          Viewer Window, suitable for supporting XCAP's use only as a component of
+          a `smart' TWAIN  Source  (TWAIN  terminology)  or  Video/Digital  source
+          (Image-Pro  terminology).  The new `Show TWAIN Popup Controls' option in
+          PIXCI(R) TWAIN Sourcery allows eliminating the three button TWAIN  popup
+          control window.  (19-Oct-2000).
+
+     29.  Added  feature:  XCAP  now  supports  the PIXCI(R) D2X series of imaging
+          boards.  (06-Nov-2000)
+
+     30.  Improved Feature: The Save Image, Save Image Sequence,  and  Print  fea-
+          tures now allow saving or printing the image as seen through the current
+          palette.  This feature may be enabled or disabled via the Set  AOI  but-
+          ton.   (06-Nov-2000).   The  Save  Image Sequence, Set AOI was broken by
+          this new feature and fixed.  (21-Nov-2000)
+
+     31.  Improved Feature: The File, Load New Image, and  File,  Load  Image  now
+          allow  loading  images  directly from the internet, using an FTP or HTTP
+          URL.  (08-Nov-2000).
+
+     32.  Improved Feature: The Capture & Adjust for cameras with RS-232  controls
+          now  provides  a  `RS-232 Log' feature.  When enabled, all commands sent
+          to, or received from, the camera are displayed in the message log.  This
+          is  useful  to  camera  designers  and  application  developers, who can
+          observe the commands being sent to the camera for any mode of operation.
+          (17-Nov-2000).
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 21 -
+
+
+
+     33.  Improved Feature: The Pixel Peek, Pixel Plot, and Pixel Plot 3D features
+          now allow viewing pixel values as  seen  through  the  current  palette.
+          They  also  allow selectively disabling the previously supported feature
+          whereby pixel values as mapped via the `Z=>I  Calibration'  feature  are
+          shown.  (20-Nov-2000).
+
+     34.  Fixed  Feature:  The  Pixel  Peek, with a color space selection of `R of
+          BGR' or `B of BGR' would display the numerical values for `B of BGR'  or
+          `R of BGR', respectively.  (21-Nov-2000).
+
+     35.  Fixed  Feature:  The  Play  feature  of  Video to Disk did not function.
+          (05-Dec-2000).
+
+     36.  Fixed Feature: Loading of images from TIF, BMP, or JPG  files  into  BGR
+          format image buffers may exchange red and blue colors.  RGB format image
+          buffers are not affected.  (05-Dec-2000).
+
+     37.  Improved Feature: The Video to Disk now supports the `Use Common  Format
+          &  Controls w. Cameras Synchronized' options for multiple boards, allow-
+          ing multiple video to disk streams to be  controlled  from  one  dialog.
+          (04-Jan-2001).
+
+     38.  Fixed  Feature:  Under  Windows NT (but not Windows 2000), activating an
+          XCAP window which displays an image or graph may rarely produce  a  par-
+          tially draw and inoperable `ghost' window.  (07-Jan-2001).
+
+     39.  Improved  Features:  The  Sequence  Capture  and Video to Disk have been
+          renamed to Video to Frame Buffers and Video to Disk File,  respectively,
+          and  joined by a Video to Memory Buffers and a Video to Image Files fea-
+          tures.
+
+             These four sequence capture features provide a  range  of  speed  vs.
+          convenience  vs. image count tradeoffs.  The Video to Frame Buffers cap-
+          tures sequences directly into pre-configured frame  buffer  memory,  and
+          can  support  any  video rate or bandwidth.  The Video to Memory Buffers
+          captures and copies sequences into convenient dynamically allocated mem-
+          ory,  but  may not support high video rate or bandwidth sequence capture
+          for all cameras on all computers.  The Video to Disk File  captures  and
+          copies  sequences  into  a  disk  file  in an efficient, internal format
+          (after capture the sequence can be saved in  a  standard  format).   The
+          Video  to  Image Files captures and copies sequences directly into stan-
+          dard format image files, but may not obtain as high video  rate  capture
+          as the Video to Disk File feature.
+
+             The  Video  to  Frame Buffers now includes a sequence display feature
+          (similar to that previously in Video to Disk File).  The Video  to  Disk
+          File now includes a trigger feature (similar to that previously in Video
+          to Frame Buffers).  (28-Jan-2001).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 22 -
+
+
+
+     40.  Improved Feature: Each of the new sequence capture features  provides  a
+          Driver  Assistant button, so the amount of requested frame buffer memory
+          can be more conveniently changed.  The sequence capture Driver Assistant
+          also allows either specifying the number of frame buffers (and shows the
+          amount of memory required) or specifying the total amount of memory (and
+          shows the number of resulting frame buffers).  (01-Feb-2001).
+
+     41.  Fixed  Feature:  The  Driver  Assistant would accidentally reset the -QU
+          parameter  whenever  changing  other  driver  configuration  parameters.
+          (16-Feb-2001).
+
+     42.  Improved  Feature:  A  new EPIXXCW2.SYS driver for Windows 2000 provides
+          better  compatibility  with  newer  motherboards.   In  particular,   it
+          resolves  a  problem  with motherboards using early 800 series chipsets,
+          which would not provide interrupts.  When converting to the new  driver,
+          it  is  suggested  that  (a) Remove PIXCI(R) imaging boards from the PC,
+          (b) Run the Driver Assistant, Uninstall PIXCI(R)  Driver,  (c) Reinstall
+          the  PIXCI(R) imaging boards.  The older EPIXXCWT.SYS driver for Windows
+          NT may still be used under Windows  2000  on  all  previously  supported
+          motherboards.  (20-Feb-2001).
+
+     43.  Modified  Feature:  For multiple PIXCI(R) imaging boards used with indi-
+          vidual format and controls: The explicit Save and Load Video  Setup,  as
+          well  as the Load and Save implied when the imaging boards are opened or
+          closed, now load or save individual video formats (to the  single  file)
+          for each imaging board.  (05-Mar-2001)
+
+     44.  Improved  Feature:  The script record/play feature, when used with image
+          load, save or other features that uses path and file names,  now  allows
+          selecting  whether the file browser, when used during recording, selects
+          a fixed file and path name to be inserted during  playback,  or  whether
+          the  file  browser  re-appears during playback allowing selection of the
+          path and file name.  (20-Mar-2001).
+
+     45.  Improved Feature: The four Sequence Capture  features,  Video  to  Frame
+          Buffers  Video to Disk File, Video to Memory Buffers, and Video to Image
+          Files now provide, when recording at subvideo rates, a time  stamp  fea-
+          ture which records the time at which each image was captured, and either
+          overlays the time nondestructively or permanently marks the  image  with
+          the time.  (22-Mar-2001).
+
+     46.  Improved  Feature:  A  sequence of images can now be saved to, or loaded
+          from, a single file in X/Y Binary format, as well as the previously sup-
+          ported  sequence  of  files,  one  per  image,  in  X/Y  Binary  format.
+          (23-Mar-2001).
+
+     47.  Fixed Feature: The Driver Assistant, Uninstall PIXCI Imaging Board  fea-
+          ture   would   not   always   remove   all   of  the  registry  entries.
+          (21-Apr-2001).
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 23 -
+
+
+
+     48.  Fixed Feature: The Pixel Pair Arithmetic, Ratio was actually computing a
+          Product.  The Pixel Pair Arithmetic, User-Defined did not always operate
+          correctly with pixels with more than 8 bits.  (26-Apr-2001).
+
+     49.  Improved feature.  The Draw, Text feature now  allows  drawing  multiple
+          lines of text.  (07-May-2001).
+
+     50.  Added  feature:  XCAP  now  supports  the PIXCI(R) CL1 series of imaging
+          boards for Camera Link cameras.  (15-May-2001).
+
+     51.  Added  Feature:  XCAP  now  supports  the  PIXCI(R) SV5  imaging  board.
+          (29-May-2001).
+
+     52.  Fixed  feature: For PIXCI(R) SV4 and SV5 in color capture mode, clicking
+          the BNC or S-Video connector in the sketch of the board's  bracket  only
+          changed the input selection, but did not also change the `Y/C Component'
+          selection of the video setup.  (12-Jun-2001).
+
+     53.  Added Feature: XCAP-Std now allows opening and operating multiple,  non-
+          identical  PIXCI(R)  imaging boards.  There are no restrictions on board
+          or camera combinations, such  as  analog  vs.  digital,  monochrome  vs.
+          color,  low  resolution  vs. high resolution, low bit depth vs. high bit
+          depth, or continuous video mode vs. asynchronous reset mode.   XCAP-Lite
+          only   allows  opening  multiple,  identical  PIXCI(R)  imaging  boards.
+          (02-Jul-2001).
+
+     54.  Fixed Feature: In certain sequence capture or triggered  capture  modes,
+          and  depending on various other factors, intermittent errors of `Unknown
+          error: getLiveStatus' may be reported.  (12-Jul-2001).
+
+     55.  Improved Feature: The popup `Abort' button and `% Done' indicator  which
+          appears when running long image processing and other operations has been
+          replaced with a non-popup bar graph using the existing  `Cancel'  button
+          for  premature termination.  The new non-popup style consumes less over-
+          head and reduces visual clutter.  Also, the elapsed processing time  can
+          now  be reported.  The old popup style, as well as other optional styles
+          and the elapsed time report, can be selected from Utility, Program  Set-
+          up, Gui.  (03-Aug-2001)
+
+     56.  Fixed Feature: Support for opening and operating multiple, non-identical
+          PIXCI(R) imaging boards was not fully included in Windows  NT/2000  ver-
+          sions.  (17-Aug-2001)
+
+     57.  Improved  Feature:  The  Examine,  Pixel Peek now allows selecting pixel
+          values to be highlighted via a user-defined expression.  (15-Sep-2001).
+
+     58.  Fixed feature: The Video to Image Files did not work properly using TIFF
+          format and cameras producing BGR pixels (but did work in other file for-
+          mats, or with cameras producing grey or RGB pixels).  (17-Oct-2001).
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 24 -
+
+
+
+     59.  Improved Feature:  The  Sequence  Capture  -  Video  to  Frame  Buffers,
+          Sequence  Capture  -  Video  to Memory, Sequence Capture - Video to Disk
+          File, and Sequence Capture - Video to Image Files, now allow using  mul-
+          tiple  events,  with each event controlling capture of each image of the
+          sequence.  The previous event feature, with a single  event  controlling
+          the start or stop of a free-running sequence capture, is also available.
+          (18-Oct-2001).
+
+     60.  Improved Feature: For Bayer output cameras, under White (Balance Correc-
+          tions),  the  Extract  Black  Ref(erence) is now functional.  It was not
+          needed for previously supported cameras, but may  be  needed  for  newer
+          CMOS cameras.  (16-Nov-2001).
+
+     61.  Updated  Feature:  The  Video  to StreamStor has been updated to utilize
+          V4.5 of the StreamStor XLRAPI.DLL.  Use with earlier  versions  may  not
+          work.  (20-Nov-2001).
+
+     62.  Version 2.2 released, adding support for Windows XP.  (03-Dec-2001).
+
+     63.  Added  Feature:  Under  Utility,  Program  Setup, Gui, the indexing of a
+          sequence of image buffers can be altered so that  the  first  buffer  is
+          indexed as one rather than zero.  (03-Dec-2001).
+
+     64.  Fixed  Feature: Under Windows XP, the Driver Assistant and forceful mem-
+          ory allocation feature would add boot options to boot.ini, but not force
+          the options to become visible during Windows' startup.  (12-Dec-2001)
+
+     65.  Improved  Feature: An option for image display via the Video for Windows
+          API has been added.  This API may be slightly slower on some  computers,
+          but  may  reduce the appearance of `band' artifacts due to the S/VGA and
+          PIXCI(R) imaging board being asynchronous.  (21-Jan-2002).
+
+     66.  Improved Feature: Sequence Play features now provide a Pause  button  to
+          pause sequence display, and a scroll pot to visually show and adjust the
+          current displayed image buffer number.  (22-Jan-2002).
+
+     67.  Improved Feature: For PIXCI(R) SV2, SV3, SV4, SV5 and  for  PIXCI(R)  D,
+          D24,  D32,  D2X,  D3X,  CL1 with selected digital cameras, the Capture &
+          Adjust now offers interactive specification of a capture AOI via the new
+          Max Capture AOI and Set Capture AOI buttons.  (06-Feb-2002).
+
+     68.  Fixed  Feature:  Recent  releases of XCAP-Lite allowed opening multiple,
+          non-identical PIXCI(R) imaging boards, contrary to published  specifica-
+          tions.  XCAP-Lite only allows opening multiple, identical PIXCI(R) imag-
+          ing boards.  (14-Mar-2002).
+
+     69.  A XCAP-Ltd version is released, with more features than  XCAP-Lite,  but
+          fewer than XCAP-Std.  Like XCAP-Std and XCAP-Plus, the XCAP-Ltd requires
+          an  authorization  key,  either  on  the  printer  port  or  USB   port.
+          (15-Mar-2002).
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 25 -
+
+
+
+     70.  Added  Feature: Saving and re-loading images in the FITS (Flexible Image
+          Transport System) format has been added.  (01-Apr-2002)
+
+     71.  Improved Feature: For the SILICON VIDEO(R) 2112C and several other Bayer
+          output  cameras  under White (Balance Corrections), a Saturation control
+          has been added allowing color `strength' to be adjusted lower or  higher
+          than the default.  (05-Apr-2002).
+
+     72.  Improved  Feature: For the SILICON VIDEO(R) 2112C and other Bayer output
+          cameras, the software Bayer conversion algorithms have been improved  to
+          be  faster  and/or operate with less overhead.  For the SILICON VIDEO(R)
+          2112C, the Scan Direction  feature  is  now  supported  in  color  mode.
+          (12-Apr-2002).
+
+     73.  Added Feature: Loading image sequences in the AVI format has been added.
+          (22-Apr-2002).
+
+     74.  Improved Feature: For the SILICON VIDEO(R) 2112C and other Bayer  output
+          cameras, an automatic, continuous, white balance feature has been added.
+          The automatic white balance is more convenient than  manual  white  bal-
+          ance,  but  can be fooled by atypical scenes; the explicit white balance
+          feature remains for precision applications.  (13-May-2002).
+
+     75.  New Feature: The `slider  controls'  typically  associated  with  camera
+          exposure  and  gain  settings  now  have  a `zoom' feature accessible by
+          right-clicking on the control.  (17-May-2002)
+
+     76.  New Feature: The default directory in which images and other  files  are
+          saved  and  loaded  can  now  be  changed  in  Utility,  Program  Setup.
+          (30-Sep-2002).
+
+     77.  New Feature: The new Histogram Pair feature provides  a  two-dimensional
+          graph  of  the  difference  of corresponding pixels of a pair of images.
+          (06-Oct-2002)
+
+     78.  Improved Feature: The RGB Merge feature now offers the  option  of  dis-
+          playing the composite RGB image in the original image view window, or in
+          a separate image view window.  The former minimizes  window  `confusion'
+          and `real-estate', the latter allows seeing both the monochrome image as
+          captured and the composite image.  Similarly, the Frame Average  feature
+          now offers the option of displaying the averaged imagery in the original
+          image view window, or in a separate image view window.   Similarly,  the
+          Quad  Pixel Merge feature now offers the option of displaying the merged
+          imagery in the original image view window, or in a separate  image  view
+          window.  (10-Oct-2002).
+
+     79.  Fixed  Feature:  The Sequence Capture: Video to Memory Buffers, Video to
+          Disk, and Video to Files now work with the  PIXCI(R)  CL3SD  and  Basler
+          A504k.   Not that anyone would have missed these features, as they can't
+          hope to accommodate the high frame rate and bandwidth being generated by
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 26 -
+
+
+
+          the A504k.  (18-Oct-2002).
+
+     80.  Improved  Feature: The Sequence Capture to Frame Buffers, to Memory Buf-
+          fers, to Disk File, and to Image Files features now allows selecting the
+          event  delay  in seconds, in percent of saved images, or as a pretrigger
+          in percent of saved images, as well as the current option  of  selecting
+          the event delay in video fields.  (03-Nov-2002).
+
+     81.  Improved Feature: The Image Save and Load Sequence, in TIFF and AVI for-
+          mats, now support file sizes up to 4 GiByte  rather  than  the  previous
+          2 GiByte limit.  (05-Nov-2002)
+
+     82.  Modified Feature: The default frame buffer memory size under Windows NT,
+          2000,  and  XP  has  been  increased   from   4 MiByte   to   16 MiByte.
+          (05-Nov-2002).
+
+     83.  Improved Feature: The Measure, Particle Tracking now reports delta H & V
+          coordinates, reports vector magnitude and angle, allows reporting to the
+          Windows  Clipboard,  and  allows  customization  of  values  to  report.
+          (11-Nov-2002).
+
+     84.  Improved Feature: The Measure, Particle Tracking and Measure, Blob Anal-
+          ysis  now provide a `Live' option in which the particle or blob analysis
+          is automatically performed when the image changes or an analysis parame-
+          ter is modified.  (11-Nov-2002)
+
+     85.  Improved  Feature: Most of the features under Modify now provide a `Pre-
+          view' option, allowing viewing of the operation's effect without  perma-
+          nent changes to the image.  (25-Nov-2002).
+
+     86.  Improved Feature: For cameras with RS-232 or CameraLink serial controls,
+          the layout of XCAP's camera controls has been modified to be  easier  to
+          use.   The layout of the capture controls in the `Capture & Adjust' dia-
+          log has also been improved.  (17-Jan-2003)
+
+     87.  Improved Feature: For cameras with `raw' Bayer output, XCAP's color con-
+          trols have been modified to be easier to use.  For many cameras, includ-
+          ing the SILICON VIDEO(R) 2112, the color quality has also been improved.
+          A  color  calibration  feature now allows automatic setting of the color
+          space corrections.  (24-Jan-2003).
+
+     88.  Improved Feature: When using sequence capture to frame  buffers  with  a
+          PIXCI(R) D, D24, D32, D2X, CL1, or CL3SD with a camera in free-run mode,
+          with triggered event sequence start  or  sequence  stop,  without  using
+          delays,  the trigger latency as been reduced from (approx.) 5 msec. to a
+          single field/frame.  (31-Jan-2003).
+
+     89.  Fixed Feature: A new version of drivers  for  the  authorization  key(s)
+          eliminates   some   compatibility   issues   on   Windows XP   machines.
+          (17-Feb-2003).
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 27 -
+
+
+
+     90.  Modified Feature: Scripts now have default directory `scripts',  instead
+          of  the  previous `data'.  This allows the data directory to be changed,
+          and images files (re)organized, without affecting scripts and tool bars.
+          (02-Mar-2003).
+
+     91.  Improved  Feature:  When  using  image save sequence and entering a file
+          name pattern with many `?'  characters (each representing a  file  index
+          digit), XCAP pauses to check whether any possible file matching the pat-
+          tern previously exists.  On slower machines, or with many (six or  more)
+          `?'   characters,  these  checks  may take a significant amount of time.
+          The time required for  these  checks  has  been  significantly  reduced.
+          (13-Mar-2003).
+
+     92.  Improved  Feature:  The  default  directory for scripts is now `scripts'
+          rather than `data', allowing the default data directory to  be  changed,
+          such  as  for  organizing  groups  of  images, without also changing the
+          default directory for scripts.  (10-Mar-2003)
+
+     93.  Added Feature: The shortcuts provided with the PIXCI(R) image viewer can
+          now   be  customized  or  replaced  by  using  Utility,  Program  Setup,
+          Start/End, PIXCI(R).  (18-Mar-2003)
+
+     94.  Improved Feature: For the SILICON VIDEO(R) 1310 camera, the  frame  rate
+          can  now  be  increased by using subsampling and/or using a smaller AOI.
+          Previously,  only  a  smaller  AOI  would  increase  the   frame   rate.
+          (11-Apr-2003)
+
+     95.  Modified  Feature:  The  `Open  PIXCI(R) on Startup (of XCAP)' option is
+          now, by default, enabled, making XCAP more convenient for novice user's.
+          (15-Apr-2003)
+
+     96.  Improved  Feature:  The  various  graphic  tools  now have a `Mark Image
+          Sequence' feature, to mark each image of the sequence,  in  addition  to
+          the  previous  `Mark  Image' feature which marks only the current image.
+          (12-May-2003)
+
+     97.  Fixed Feature: The Video to Image files, when used with multiple  boards
+          and common controls, would not force the filename pattern to have suffi-
+          cient `?'  characters with which to support indexing number  of  desired
+          images multiplied by the number of boards.  The problem occurs only when
+          the Number of Images is increased explicitly, and the file name  pattern
+          modified  implicitly.   It  does  not occur if the appropriate file name
+          pattern is entered explicitly.  (16-Jun-2003).
+
+     98.  Improved Feature: For CameraLink cameras with serial controls, the  Cap-
+          ture  &  Adjust  now defaults to the serial communication being enabled,
+          rather than disabled (as was, and remain, the default for  cameras  with
+          RS-232 controls).  24-Jun-2003.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 28 -
+
+
+
+     99.  Fixed  Feature:  For  the  PIXCI(R)  CL3SD,  under Windows 2000, XP, the
+          improved driver installation file, epixxcw2.inf, set
+
+                   PIXCI= ... -WT -0x20
+
+          to activate high resolution  timestamps.   The  superfluous  `-'  causes
+          software  to believe the board has 4 GiByte of memory, regardless of the
+          amount of memory actually installed.  Post installation, the problem can
+          be remedied by using PIXCI(R) Open/Close Advanced to change any registry
+          setting.  (27-Jun-2003).
+
+    100.  Improved Feature: The Sequence Capture, Video to Image Files  now  allow
+          the  captured  sequence to be modified, such as with image processing or
+          graphic  overlays.   Previous,  any  such  modifications  were  silently
+          ignored   and   the   original   captured   images  remained  unchanged.
+          (07-Jul-2003).
+
+    101.  Improved Feature: Actions initiated by shortcuts are  now  recorded  and
+          replayed  from  a script.  Previously, the alternate menu item or button
+          with identical effect had to be used in  order  for  the  action  to  be
+          recorded  and  replayed.   Also,  shortcuts  can now be connected to the
+          Black Board, similar to buttons' connections.  (14-Jul-2003).
+
+    102.  Fixed Documentation: The documentation for Capture - GIO  Event  Capture
+          describes  `High  Priority,  Not Abortable' `Normal Priority, Abortable'
+          `Wait Timeout, sec.'  option which haven't been used since V1.5.   Event
+          capture  is now always high priority, but with none of the previous dis-
+          advantages.  (30-Jul-2003).
+
+    103.  Improved Feature: The Capture - GIO Event Capture now offers  an  option
+          to  select  rising  edge  versus  falling  edge  triggering,  except for
+          PIXCI(R) D, D24, and D32 imaging boards.  (30-Jul-2003).
+
+    104.  Improved Feature: The PIXCI(R)  SV5A  is  now  supported  distinct  from
+          PIXCI(R)  SV5;  the  default  SV5A  video  setup  is NTSC, not the SV5's
+          NTSC/YC.  (02-Oct-2003).
+
+    105.  Improved Feature: XCAP now provides improved support for navigating  the
+          GUI  using  the  keyboard's TAB and SHIFT+TAB keys to shift input focus,
+          and ENTER and other keys to effect selections.  (24-Oct-2003).
+
+    106.  Fixed Feature: Using the `High Resolution Time Stamp' option on  certain
+          motherboards resulted in time stamps flowing backwards, albeit with high
+          resolution.  (31-Oct-2003).
+
+    107.  Added Feature: The new Sequence Pair Arithmetic and Sequence  Pair  Nor-
+          malization  features  allow applying image pair arithmetic or normaliza-
+          tions on each image of a sequence.  (18-Nov-2003).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 29 -
+
+
+
+    108.  Modified Feature: When using the default image  display  mode,  DirectX,
+          the  mouse cursor may blink over the image view window when the graphics
+          display (S/VGA) does not include hardware support for the cursor.   XCAP
+          now  detects  whether the graphics display provides hardware cursor sup-
+          port and if not uses an alternate display method.  (25-Nov-2003).
+
+    109.  Fixed Feature: An `out of memory' error may occur when opening  multiple
+          image   view  windows,  or  opening  and  closing  image  view  windows.
+          (10-Feb-2004).
+
+    110.  Added Feature: The Save Image now allows saving an image directly  to  a
+          FTP URL.  (15-Feb-2004).
+
+    111.  Improved  Feature:  The Save Image, Save Image Sequence, and Print Image
+          now allow automatic inclusion  of  any  overlay  graphics.   (Previously
+          Duplicate  Image  had  to  be used to create a copy `As Shown', and that
+          copy saved or printed).  (19-Feb-2004).
+
+    112.  Fixed Feature: When using Video to Frame Buffers with  a  PIXCI(R)  SV4,
+          SV5,  or  SV5A, with Event Start, one, two, or three extra frames may be
+          captured at the end of the  sequence,  overwriting  the  first,  second,
+          and/or  third frame buffers.  Further, if the Set AOI to Capture Buffers
+          option is set, the AOI may be set incorrectly.  (The  second  aspect  of
+          the  problem  can be manually corrected by explicitly resetting the AOI,
+          but there is no work-around for the first aspect).  (28-Apr-2004).
+
+    113.  Modified Feature: The default extension for video  to  disk  files  have
+          been  changed  to .vif from .bin, to avoid confusion with other types of
+          .bin files.  As before, the extension is only suggested; the feature can
+          still be used with .bin files.  (18-May-2004).
+
+    114.  Modified  Feature: The `Print, Windows' and `Print, PXIPL' features have
+          been simplified and integrated into a single easier to use `Print Image'
+          feature.   Also,  the `Print Image' now allows formatting an image as an
+          encapsulated PostScript file.  (31-May-2004).
+
+    115.  Fixed Feature: Various frequency and time measurements may be inaccurate
+          when  capturing video in conjunction with certain PCI chipsets.  See MKB
+          Article #274323.  These errors affected the informational displays, such
+          as  `frames  per  second'  but  did not affect image or sequence capture
+          which is governed by the camera's timing.  (08-Jun-2004)
+
+    116.  Improved Feature: Particle tracking now allows tracking particles param-
+          eters allow tracking particles which may disappear before the end of the
+          sequence,  or  appear  after  the  start  of  the  sequence,  or   both.
+          (16-Aug-2004)
+
+    117.  Added  Feature:  When used with color cameras that output raw Bayer val-
+          ues, the Pixel Peek, Pixel Plot, Pixel Plot 3D  and  Histogram  features
+          allow  viewing  and analyzing `raw' Bayer values while the image display
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 30 -
+
+
+
+          continues to show color.  (Previously, one had to set software to assume
+          a monochrome camera, but the displayed image was also monochrome).
+
+             Further,  the  Pixel Plot, Pixel Plot 3D and Histogram features allow
+          selecting  viewing  or  analysis  of  only  the  red,  the   blue,   the
+          green(blue),  or  the  green(red)  values.  This allows easy analysis of
+          uniformity, without the confusion caused  by  different  colored  pixels
+          having different sensitivities.
+
+             When  viewing  or analyzing a single bayer color, software duplicates
+          each r, g(b), g(r), or b value three times throughout each  2x2  mosaic.
+          Thus  a  histogram  of  a  10x10  AOI  will  always contain 100 samples,
+          although 3/4 of them are duplicates.  Similarly a pixel plot  of  row  N
+          and  N+1 always has the same number of samples, even though there are no
+          red values, or no blue values, on one of the two lines.   This  replica-
+          tion  of  pixel  values throughout the 2x2 mosaic has no relationship to
+          the Bayer-to-RGB interpolation used to create color  images;  it  is  an
+          artifice for convenient numerical analysis.  (18-Nov-2004)
+
+    118.  Improved  Feature: XCAP now recognizes and supports Windows Server 2003.
+          (29-Nov-2004)
+
+    119.  Corrected Documentation: On the PIXCI(R) D2X, D3X, CL1, CL3SD,  and  SI,
+          the  PIXCI(R)  Connections  description of the pins used for the IN1 and
+          IN2 TTL G.P. Input signals has been changed, swapping IN1 for IN2 so  as
+          to be consistent with their usage in existing software.  (28-Dec-2004).
+
+    120.  Improved  Feature:  Images  saved  in  TIFF format can now be compressed
+          using LZW compression.  (30-Jan-2005).
+
+    121.  Fixed feature: For the SILICON VIDEO(R) 9M001, when using small areas of
+          interest,  the frame rate specified in the GUI was inconsistent with the
+          actual frame rate.  The camera's frame rate increases as the  AOI  width
+          is  decreased, but only until the AOI is (approx.) 548 pixels wide; nar-
+          rower AOI's have little or no effect on the frame rate.  (01-Feb-2005).
+
+    122.  Added feature: The Video to Image Files now allows copying of each  cap-
+          tured  image  to  a  FTP URL, providing an easy to use `Video to Web' or
+          `WebCam' feature.  (23-Mar-2005).
+
+    123.  Improved Feature: The TIFF PackBits Lossless compression option now sup-
+          ports  color  images,  and  pixel components with more than 8 bits.  The
+          TIFF EPIX(R) Lossless compression option (formerly Grey-Level  Lossless)
+          now   supports  color  images  and  pixel  components  up  to  12  bits.
+          (31-Mar-2005).
+
+    124.  Added Feature: Sequence Capture now  allows  selecting  an  Image  Delta
+          event,  triggered  when the live image stream has changed significantly.
+          Like many other possible event strategies, an Image Delta  event  previ-
+          ously  was  available by means of the Black Board and Modify operations;
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 31 -
+
+
+
+          inclusion of an explicit Image Delta  event  adds  greater  convenience.
+          (19-Apr-2005).
+
+    125.  Added  Feature: For Bayer-output color cameras, XCAP now offers an image
+          sharpening option to the video stream processing.  (15-Jun-2005).
+
+    126.  Improved Feature: The performance of Sequence Capture - Video  to  Disk,
+          Video  to  Image  Files,  and  Video  to  Virtual  Memory  have all been
+          improved.  The Video to Disk feature now includes an option to  override
+          the  disk's reported sector (i.e. alignment) size, which is often needed
+          for RAID systems where the optimal sector size  is  different  than  the
+          size  reported  to  and through Windows.  The Video to Disk feature also
+          includes an option to specify the disk I/O size (normally equal  to  one
+          frame  buffer),  so  that several small frame buffers can be accumulated
+          before I/O.  (25-Sep-2005).
+
+    127.  Added Feature: XCAP for Linux now supports 2.6 kernels,  and  also  sup-
+          ports  cut/paste  operations.  XCAP for Linux now has `autoload' options
+          for the authorization key driver and  for  the  PIXCI(R)  imaging  board
+          driver, so that when XCAP is re-run after a reboot of Linux, these driv-
+          ers will be automatically loaded.  (07-Oct-2005)
+
+    128.  New Feature: XCAP for Linux now supports 2.6 kernels.  (11-Oct-2005).
+
+    129.  Improved Feature: XCAP now supports the AVI 2.0  file  format,  allowing
+          files larger than 4 GiByte, subject to support by the underlying operat-
+          ing system.  (30-Dec-2005).
+
+    130.  Improved Feature: XCAP for Linux now includes  a  driver  re-compilation
+          kits  for  the  PIXCI(R)  imaging  board  and for the authorization key.
+          These allow supporting a wider variety of 2.4 and 2.6 kernels  than  are
+          supported by the distributed, pre-compiled drivers.  (22-Feb-2006).
+
+    131.  Fixed  Feature:  The  Script  Play  did not allow mismatch of alphabetic
+          upper  vs.  lower  case  between  the  script   and   XCAP's   features.
+          (03-Mar-2006)
+
+    132.  Improved  Feature:  For  Video  to Disk: (a) XCAP will no longer use the
+          last frame buffer to render the current Video to Disk  image;  there  is
+          one  extra  frame buffer for queuing video, and there is confusion as to
+          what the PIXCI Image Viewer represents.  (b) When creating  a  video  to
+          disk  file,  say  xx.vif,  XCAP  will  also  create a xx.fmt and xx.ini.
+          (c) The MainWindow, File, Load New Image Sequence, will now allow  load-
+          ing  and  displaying   of the video to disk sequence iff all three files
+          (.vif, .fmt, .ini) are present.  This eliminates users  forgetting  what
+          resolution  their  PIXCI  card  was set to when trying to display an old
+          file via the Video to Disk feature, and is more user friendly,  so  that
+          video  to  disk  files  can  be loaded from the same dialog used to load
+          .avi, .tif, etc.  into a new image viewer.  Finally, this  feature  will
+          be  available  even  when a PIXCI card is not present, but only in XCAP-
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 32 -
+
+
+
+          Std.  (27-Jun-2006)
+
+    133.  Added feature: XCAP now supports the PIXCI(R) E1, E1DB,  E4,  E4DB,  EL1
+          series of imaging boards for Camera Link cameras.  (07-Jul-2006)
+
+    134.  Improved  Feature:  For  Video to Disk: the image capture date & time is
+          now optionally saved in the video to disk file.  Formerly,  the  capture
+          date  &  time was only saved in memory, expecting that immediately after
+          recording the raw video to disk file along with the image  date  &  time
+          would  be  re-saved  as  TIFF or another standard format.  Recording the
+          date & time in the raw video to disk file allows delaying  the  resaving
+          of the video to disk file, and avoids common user errors.  (11-Aug-2006)
+
+    135.  Added  feature:  XCAP  now has preliminary support for the PIXCI(R) EC1;
+          Express Card imaging boards; the number of general purpose inputs,  out-
+          puts, and triggers is not yet finalized.  (18-Dec-2006)
+
+    136.  Fixed Feature: When only one frame buffer is available, XCAP incorrectly
+          forced use of Live Mode: Snap, Display, Snap, slowing the display  rate;
+          and  once  set, that choice persisted after more buffers are made avail-
+          able, until explicitly changed.  (04-Jan-2007)
+
+    137.  Improved Feature: Drivers for Windows 2000 and XP, as well  all  Windows
+          DLL's and executables, are now digitally signed.  (17-Jan-2007)
+
+    138.  Added  feature:  XCAP  now supports the PIXCI(R) EL1DB series of imaging
+          boards for Camera Link cameras.  (23-Jan-2007)
+
+    RELEASE NOTES: XCAP  -- Version 1.0 and Subreleases
+
+      1.  Version 1.0 released.  (24-Mar-1999).
+
+      2.  Not in printed manual: The size of icons shown in the  `Scripts  -  Load
+          Tool Bar' can also be specified.  See on-line documentation.
+
+      3.  Added  feature:  A Distance & Angle Crosshairs provides spatial calibra-
+          tion and measurement of absolute position, relative position, length and
+          angles.   While these capabilities are also available elsewhere in Image
+          Viewer -  Measure  and  Image  Viewer  -  Draw,  the  Distance  &  Angle
+          Crosshairs  collects chosen features to provide a single dialog with the
+          equivalent of a so-called `Video Crosshair Overlay &  Measurement'  sys-
+          tem.
+
+      4.  Modified  feature: The XY=>HV Mapping: Scaled (Aspect Ratio 1:1) mode of
+          Spatial Calibration has been modified to  allow  using  a  single  known
+          length,  in combination with any image aspect ratio, to provide scaled X
+          and Y mapping for XY to HV units.  The names of  all  three  modes  have
+          been modified, to better reflect their function.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 33 -
+
+
+
+      5.  Added  features: Many of the `Modify' windows, that performed image pro-
+          cessing on a single image buffer, now have counterparts that perform the
+          same  processing  on  each  buffer  through  a sequence.  As a matter of
+          style, these operations are named `Sequence ...'; while operations which
+          combine  data  from  across  multiple images in a sequence are now named
+          `... Sequence .'
+
+      6.  Modified feature: Camera RS-232 control now provides COM  search,  which
+          can be used instead of explicitly specifying a COM port.
+
+      7.  Modified  feature: The Threshold, Dynamic is renamed to Threshold, Adap-
+          tive.
+
+      8.  New feature: An image sequence can be saved in Windows AVI format.
+
+      9.  New feature: Histogram equalization (under Contrast Enhancement) can now
+          specify  a  user-defined  curve,  in addition to the previous predefined
+          selections.
+
+     10.  Fixed feature: Particle tracking did not allow use of an AOI.
+
+     11.  Fixed feature: The correlation finder did not allow use of AOI  combined
+          with searching for for more than one match.
+
+     12.  Added  features:  Two  alternate  particle tracking methods.  Both track
+          particles using as few as two captured frames.
+
+     13.  Added feature: An image, or live video, can be displayed  `Full  Screen'
+          with little or no `window frame'.
+
+     14.  Added  feature:  The `Radial Mass Plot' displays a two-dimensional graph
+          of the sum of pixel values versus the pixels' distance from an origin.
+
+     15.  Modified feature: The Histogram and Correlation finder have  been  modi-
+          fied so that in their Live mode, the selected AOI is changed to the cur-
+          rent image buffer.
+
+     16.  Fixed feature: The Particle Tracking did not operate properly when using
+          an area of interest smaller than the full image.
+
+     17.  Fixed  feature: The Video to Disk, when aborted in the middle of capture
+          or display, may cause XCAP to die.
+
+     18.  Added feature: The Modify, Noise Generator provides  several  new  noise
+          distributions.   The  Dither  operations, previously in Arithmetic, have
+          been moved.
+
+     19.  Added feature: Under Palette, the new Bit Transposition paradigm  allows
+          viewing an image with the ordering of each pixel's bits changed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 34 -
+
+
+
+     20.  Fixed  feature:  The  View, Pixel Peek, Save Data feature would save the
+          first line of the image AOI repeatedly, for as  many  lines  as  in  the
+          image AOI.
+
+     21.  Added  feature:  Under Modify, Pair Normalization, the Spot Mask Correc-
+          tion is intended to remove `spots' caused by imperfect sensors; i.e. bad
+          pixels which consistently occur in the same location.
+
+     22.  Added feature: The View, Display, Window allows setting the image viewer
+          window's default size, such as to be full screen.  (02-Aug-1999).
+
+     23.  Modified feature: The default API for  image  display  is  now  DirectX.
+          Should a particular S/VGA card cause death when DirectX is accessed, the
+          allowable image display API(s) can be modified in Utility, Program  Set-
+          up, API's before an image view window is opened and the image displayed.
+          (02-Aug-1999).
+
+     24.  Added feature: A `Path Enclosed Region' and a  `Path  Curve'  have  been
+          added  as  graphic shapes.  The `Path Enclosed Region' is also available
+          for use as a region.  (09-Aug-1999).
+
+     25.  Fixed feature: Using `Load Image' (rather than `Load Image Sequence') on
+          a  TIFF  file  containing a sequence does not allow a single image to be
+          loaded.  (09-Aug-1999).
+
+     26.  Added feature: A Clock type cell has been  added  to  the  Black  Board.
+          (13-Aug-1999).
+
+     27.  Fixed  feature: Versions of Print, Windows with the added `Force Dialog'
+          option did not allow changing the printed size.  (13-Aug-1999).
+
+     28.  Improved feature: The dialog created by file name `Browse' buttons  does
+          not, while active, freeze the screen.  (20-Aug-1999).
+
+     29.  Fixed  feature: The Subpixel Edger, when used w/out Spatial Calibration,
+          produces errors.  (24-Aug-1999).
+
+     30.  Fixed feature: The 2-D Graph's Probe and Stat  Window  features  do  not
+          work  properly  in  conjunction with MinMax (i.e. zoom).  Similarly, the
+          File,  Save  feature  would  only  save  the  data  shown  via   MinMax.
+          (29-Aug-1999).
+
+     31.  Added  feature:  An  image  can  be directly e-mail'ed from within XCAP.
+          Combined with the Black Board, these features can also be used  to  cap-
+          ture and e-mail an image periodically.  (30-Aug-1999).
+
+     32.  Fixed feature: The Modify, Sequence Average did not work with frame buf-
+          fers used with certain multi-tap cameras.  (21-Sep-1999).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 35 -
+
+
+
+     33.  Fixed feature: The Load New Image, Multimedia, JPEG format did not  work
+          with monochrome (8 bit per pixel) JPEG files.  (24-Sep-1999).
+
+     34.  Added  feature:  An  image,  or  image  sequence, can be now be saved in
+          JPEG/JFIF  format,  with  selectable  quality  (and  thus  compression).
+          JPEG/JFIF  images  can also be loaded.  Currently, only 8 bits per pixel
+          component is supported.  (27-Sep-1999).
+
+     35.  Added feature: The predefined shortcuts for first buffer,  next  buffer,
+          previous  buffer,  last  buffer,  snap, live, and unlive may now be also
+          activated with key clicks of HOME, PAGE UP, PAGE DOWN, END, S,  U,   and
+          L, respectively.  (27-Sep-1999).
+
+     36.  Added  feature: The user-defined tool bars may now also specify for each
+          shortcut, a key, which when pressed, activates the same script as click-
+          ing the icon.  This feature specifies keys, not characters; thus scripts
+          can be initiated by the large space bar or enter key.  (27-Sep-1999).
+
+     37.  Fixed feature: The Mass & Moments, Raw Moments option  did  not  display
+          the  Raw  Moments,  but was ignored and continued to display the current
+          moments.  Using the Center of Mass mode after the Moments mode  did  not
+          zero-out  the  various  moments  which  Center of Mass does not compute.
+          (04-Oct-1999).
+
+     38.  Added feature: Palettes can now be imported  and  exported,  using  TIFF
+          format  to represent the palette values.  Palettes can also be saved and
+          loaded in an internal format, which, when loaded, resets  the  palette's
+          parameters and paradigm.  (In contrast, an imported palette can only set
+          the current palette values, but not the parameters from which  the  pal-
+          ette was constructed).  (04-Oct-1999).
+
+     39.  Added  feature:  The PIXCI(R) Camera Info provides a list of cameras and
+          video formats supported by  and various  PIXCI(R)  imaging  boards.   It
+          also  allows  viewing  a  non-operational Capture - Adjust dialog, which
+          provides integrated control of both imaging board and any supported cam-
+          era.  (11-Oct-1999).
+
+     40.  Fixed  feature:  The  recently  added JPEG support did not work properly
+          with pixel components other than 8 bits, or for images of certain dimen-
+          sions.  (14-Oct-1999).
+
+     41.  Added  feature:  A  new  graphic  shape, Parallel Lines, has been added.
+          (25-Oct-1999)
+
+     42.  Improved feature: The Subpixel Edger now directly shows, without  having
+          to  use  the  Black  Board, the relative distance from edge 1 to edge 2,
+          from edge 1 to edge 3, and from the midpoint of edges 1&2  to  the  mid-
+          point  of edges 3&4, and the angles of each relative to the origin.  The
+          Subpixel Edger now distinguishes the ticks drawn at each edge, the long-
+          est  is edge 1, the next longest is edge 2, etc.  Using the new Parallel
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 36 -
+
+
+
+          Lines shape, the Subpixel Edger can either, a) Find one edge on each  of
+          4 parallel lines, or b) Average the pixel data under the parallel lines,
+          and find up to 4 edges on the result.  (25-Oct-1999).
+
+     43.  Fixed feature: An executed script would not set the `index'  and  `thru'
+          fields of a file sequence specification, but only set the file name pat-
+          tern.  (25-Oct-1999).
+
+     44.  Improved feature: The various graphical tools, in  interactive  move  or
+          rotate mode, now move or rotate relative to the mouse's initial position
+          to the graphic.  (e.g., in move mode, the graphic doesn't  jump  so  the
+          origin is under the mouse, but retains the same distance relative to the
+          mouse).  In addition to being easier to use with a single  graphic,  the
+          feature allows several graphics to be moved as a group.  (26-Oct-1999).
+
+     45.  Fixed  feature:  The XCAP TWAIN Sourcery feature would not operate prop-
+          erly if XCAP was installed in the root directory.  The fix also includes
+          a  modified  TWAIN  Sourcery driver (TWPXXCAP.DS) which is provided with
+          the TWAIN package, not with XCAP.  (03-Nov-1999).
+
+     46.  Fixed feature: The Modify,  Sequence  Noise  Generator,  would  have  no
+          effect  on  certain  image  types,  although the Modify, Noise Generator
+          would operate correctly.  (14-Nov-1999)
+
+     47.  Improved feature: The Measure, Intensity Calibration and  Measure,  Spa-
+          tial  Calibration  now  allow  their  settings to be saved and reloaded.
+          (14-Nov-1999)
+
+     48.  Improved feature: The File, Save Image and File, Save Image Sequence now
+          sets  the  default  file format according to the suffix of the file name
+          entered, but still allows overriding the set default and using privately
+          defined suffixes.  (15-Nov-1999).
+
+     49.  Added  feature:  The  Capture, RGB Merge allows interpreting and viewing
+          three monochromatic frame buffers as a single color  (e.g.  RGB)  image,
+          with adjustments for registration and coloring.  (17-Nov-1999)
+
+     50.  Improved  feature: The Graphic Rectangle, Window, Ellipse, Circle, Annu-
+          lus, Frame, and Polygon now provide a `Negative' option which draws,  or
+          includes  for analysis, the entire image except for the area enclosed by
+          the graphical region, rather than the area  enclosed  by  the  graphical
+          region.  (22-Nov-1999).
+
+     51.  Fixed  feature:  With a PIXCI(R) D/D24/D32 and some cameras in triggered
+          mode (i.e. single shot), the displayed image  is  intentionally  updated
+          only  once, but the update might be before the image was completely cap-
+          tured.  The effect might be that each snap shows the previously  snapped
+          image.  (22-Nov-1999).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 37 -
+
+
+
+     52.  Added  feature: For all 2-D graphs, the new Stats, Outlier feature shows
+          descriptive statistics about selected data points being graphed,  namely
+          those  data points which are above the corresponding data points in Ref-
+          erence B, or which are below the corresponding values  in  Reference  A.
+          As  Reference A and Reference B are user-defined curves, arbitrary lower
+          and upper bounds can be specified to limit or control which data  points
+          are  to be included or excluded, and thereby define application specific
+          regions of valid or invalid pixel values.  (29-Nov-1999)
+
+     53.  Added feature: The Modify  features  now  allow  specifying  a  distinct
+          source and destination image, rather than assuming that the operation is
+          to be applied `in-place'.  Or, for operations  which  operate  upon  two
+          images  and  yield a third, the Modify features now allow specifying two
+          source images and a distinct destination image.
+
+             In addition, a Live option allows applying  the  operation  automati-
+          cally  whenever  the  source image changes.  This allows displaying live
+          video which has been processed with contrast enhancement, normalization,
+          background subtraction, or other chosen operations.  (06-Dec-1999).
+
+     54.  Added feature: XCAP may be started with a smaller `footprint' by select-
+          ing PIXCI(R) Viewer is Main Window and Open PIXCI(R)  on  Startup  under
+          Utility, Program Setup.  The Main Window is not shown, only the PIXCI(R)
+          Viewer Window.  Features normally accessible from the Main Window,  such
+          as Scripts, BlackBoard, creating new image buffers are not available.
+
+             Also under Utility, Program Setup, the PIXCI(R) Shortcuts on Open and
+          PIXCI(R) Adjustments on Open allows disabling the  automatic  appearance
+          of  Shortcuts  and  Capture  &  Adjust  features along with the PIXCI(R)
+          Viewer Window.  These features can still  be  explicitly  accessed  from
+          under Capture.
+
+             Under View, Display, Window, the Shortcuts: Attached and Adjustments:
+          Attached options allow attaching the Shortcuts or the Capture  &  Adjust
+          settings  to  the  image  view window, rather than appearing as distinct
+          windows.  Attached Shortcuts and detached Capture & Adjust are  now  the
+          default.  (13-Dec-1999).
+
+             Fixed  feature:  The  Driver Assistant's feature to Uninstall Drivers
+          did not remove any entries from the Windows Registry.  Under Print, Win-
+          dows  the  Force  Aspect feature did not force the correct aspect ratio.
+          (15-Dec-1999).
+
+     55.  Improved feature: A Printer Setup button has been added  to  the  Screen
+          Capture feature for use with the Graphics to Print mode.  (15-Dec-1999).
+
+     56.  Improved feature: The Graphic Manager and ROI Manager now allows export-
+          ing the morphology of regions in a file format compatible with the PXIPL
+          Image Processing Library and other applications.  (22-Dec-1999).
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        - 38 -
+
+
+
+     57.  Improved  feature: The Modify, Convolution now allows neighborhood sizes
+          as large as 49x49.  Coefficients can now be set by means of a user spec-
+          ified  expression,  such as `ifel(abs(x)<=1 || abs(y)<=1, -1: 1)' to set
+          the center 3x3 coefficients to -1 and all others to 1.  (28-Dec-1999).
+
+     58.  Fixed feature: Some versions released after 23 Dec 1999  have  debugging
+          code,  which,  when  selected  features  are  enabled, may cause XCAP to
+          appear `hung-up'.  This cause can be  verified  by  a  "Debugmesg"  item
+          appearing in the task-bar.  (10-Jan-2000).
+
+     59.  Improved feature.  Blob analysis now allows setting constraints limiting
+          which blobs should be listed, allows  specifying  a  sorting  order  for
+          listed  blobs,  allows  specifying  which  columns  of statistics should
+          appear in the list and their order, allows specifying the  headings  for
+          the  columns  of  statistics, and allows adding user-defined descriptive
+          statistics to each listed blob.  The blob statistics can now  be  copied
+          to the Windows Clipboard.  (20-Jan-2000).
+
+     60.  Improved  feature.   The  image segmentation used with blob analysis and
+          particle tracking now allows modifying the mask image, after  threshold-
+          ing,  with  erosion,  dilation, or median filters; providing cleaning of
+          noise,  removal  of  protrusions  and  separation  of  touching   blobs.
+          (23-Jan-2000).
+
+     61.  Fixed  feature: The Sequence Capture with mouse click event, would trig-
+          ger when the mouse was passed over the trigger icon, instead of when the
+          trigger icon was clicked.  (28-Feb-2000).
+
+     62.  Fixed feature: Only if using the PIXCI(R) Viewer is Main Window feature,
+          the 2nd+ time that the Viewer's Palette is requested, the Palette window
+          would be missing the menubar and graphical displays.  (02-Mar-2000).
+
+     63.  Modified feature: XCAP no longer requires re-entering of the software ID
+          when a different user logs into a computer  where  XCAP  was  previously
+          installed.   XCAP  can  still,  optionally, provide multiple user's with
+          distinct last used settings.  (02-May-2000).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

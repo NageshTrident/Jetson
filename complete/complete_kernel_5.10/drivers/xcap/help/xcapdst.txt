@@ -1,0 +1,330 @@
+
+
+
+                                         - 1 -
+
+
+
+    DISTRIBUTION KIT:   XCAP for the PIXCI(R) Imaging Boards
+                        Version 3.8
+
+    The XCAP distribution contains:
+
+
+    1a) XCAPWXX.EXE         Startup executable, for Windows.
+
+    1b) xcaplnx             Startup executable, for Linux.
+
+
+    2a) EPIXXCW5.VXD        Windows 95/98/ME 32 bit driver.
+        EPIXXCW5.INF        Windows 95/98/ME 32 bit driver installer.
+        EPIXXCWT.SYS        Windows NT 32 bit driver.
+        EPIXXCWT.INF        Windows NT 32 bit driver installer.
+        EPIXXCW2.SYS        Windows 2000/XP/Vista/7/8/10 32-Bit driver.
+        EPIXXCW2.INF        Windows 2000/XP/Vista/7/8/10 32-Bit driver installer.
+        EPIXXCW2.CAT        Windows 2000/XP/Vista/7/8/10 32-Bit driver catalog.
+        EPIXXCW6.SYS        Windows XP/Vista/7/8/10/11 64-Bit driver.
+        EPIXXCW6.INF        Windows XP/Vista/7/8/10/11 64-Bit driver installer.
+        EPIXXCW6.CAT        Windows XP/Vista/7/8/10/11 64-Bit driver catalog.
+
+    2b) EPIXXC.SYS          Large image memory reservoir driver for Windows 95/98.
+
+    2c) pixci_i386.ko       Loadable device driver for Linux w. 32 bit kernel
+                            and Intel 386 and newer processors.
+
+    2d) pixci_x86_64.ko     Loadable device driver for Linux w. 64 bit kernel
+                            and Intel x86-64 processors.
+
+    2e) pixci_armv7l.ko     Loadable device driver for Linux w. 32 bit kernel
+                            and nVidia TK1 (ARM Cortex-A15).
+
+    2f) pixci_aarch64.ko    Loadable device driver for Linux w. 64 bit kernel
+                            and nVidia Nano/TX1/TX2/Xavier/XavierNX (ARM Cortex-A57).
+
+    2g) pixcitty_i386.ko    Loadable device driver for /dev/tty serial access,
+        pixcitty_x86_64.ko  for Linux w. 32 bit kernel and Intel 386 and newer processors,
+        pixcitty_aarch64.ko or Linux w. 64 bit kernel and Intel x86-64 processors,
+        pixcitty_armv7l.ko  or Linux w. 64 bit kernel and nVidia Nano/TX1/TX2/Xavier/XavierNX (ARM Cortex-A57),
+                            or Linux w. 32 bit kernel and nVidia TK1 (ARM Cortex-A15).
+
+    2h) pixciv4l_i386.ko    Loadable device driver for V4L2 access,
+        pixciv4l_x86_64.ko  for Linux w. 32 bit kernel and Intel 386 and newer processors,
+        pixciv4l_aarch64.ko or Linux w. 64 bit kernel and Intel x86-64 processors,
+        pixciv4l_armv7l.ko  or Linux w. 64 bit kernel and nVidia Nano/TX1/TX2/Xavier/XavierNX (ARM Cortex-A57),
+                            or Linux w. 32 bit kernel and nVidia TK1 (ARM Cortex-A15).
+
+    2i) i386/src_*/pixcipub.h               Driver compilation kit, allowing re-compilation
+        i386/src_*/pixcipub.c               in the field under the current kernel.
+
+
+
+
+
+
+
+
+
+
+
+
+                                         - 2 -
+
+
+
+        i386/src_*/pixcilnx_i386_*.a        Kits for each supported kernel aren't required;
+        i386/src_*/Makefile                 each kit covers multiple kernels.
+        x86_64/src_*/pixcipub.h
+        x86_64/src_*/pixcipub.c
+        x86_64/src_*/pixcilnx_x86_64_*.a
+        x86_64/src_*/Makefile
+        armv7l/src_*/pixcipub.h
+        armv7l/src_*/pixcipub.c
+        armv7l/src_*/pixcilnx_armv7l_*.a
+        armv7l/src_*/Makefile
+        aarch64/src_*/pixcipub.h
+        aarch64/src_*/pixcipub.c
+        aarch64/src_*/pixcilnx_aarch64_*.a
+        aarch64/src_*/Makefile
+        i386/ttysrc_*/pixcipub.h            The tty driver compilation kit, allowing re-compilation
+        i386/ttysrc_*/pixcitty.c            in the field under the current kernel.
+        i386/ttysrc_*/Makefile              Kits for each supported kernel aren't required;
+        x86_64/ttysrc_*/pixcipub.h          each kit covers multiple kernels.
+        x86_64/ttysrc_*/pixcitty.c
+        x86_64/ttysrc_*/Makefile
+        armv7l/ttysrc_*/pixcipub.h
+        armv7l/ttysrc_*/pixcitty.c
+        armv7l/ttysrc_*/Makefile
+        aarch64/ttysrc_*/pixcipub.h
+        aarch64/ttysrc_*/pixcitty.c
+        aarch64/ttysrc_*/Makefile
+        i386/v4lsrc_*/pixcipub.h            The V4L2 driver compilation kit, allowing re-compilation
+        i386/v4lsrc_*/pixciv4l.c            in the field under the current kernel.
+        i386/v4lsrc_*/Makefile              Kits for each supported kernel aren't required;
+        x86_64/v4lsrc_*/pixcipub.h          each kit covers multiple kernels.
+        x86_64/v4lsrc_*/pixciv4l.c
+        x86_64/v4lsrc_*/Makefile
+        armv7l/v4lsrc_*/pixcipub.h
+        armv7l/v4lsrc_*/pixciv4l.c
+        armv7l/v4lsrc_*/Makefile
+        aarch64/v4lsrc_*/pixcipub.h
+        aarch64/v4lsrc_*/pixciv4l.c
+        aarch64/v4lsrc_*/Makefile
+
+    2j) pixci.rc            Init scripts (i.e. via /etc/rc) to load
+        pixci.sh            the driver, the tty driver, and/or the V4L2
+        pixcitty.rc         driver when Linux boots.
+        pixcitty.sh         Scripts to install/uninstall the above.
+        pixcitty.df         Bash /etc/default defaults.
+        pixciv4l.rc
+        pixciv4l.sh
+        pixciv4l.df
+
+    2k) pixcinit            Executable. Can be used to configure the
+                            V4L2 driver's video format without running
+
+
+
+
+
+
+
+
+
+
+
+
+                                         - 3 -
+
+
+
+                            XCAP.
+
+
+    3a) xcap.ini            XCAP run-time configuration file.
+
+    3b) install.ini         XCAP install-deinstall configuration file (Windows only).
+
+
+     4) WINPEER1.EXE        Utilities used by XCAP (Windows only).
+        ~XCAP.EXE           (WINPEER1.EXE is being phased out and may not appear).
+
+    5a) MuiPeer.dll         XCAP's DLL libraries, for Windows.
+        WinPeer.dll
+        CamPeer.dll
+        Jpximage.dll
+        TWSMPeer.dll
+        JpxiplHLKL.dll
+        UtilPeer.dll
+        KxclibW5.dll        for Windows 95/98/ME
+        KxclibWT.dll        for Windows NT/2000/XP/Vista/7/8 32-Bit
+        KxclibW6.dll        for Windows XP/Vista/7/8 64-Bit
+        XlrPeer.dll
+        ToucanIntFc.dll
+
+    5b) libmuipeer_i386.so   XCAP's libraries, for Linux for Intel 386
+        libwinpeer_i386.so   and newer 32 bit processors.
+        libcampeer_i386.so
+        libjpximage_i386.so
+        libjpxiplhlkl_i386.so
+        libjpxiplnl_i386.so
+        libutilpeer_i386.so
+        libkxclib_i386.so
+
+    5c) libmuipeer_x86_64.so    XCAP's libraries, for Linux for
+        libwinpeer_x86_64.so    Intel x86-64 processors.
+        libcampeer_x86_64.so
+        libjpximage_x86_64.so
+        libjpxiplhlkl_x86_64.so
+        libjpxiplnl_x86_64.so
+        libutilpeer_x86_64.so
+        libkxclib_x86_64.so
+
+    5d) libmuipeer_armv7l.so     XCAP's libraries, for Linux for
+        libwinpeer_armv7l.so     nVidia TK1 (ARM Cortex-A15).
+        libcampeer_armv7l.so
+        libjpximage_armv7l.so
+        libjpxiplhlkl_armv7l.so
+        libjpxiplnl_armv7l.so
+        libutilpeer_armv7l.so
+        libkxclib_armv7l.so
+
+
+
+
+
+
+
+
+
+
+
+
+                                         - 4 -
+
+
+
+    5e) libmuipeer_aarch64.so    XCAP's libraries, for Linux for
+        libwinpeer_aarch64.so    nVidia Nano/TX1/TX2/Xavier/XavierNX (ARM Cortex-A57).
+        libcampeer_aarch64.so
+        libjpximage_aarch64.so
+        libjpxiplhlkl_aarch64.so
+        libjpxiplnl_aarch64.so
+        libutilpeer_aarch64.so
+        libkxclib_aarch64.so
+
+
+
+     6) jre/*.*             Java's runtime components.
+                            Not included for nVidia TK1 (ARM Cortex-A15)
+                            or nVidia Nano/TX1/TX2/Xavier/XavierNX (ARM Cortex-A57).
+                            the default native JRE is used.
+
+    7a) msvcrt.dll          Redistributable Windows components.
+        shfolder.dll
+
+    7b) ishelwow.exe        Installer's utilities.
+        devcon.exe
+
+     8) xcap.jar            XCAP's Java byte code.
+
+    9a) HLDINST.EXE         Authorization key drivers & installers, for Windows.
+        HASPDINST.EXE       Authorization key drivers & installers, for Windows.
+        HDINST_WINDOWS.DLL  Authorization key drivers & installers, for Windows.
+        HASPDS_WINDOWS.DLL  Authorization key drivers & installers, for Windows.
+        HLRESET.COM         Authorization key reset utility for Win 95/98.
+                            (Not used for XCAP-Lite).
+
+    9b) hardlock/*.*        Authorization key drivers & daemons, for Linux.
+                            Includes driver compilation kit, allowing re-compilation
+                            in the field for the current kernel.
+                            Not included under nVidia TK1 (ARM Cortex-A15),
+                            or nVidia Nano/TX1/TX2/Xavier/XavierNX (ARM Cortex-A57).
+                            (Not used for XCAP-Lite).
+
+    9c) keylok/*.*          Authorization key drivers, installers, etc.
+                            (Not used for XCAP-Lite).
+
+
+    10) clserEPX.DLL        Camera Link API DLL(s) for Windows.
+                            (various versions in various subdirectories)
+
+    11) pixciserial.dll         Virtual COM port for Windows XP & later.
+        pixciserial.inf
+        wudfupdate_01009.dll    Windows WUDF co-installer for virtual COM port.
+        wudf.cat
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                         - 5 -
+
+
+
+    12) TWPXXCAP.DS             TWAIN drivers for Windows
+        TWPXXCW6.DS
+        TWPXXCWT.DS
+        TWPXXCW5.DS
+
+    13) CAPTXCAP.DS             ImagePro drivers for Windows
+        CAPTXCWT.DS
+        CAPTXCW5.DS
+
+    14) PIXCIServerDriver.cat   MF Frame Server drivers for
+        PIXCIServerDriver.dll   Windows 10 and later.
+        PIXCIServerDriver.inf   (i.e. Windows 'Camera' driver)
+        PIXCIServer.dll
+
+    15) *.bmp               Artwork for XCAP.
+        *.gif
+        *.ico
+        *.png
+
+    16) xcap.htm            Complete XCAP Reference Manual, in HTML format.
+
+    17) sv*hint.htm         Camera specific tips, for SILICON VIDEO(R) cameras.
+
+    18) *.txt               One or more ASCII text or HTML files containing distribution
+        *.htm               information, release notes, manual updates, etc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
